@@ -1,0 +1,21 @@
+@startuml C4_Container_scrapup_site
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(visitor, "Visitor", "Prospective user / engineering lead (EN/PT/JA)")
+Person(crawler, "Search Crawler", "Indexes the localized pages")
+
+System_Boundary(vercel, "Vercel") {
+    Container(edge, "Edge Middleware", "Vercel Edge Runtime", "On root entry, reads Accept-Language + choice cookie and redirects to the matching locale (EN fallback)")
+    Container(cdn, "Static Site (CDN)", "Astro SSG output", "Pre-rendered HTML for /, /pt/, /ja/, 404, sitemap.xml, robots.txt — zero/near-zero client JS")
+}
+
+System_Ext(github, "GitHub", "github.com/scrapup/scrapup — star + docs targets")
+System_Ext(cloudflare, "Cloudflare DNS", "Authoritative DNS for scrapup.dev (cutover target, RN-15)")
+
+Rel(visitor, edge, "GET / (HTTPS)")
+Rel(edge, cdn, "Redirect to /, /pt/ or /ja/")
+Rel(visitor, cdn, "GET localized route (HTTPS)")
+Rel(crawler, cdn, "Crawls localized routes + sitemap")
+Rel(visitor, github, "Star / Read the docs", "new tab")
+Rel(cloudflare, cdn, "Resolves www.scrapup.dev → Vercel (after cutover)")
+@enduml

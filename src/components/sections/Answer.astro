@@ -1,0 +1,98 @@
+---
+import { useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<div class="answer">
+  <div class="kicker answer__kicker">
+    <span>{t('answer.label')}</span>
+  </div>
+  <h2 class="section-title answer__title">
+    {t('answer.title')}
+  </h2>
+  <p class="lede answer__lede">
+    {t('answer.body')}
+  </p>
+
+  <div class="answer__steps">
+    <div class="answer__step answer__step--first">
+      <div class="answer__num">01</div>
+      <div class="item-title answer__name">document</div>
+      <div class="item-desc answer__desc">{t('answer.step1.desc')}</div>
+    </div>
+    <div class="answer__step answer__step--mid">
+      <div class="answer__num">02</div>
+      <div class="item-title answer__name">validate</div>
+      <div class="item-desc answer__desc">{t('answer.step2.desc')}</div>
+    </div>
+    <div class="answer__step">
+      <div class="answer__num">03</div>
+      <div class="item-title answer__name">deliver</div>
+      <div class="item-desc answer__desc">{t('answer.step3.desc')}</div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .answer {
+    margin-top: 108px;
+  }
+
+  .answer__kicker {
+    letter-spacing: 0.2em;
+    color: var(--cy);
+    margin-bottom: 16px;
+  }
+
+  .answer__title {
+    margin: 0 0 14px;
+    max-width: 18ch;
+  }
+
+  .answer__lede {
+    margin: 0;
+  }
+
+  .answer__steps {
+    margin-top: 34px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0;
+    border-top: 1px solid rgba(var(--hairline), 0.16);
+  }
+
+  .answer__step {
+    padding: 22px;
+  }
+
+  .answer__step--first {
+    padding-left: 0;
+    border-right: 1px solid rgba(var(--hairline), 0.1);
+  }
+
+  .answer__step--mid {
+    border-right: 1px solid rgba(var(--hairline), 0.1);
+  }
+
+  .answer__num {
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-size: 12px;
+    color: var(--neon);
+    text-shadow: 0 0 10px color-mix(in srgb, var(--neon) 50%, transparent);
+  }
+
+  .answer__name {
+    font-size: 17px;
+    margin-top: 8px;
+  }
+
+  .answer__desc {
+    font-size: 13px;
+    margin-top: 5px;
+  }
+</style>

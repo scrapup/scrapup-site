@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Landing from '../../components/Landing.astro';
+import { useTranslations } from '../../i18n';
+
+const lang = 'ja';
+const t = useTranslations(lang);
+---
+
+<BaseLayout lang={lang} title={t('meta.title')} description={t('meta.description')} path="">
+  <Landing lang={lang} />
+</BaseLayout>

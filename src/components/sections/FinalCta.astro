@@ -1,0 +1,135 @@
+---
+/*
+ * FinalCta — the waitlist form is dropped (no data collection); only the
+ * "Follow the build" card remains, with Star + Read the docs as plain outbound
+ * links to the GitHub repo (RN-06). No live star count (RN-12), no <form>.
+ */
+import { useTranslations, type Lang } from '../../i18n';
+import { REPO } from '../../config';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<div class="final-cta">
+  <div class="kicker final-cta__kicker">
+    <span>{t('cta.label')}</span>
+  </div>
+  <h2 class="section-title final-cta__title">
+    {t('cta.title')}
+  </h2>
+  <p class="lede final-cta__lede">
+    {t('cta.body')}
+  </p>
+</div>
+<div class="final-cta__grid">
+  <div class="card card--accent final-cta__card">
+    <div class="item-title final-cta__card-title">
+      {t('cta.card.title')}
+    </div>
+    <div class="final-cta__card-desc">{t('cta.card.desc')}</div>
+    <div class="final-cta__card-actions">
+      <a
+        href={REPO}
+        target="_blank"
+        rel="noopener"
+        class="btn btn--primary final-cta__btn"
+      >
+        <span>★</span><span>{t('cta.card.star')}</span>
+      </a>
+      <a
+        href={REPO}
+        target="_blank"
+        rel="noopener"
+        class="btn btn--ghost final-cta__btn"
+      >
+        <span>{t('cta.card.docs')}</span>
+      </a>
+    </div>
+    <div class="final-cta__tagline">
+      scrap <span class="final-cta__tagline-arrow">→</span> forge <span
+        class="final-cta__tagline-arrow">→</span
+      >
+      <span class="final-cta__tagline-accent">forged delivery</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .final-cta {
+    margin-top: 108px;
+  }
+
+  .final-cta__kicker {
+    color: var(--cy);
+    letter-spacing: 0.2em;
+    margin-bottom: 16px;
+  }
+
+  .final-cta__title {
+    font-size: clamp(2rem, 3.6vw, 3rem);
+    margin: 0 0 14px;
+  }
+
+  .final-cta__lede {
+    margin: 0;
+    max-width: 600px;
+  }
+
+  .final-cta__grid {
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 46px;
+    align-items: start;
+  }
+
+  .final-cta__card {
+    background: linear-gradient(180deg, rgba(var(--panel-hi), 0.55), rgba(var(--panel-lo), 0.55));
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .final-cta__card-title {
+    font-size: 1.2rem;
+  }
+
+  .final-cta__card-desc {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--text-faint);
+  }
+
+  .final-cta__card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .final-cta__btn {
+    padding: 13px 20px;
+  }
+
+  .final-cta__tagline {
+    margin-top: 4px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(var(--hairline), 0.12);
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: rgba(var(--mark), 0.55);
+  }
+
+  .final-cta__tagline-arrow {
+    color: var(--cy);
+  }
+
+  .final-cta__tagline-accent {
+    color: var(--neon);
+  }
+</style>

@@ -1,0 +1,73 @@
+---
+import { useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<div class="two-roles__grid">
+  <div class="card card--accent two-roles__card">
+    <div class="two-roles__kicker two-roles__kicker--architect">{t('roles.r1.kicker')}</div>
+    <div class="item-title two-roles__name">{t('roles.r1.name')}</div>
+    <div class="item-desc two-roles__desc">{t('roles.r1.desc')}</div>
+  </div>
+  <div class="card two-roles__card two-roles__card--validator">
+    <div class="two-roles__kicker two-roles__kicker--validator">{t('roles.r2.kicker')}</div>
+    <div class="item-title two-roles__name">{t('roles.r2.name')}</div>
+    <div class="item-desc two-roles__desc">{t('roles.r2.desc')}</div>
+  </div>
+</div>
+<div
+  class="two-roles__seal"
+  set:html={t('roles.seal.html')}
+/>
+
+<style>
+  .two-roles__grid {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+  }
+
+  .two-roles__card--validator {
+    border-left: 2px solid var(--cy);
+    box-shadow: -4px 0 18px color-mix(in srgb, var(--cy) 22%, transparent);
+  }
+
+  .two-roles__kicker {
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+  }
+
+  .two-roles__kicker--architect {
+    color: var(--neon);
+  }
+
+  .two-roles__kicker--validator {
+    color: var(--cy);
+  }
+
+  .two-roles__name {
+    font-size: 1.35rem;
+    margin-top: 8px;
+  }
+
+  .two-roles__desc {
+    color: var(--text-muted);
+    font-size: 13.5px;
+    line-height: 1.55;
+    margin-top: 8px;
+  }
+
+  .two-roles__seal {
+    margin-top: 18px;
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-size: 13px;
+    color: var(--text-soft);
+  }
+</style>

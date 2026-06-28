@@ -1,0 +1,44 @@
+@startuml styling_architecture
+skinparam componentStyle rectangle
+skinparam shadowing false
+
+package "Global foundation (src/styles/, non-scoped)" {
+  [tokens.css\n--neon/--cy/--ink… + aux greys] as TOKENS
+  [base.css\nreset, body, ::selection] as BASE
+  [animations.css\nscrapupFlicker, glC/glM/glSlice\n+ prefers-reduced-motion] as ANIM
+  [primitives.css\ntypography: .section-title .lede .kicker .item-title .item-desc\ncomponents: .btn .card .tag] as PRIM
+  [global.css\n@import aggregator] as GLOBAL
+}
+
+GLOBAL --> TOKENS
+GLOBAL --> BASE
+GLOBAL --> ANIM
+GLOBAL --> PRIM
+
+[BaseLayout.astro] as LAYOUT
+LAYOUT --> GLOBAL : imports once
+
+package "Components (scoped <style>)" {
+  [Hero.astro\n.hero, .hero__title…] as HERO
+  [HowItWorks.astro\n.how, .how__phase…] as HOW
+  [Footer.astro\n.footer…] as FOOT
+  [404.astro\n.notfound…] as NF
+  [… 16 styled files total] as REST
+}
+
+PRIM ..> HERO : class="btn btn--primary"
+PRIM ..> HOW
+PRIM ..> NF
+TOKENS ..> HERO : var(--neon)
+TOKENS ..> HOW
+TOKENS ..> FOOT
+ANIM ..> HERO : animation: scrapupFlicker
+ANIM ..> NF : glitch layers
+
+note right of PRIM
+  Primitives are global (scoping
+  cannot share a class across
+  components). Components compose:
+  global primitive + scoped element.
+end note
+@enduml

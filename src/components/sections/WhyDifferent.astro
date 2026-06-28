@@ -1,0 +1,97 @@
+---
+import { useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<div class="why-different">
+  <div class="why-different__kicker">
+    <span>{t('diff.label')}</span>
+  </div>
+  <h2 class="section-title why-different__title">
+    {t('diff.title')}
+  </h2>
+  <p class="lede why-different__lede">
+    {t('diff.body')}
+  </p>
+  <div class="why-different__grid">
+    <div class="why-different__floor">
+      <div class="kicker why-different__floor-label">{t('diff.floor.label')}</div>
+      <div class="why-different__floor-desc">
+        {t('diff.floor.desc')}
+      </div>
+    </div>
+    <div class="card--edge why-different__edge">
+      <div class="kicker why-different__edge-label">{t('diff.edge.label')}</div>
+      <div class="why-different__edge-desc">
+        {t('diff.edge.desc')}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .why-different {
+    margin-top: 108px;
+  }
+
+  .why-different__kicker {
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--cy);
+    margin-bottom: 16px;
+  }
+
+  .why-different__title {
+    margin: 0 0 14px;
+  }
+
+  .why-different__lede {
+    margin: 0 0 26px;
+  }
+
+  .why-different__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+  }
+
+  .why-different__floor {
+    border: 1px dashed rgba(var(--hairline), 0.3);
+    padding: 24px;
+  }
+
+  .why-different__floor-label {
+    /* .kicker provides font-family, size, letter-spacing, text-transform; color matches --text-dim */
+  }
+
+  .why-different__floor-desc {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-muted);
+    margin-top: 10px;
+  }
+
+  .why-different__edge {
+    border: 1px solid var(--neon);
+    background: color-mix(in srgb, var(--neon) 7%, transparent);
+    padding: 24px;
+    box-shadow: 0 0 30px color-mix(in srgb, var(--neon) 15%, transparent);
+  }
+
+  .why-different__edge-label {
+    color: var(--neon);
+  }
+
+  .why-different__edge-desc {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-strong);
+    margin-top: 10px;
+  }
+</style>

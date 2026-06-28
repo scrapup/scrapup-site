@@ -1,0 +1,87 @@
+---
+import { useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const axes = [
+  { title: 'open.axis1.title', desc: 'open.axis1.desc' },
+  { title: 'open.axis2.title', desc: 'open.axis2.desc' },
+  { title: 'open.axis3.title', desc: 'open.axis3.desc' },
+] as const;
+const tags = ['git', 'mcp', 'plantuml', 'markdown'];
+---
+
+<div class="open-extensible">
+  <div class="kicker open-extensible__kicker">
+    <span>{t('open.label')}</span>
+  </div>
+  <h2 class="section-title open-extensible__title">
+    {t('open.title')}
+  </h2>
+  <div class="open-extensible__grid">
+    {
+      axes.map((a) => (
+        <div class="card">
+          <div class="item-title open-extensible__item-title">{t(a.title)}</div>
+          <div class="item-desc open-extensible__item-desc">{t(a.desc)}</div>
+        </div>
+      ))
+    }
+  </div>
+  <div class="open-extensible__stack">
+    {tags.map((tag) => <span class="tag tag--cyan open-extensible__cy-tag">{tag}</span>)}
+    <span class="tag tag--neon open-extensible__mit">MIT license</span>
+  </div>
+</div>
+
+<style>
+  .open-extensible {
+    margin-top: 108px;
+  }
+
+  .open-extensible__kicker {
+    letter-spacing: 0.2em;
+    color: var(--cy);
+    margin-bottom: 16px;
+  }
+
+  .open-extensible__title {
+    margin: 0 0 30px;
+  }
+
+  .open-extensible__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(248px, 1fr));
+    gap: 18px;
+  }
+
+  .open-extensible__item-title {
+    font-size: 1.05rem;
+  }
+
+  .open-extensible__item-desc {
+    margin-top: 9px;
+  }
+
+  .open-extensible__stack {
+    margin-top: 22px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .open-extensible__cy-tag {
+    font-size: 12px;
+    border-color: color-mix(in srgb, var(--cy) 22%, transparent);
+    padding: 6px 12px;
+  }
+
+  .open-extensible__mit {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+</style>

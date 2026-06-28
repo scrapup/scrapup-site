@@ -1,0 +1,219 @@
+---
+import { useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<div class="how-it-works">
+  <div class="kicker how-it-works__kicker">
+    <span>{t('how.label')}</span>
+  </div>
+  <h2 class="section-title how-it-works__title">
+    {t('how.title')}
+  </h2>
+  <div class="how-it-works__bar"></div>
+  <p class="how-it-works__lede">
+    {t('how.body')}
+  </p>
+
+  <!-- MILESTONE AXIS -->
+  <div class="how-it-works__panel">
+    <div class="how-it-works__panel-header">
+      <div class="how-it-works__axis-label">
+        <span>{t('how.axisLabel')}</span>
+      </div>
+      <div class="how-it-works__badge">
+        UP AI-ASSISTED
+      </div>
+    </div>
+
+    <div class="how-it-works__phases">
+      <!-- LCO -->
+      <div class="how-it-works__phase">
+        <div class="how-it-works__code">LCO</div>
+        <div class="item-title how-it-works__phase-name">{t('how.lco.name')}</div>
+        <div class="item-desc how-it-works__phase-desc">{t('how.lco.desc')}</div>
+      </div>
+      <!-- LCA -->
+      <div class="how-it-works__phase">
+        <div class="how-it-works__code">LCA</div>
+        <div class="item-title how-it-works__phase-name">{t('how.lca.name')}</div>
+        <div class="item-desc how-it-works__phase-desc">{t('how.lca.desc')}</div>
+      </div>
+      <!-- IOC (current) -->
+      <div class="how-it-works__phase how-it-works__phase--current">
+        <div class="how-it-works__now">
+          <span class="how-it-works__now-dot"></span>
+          <span class="how-it-works__now-label">{t('how.ioc.now')}</span>
+        </div>
+        <div class="how-it-works__code how-it-works__code--current">IOC</div>
+        <div class="item-title how-it-works__phase-name">{t('how.ioc.name')}</div>
+        <div class="item-desc how-it-works__phase-desc how-it-works__phase-desc--current">
+          {t('how.ioc.desc')}
+        </div>
+      </div>
+      <!-- Release -->
+      <div class="how-it-works__phase">
+        <div class="how-it-works__code">RELEASE</div>
+        <div class="item-title how-it-works__phase-name">{t('how.release.name')}</div>
+        <div class="item-desc how-it-works__phase-desc">{t('how.release.desc')}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .how-it-works {
+    margin-top: 108px;
+  }
+
+  .how-it-works__kicker {
+    color: var(--cy);
+    letter-spacing: 0.2em;
+    margin-bottom: 16px;
+  }
+
+  .how-it-works__title {
+    margin: 0 0 16px;
+    font-weight: 700;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    text-shadow: 0 0 34px rgba(53, 230, 224, 0.14);
+  }
+
+  .how-it-works__bar {
+    width: 68px;
+    height: 3px;
+    background: var(--neon);
+    box-shadow: 0 0 16px color-mix(in srgb, var(--neon) 75%, transparent);
+    margin-bottom: 18px;
+  }
+
+  .how-it-works__lede {
+    margin: 0;
+    max-width: 640px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-soft);
+  }
+
+  .how-it-works__panel {
+    margin-top: 32px;
+    background: linear-gradient(
+      180deg,
+      rgba(var(--panel-hi), 0.82),
+      rgba(var(--panel-lo), 0.82)
+    );
+    border: 1px solid color-mix(in srgb, var(--neon) 24%, transparent);
+    padding: 42px 42px 36px;
+    box-shadow:
+      inset 0 0 70px rgba(0, 0, 0, 0.42),
+      0 0 60px color-mix(in srgb, var(--neon) 13%, transparent);
+  }
+
+  .how-it-works__panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+  }
+
+  .how-it-works__axis-label {
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--text-faint);
+  }
+
+  .how-it-works__badge {
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: rgba(var(--mark), 0.4);
+  }
+
+  .how-it-works__phases {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    flex-wrap: wrap;
+  }
+
+  .how-it-works__phase {
+    flex: 1 1 180px;
+    min-width: 150px;
+    padding: 14px 18px 16px;
+    border-top: 2px solid rgba(var(--hairline), 0.3);
+  }
+
+  .how-it-works__phase:first-child {
+    padding-left: 0;
+  }
+
+  .how-it-works__phase:last-child {
+    padding-right: 0;
+  }
+
+  .how-it-works__phase--current {
+    border-top-color: var(--neon);
+    box-shadow: 0 -1px 18px color-mix(in srgb, var(--neon) 30%, transparent);
+    position: relative;
+  }
+
+  .how-it-works__now {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 2px;
+  }
+
+  .how-it-works__now-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--neon);
+    box-shadow:
+      0 0 10px color-mix(in srgb, var(--neon) 90%, transparent),
+      0 0 0 4px color-mix(in srgb, var(--neon) 18%, transparent);
+  }
+
+  .how-it-works__now-label {
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: var(--neon);
+  }
+
+  .how-it-works__code {
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 0.03em;
+    color: var(--light-ink);
+  }
+
+  .how-it-works__code--current {
+    color: var(--neon);
+    text-shadow: 0 0 18px color-mix(in srgb, var(--neon) 60%, transparent);
+  }
+
+  .how-it-works__phase-name {
+    font-size: 16px;
+    margin-top: 7px;
+  }
+
+  .how-it-works__phase-desc {
+    font-size: 12.5px;
+    line-height: 1.45;
+    margin-top: 8px;
+  }
+
+  .how-it-works__phase-desc--current {
+    color: var(--text-soft);
+  }
+</style>

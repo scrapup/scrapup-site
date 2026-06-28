@@ -1,0 +1,29 @@
+:root {
+  /* Canonical brand palette (the six brand-canonical tokens). */
+  --neon: #ff7a33; /* Neon forge — accent on dark (the flickering "up", CTAs, highlights) */
+  --neon-light: #e8641f; /* Forge (light) — accent on light/paper backgrounds */
+  --cy: #35e6e0; /* Cyan — secondary accent (section labels, links) */
+  --ink: #0a0d15; /* Ink — primary background */
+  --paper: #f2f0ea; /* Paper — light / inverse background */
+  --light-ink: #eceef4; /* Light ink — foreground text on ink */
+
+  /* Auxiliary foreground text scale (on --ink, brightest→quietest) */
+  --text-strong: #F2F3F8;   /* Section headlines / hero title / 404 title */
+  --text-soft: #C7CCD8;     /* HowItWorks lede, list items, secondary mono labels */
+  --text-muted: #AEB4C2;    /* Standard lede / body paragraphs */
+  --text-footer: #9AA0B0;   /* Footer base text */
+  --text-faint: #8A90A0;    /* Small card/step descriptions */
+  --text-dim: #7E8597;      /* Mono kickers / section labels */
+  --text-quiet: #5A6172;    /* Footer fine print (MIT, domain, author) */
+
+  /* Auxiliary backgrounds & decorative solids */
+  --ink-deep: #07090E;      /* Deep footer background */
+  --glitch-magenta: #FF3DA6; /* 404 glitch layer (glM) */
+
+  /* RGB-triplet tokens (used as rgba(var(--x), alpha)) */
+  --panel-hi: 20,26,40;     /* HowItWorks panel gradient (top), glass cards */
+  --panel-lo: 14,18,28;     /* panel gradient (bottom) */
+  --hairline: 120,190,210;  /* card borders, switcher divider, footer top border */
+  --mark: 190,200,220;      /* registration marks / scanlines (shell, aria-hidden) */
+  --violet: 179,136,255;    /* ambient corner glow (Landing shell, 404) */
+}

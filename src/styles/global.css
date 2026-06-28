@@ -1,0 +1,9 @@
+/*
+ * Global styles — scrapup.dev landing.
+ * Composed from layered sheets. primitives.css will be added in the next TF.
+ */
+
+@import './tokens.css';
+@import './base.css';
+@import './animations.css';
+@import './primitives.css';

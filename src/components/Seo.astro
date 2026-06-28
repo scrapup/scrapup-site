@@ -1,0 +1,84 @@
+---
+/*
+ * Seo — emits title, description, Open Graph, Twitter card, canonical (www host),
+ * reciprocal hreflang (en/pt/ja + x-default → EN) and JSON-LD structured data.
+ * Canonical and alternates always resolve against the www host (RN-10/RN-03).
+ */
+import { LOCALES, DEFAULT_LOCALE, localizedPath, type Lang } from '../i18n';
+import { SITE, OG_IMAGE, REPO, GITHUB_ORG } from '../config';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  /** Unprefixed logical path (e.g. '' for home). Locale prefix is applied per alternate. */
+  path?: string;
+}
+
+const { lang, title, description, path = '' } = Astro.props;
+
+const canonical = `${SITE}${localizedPath(lang, path)}`;
+const ogLocale = { en: 'en_US', pt: 'pt_BR', ja: 'ja_JP' }[lang];
+
+const alternates = LOCALES.map((l) => ({
+  hreflang: l,
+  href: `${SITE}${localizedPath(l, path)}`,
+}));
+const xDefault = `${SITE}${localizedPath(DEFAULT_LOCALE, path)}`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${SITE}/#organization`,
+      name: 'scrapup',
+      url: SITE,
+      logo: `${SITE}/scrapup-wordmark.png`,
+      sameAs: [REPO, GITHUB_ORG],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE}/#website`,
+      name: 'scrapup',
+      url: SITE,
+      inLanguage: lang,
+      publisher: { '@id': `${SITE}/#organization` },
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'scrapup',
+      applicationCategory: 'DeveloperApplication',
+      operatingSystem: 'Claude Code',
+      url: SITE,
+      sameAs: REPO,
+      license: 'https://opensource.org/licenses/MIT',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    },
+  ],
+};
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+
+{alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
+<link rel="alternate" hreflang="x-default" href={xDefault} />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="scrapup" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={OG_IMAGE} />
+<meta property="og:locale" content={ogLocale} />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={OG_IMAGE} />
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />

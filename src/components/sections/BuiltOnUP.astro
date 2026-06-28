@@ -1,0 +1,74 @@
+---
+import { useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const pillars = [
+  'use-case driven',
+  'architecture-centric',
+  'iterative & incremental',
+  'risk-driven',
+];
+---
+
+<div class="built-on-up">
+  <div class="kicker built-on-up__kicker">
+    <span>{t('up.label')}</span>
+  </div>
+  <h2 class="section-title built-on-up__title">
+    {t('up.title')}
+  </h2>
+  <p class="lede built-on-up__lede">
+    {t('up.body')}
+  </p>
+  <div class="built-on-up__tags">
+    {pillars.map((p) => <span class="tag tag--cyan built-on-up__tag">{p}</span>)}
+  </div>
+  <div class="built-on-up__note">
+    <span>{t('up.note')}</span>
+  </div>
+</div>
+
+<style>
+  .built-on-up {
+    margin-top: 108px;
+  }
+
+  .built-on-up__kicker {
+    letter-spacing: 0.2em;
+    color: var(--cy);
+    margin-bottom: 16px;
+  }
+
+  .built-on-up__title {
+    margin: 0 0 14px;
+    max-width: 20ch;
+  }
+
+  .built-on-up__lede {
+    margin: 0 0 24px;
+  }
+
+  .built-on-up__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .built-on-up__tag {
+    font-size: 12px;
+    color: var(--text-soft);
+    padding: 7px 13px;
+  }
+
+  .built-on-up__note {
+    margin-top: 18px;
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-size: 13px;
+    color: var(--text-faint);
+  }
+</style>

@@ -1,0 +1,109 @@
+---
+import { useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const shipped = [
+  'status.shipped.1',
+  'status.shipped.2',
+  'status.shipped.3',
+  'status.shipped.4',
+] as const;
+const roadmap = [
+  'status.roadmap.1',
+  'status.roadmap.2',
+  'status.roadmap.3',
+  'status.roadmap.4',
+] as const;
+---
+
+<div class="status">
+  <div class="status__kicker">
+    <span>{t('status.label')}</span>
+  </div>
+  <h2 class="section-title status__title">
+    {t('status.title')}
+  </h2>
+  <div class="status__grid">
+    <div class="card status__shipped">
+      <div class="kicker status__shipped-label">
+        <span>{t('status.shipped.label')}</span>
+      </div>
+      <div class="status__items">
+        {shipped.map((k) => <div>{t(k)}</div>)}
+      </div>
+    </div>
+    <div class="status__roadmap">
+      <div class="kicker status__roadmap-label">
+        <span>{t('status.roadmap.label')}</span>
+      </div>
+      <div class="status__items status__items--roadmap">
+        {roadmap.map((k) => <div>{t(k)}</div>)}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .status {
+    margin-top: 108px;
+  }
+
+  .status__kicker {
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--cy);
+    margin-bottom: 16px;
+  }
+
+  .status__title {
+    margin: 0 0 30px;
+  }
+
+  .status__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+  }
+
+  .status__shipped {
+    padding: 24px;
+  }
+
+  .status__shipped-label {
+    color: var(--neon);
+    margin-bottom: 14px;
+  }
+
+  .status__roadmap {
+    background: linear-gradient(
+      180deg,
+      rgba(var(--panel-hi), 0.5),
+      rgba(var(--panel-lo), 0.5)
+    );
+    border: 1px dashed rgba(var(--hairline), 0.28);
+    padding: 24px;
+  }
+
+  .status__roadmap-label {
+    color: var(--text-dim);
+    margin-bottom: 14px;
+  }
+
+  .status__items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 13.5px;
+    color: var(--text-soft);
+  }
+
+  .status__items--roadmap {
+    color: var(--text-faint);
+  }
+</style>

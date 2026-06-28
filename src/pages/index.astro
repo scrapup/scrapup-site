@@ -1,0 +1,42 @@
+---
+/*
+ * EN root + language auto-detection (US-49, RN-04/RN-05).
+ * This is the only on-demand route: on entry it resolves the visitor's locale
+ * (explicit `scrapup_lang` cookie first, then Accept-Language) and 307-redirects
+ * to /pt/ or /ja/ when appropriate; otherwise it renders the EN landing.
+ * Direct /pt/ and /ja/ hits are separate static routes — never redirected,
+ * always indexable. Any failure falls through to the EN render (fail-safe).
+ */
+export const prerender = false;
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Landing from '../components/Landing.astro';
+import { useTranslations, detectLocale, DEFAULT_LOCALE } from '../i18n';
+
+// This response varies by cookie + Accept-Language; never let a CDN/proxy cache a
+// per-visitor redirect (would serve the wrong locale to a whole region).
+Astro.response.headers.set('Vary', 'Accept-Language, Cookie');
+Astro.response.headers.set('Cache-Control', 'no-store');
+
+// Fail-safe: any detection error falls through to the EN render (RN-04).
+let chosen = DEFAULT_LOCALE;
+try {
+  chosen = detectLocale(
+    Astro.cookies.get('scrapup_lang')?.value,
+    Astro.request.headers.get('accept-language'),
+  );
+} catch {
+  chosen = DEFAULT_LOCALE;
+}
+
+if (chosen !== DEFAULT_LOCALE) {
+  return Astro.redirect(`/${chosen}/`, 307);
+}
+
+const lang = 'en';
+const t = useTranslations(lang);
+---
+
+<BaseLayout lang={lang} title={t('meta.title')} description={t('meta.description')} path="">
+  <Landing lang={lang} />
+</BaseLayout>
