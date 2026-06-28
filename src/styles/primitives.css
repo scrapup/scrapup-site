@@ -1,0 +1,118 @@
+/*
+ * Shared primitive classes — global, non-scoped.
+ * Typography and component patterns shared across components.
+ * Components add scoped block__element classes for per-section deltas.
+ */
+
+/* ─── Typography ─────────────────────────────────────────────────── */
+
+.section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--text-strong);
+}
+
+.lede {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  max-width: 640px;
+}
+
+.kicker {
+  font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.kicker--faint {
+  color: var(--text-faint);
+}
+
+.item-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  color: var(--light-ink);
+}
+
+.item-desc {
+  color: var(--text-faint);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+/* ─── Component primitives ───────────────────────────────────────── */
+
+/* Button */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 14px 22px;
+}
+
+.btn--primary {
+  background: var(--neon);
+  color: var(--ink);
+  box-shadow: 0 0 26px color-mix(in srgb, var(--neon) 42%, transparent);
+}
+
+.btn--ghost {
+  color: var(--cy);
+  border: 1px solid rgba(var(--hairline), 0.4);
+}
+
+/* Card */
+
+.card {
+  background: linear-gradient(
+    160deg,
+    rgba(var(--panel-hi), 0.82),
+    rgba(var(--panel-lo), 0.92)
+  );
+  border: 1px solid rgba(var(--hairline), 0.18);
+  padding: 28px 24px;
+}
+
+.card--accent {
+  border-left: 2px solid var(--neon);
+  box-shadow: -4px 0 18px color-mix(in srgb, var(--neon) 22%, transparent);
+}
+
+.card--edge {
+  border: 1px solid color-mix(in srgb, var(--neon) 40%, transparent);
+}
+
+/* Tag */
+
+.tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border: 1px solid;
+}
+
+.tag--cyan {
+  color: var(--cy);
+  border-color: color-mix(in srgb, var(--cy) 35%, transparent);
+  background: color-mix(in srgb, var(--cy) 8%, transparent);
+}
+
+.tag--neon {
+  color: var(--neon);
+  border-color: color-mix(in srgb, var(--neon) 35%, transparent);
+  background: color-mix(in srgb, var(--neon) 8%, transparent);
+}
