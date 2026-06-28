@@ -157,3 +157,4 @@ vite.config.ts.timestamp-*
 # macOS
 .DS_Store
 .env*
+.msr/
