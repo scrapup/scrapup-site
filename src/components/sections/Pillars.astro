@@ -7,14 +7,6 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-const card =
-  'background:linear-gradient(180deg, rgba(20,26,40,.55), rgba(14,18,28,.55)); border:1px solid rgba(120,190,210,.16); padding:24px;';
-const code =
-  "font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:12px; color:var(--neon); text-shadow:0 0 10px color-mix(in srgb, var(--neon) 50%, transparent);";
-const title =
-  "font-family:'Space Grotesk','Noto Sans JP',sans-serif; font-weight:600; font-size:1.05rem; line-height:1.25; color:#ECEEF4; margin-top:10px;";
-const desc = 'font-size:13px; line-height:1.5; color:#8A90A0; margin-top:9px;';
-
 const pillars = [
   { n: 'P1', title: 'pillars.p1.title', desc: 'pillars.p1.desc' },
   { n: 'P2', title: 'pillars.p2.title', desc: 'pillars.p2.desc' },
@@ -23,26 +15,63 @@ const pillars = [
 ] as const;
 ---
 
-<div style="margin-top:108px;">
-  <div
-    style="font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:11px; letter-spacing:.2em; color:var(--cy); margin-bottom:16px;"
-  >
+<div class="pillars">
+  <div class="pillars__kicker">
     <span>{t('pillars.label')}</span>
   </div>
-  <h2
-    style="margin:0 0 30px; font-family:'Space Grotesk','Noto Sans JP',sans-serif; font-weight:600; font-size:clamp(1.7rem,3.2vw,2.6rem); line-height:1.08; letter-spacing:-.02em; color:#F2F3F8;"
-  >
+  <h2 class="section-title pillars__title">
     {t('pillars.title')}
   </h2>
-  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(248px,1fr)); gap:18px;">
+  <div class="pillars__grid">
     {
       pillars.map((p) => (
-        <div style={card}>
-          <div style={code}>{p.n}</div>
-          <div style={title}>{t(p.title)}</div>
-          <div style={desc}>{t(p.desc)}</div>
+        <div class="card">
+          <div class="pillars__code">{p.n}</div>
+          <div class="item-title pillars__item-title">{t(p.title)}</div>
+          <div class="item-desc pillars__item-desc">{t(p.desc)}</div>
         </div>
       ))
     }
   </div>
 </div>
+
+<style>
+  .pillars {
+    margin-top: 108px;
+  }
+
+  .pillars__kicker {
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--cy);
+    margin-bottom: 16px;
+  }
+
+  .pillars__title {
+    margin: 0 0 30px;
+  }
+
+  .pillars__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(248px, 1fr));
+    gap: 18px;
+  }
+
+  .pillars__code {
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-size: 12px;
+    color: var(--neon);
+    text-shadow: 0 0 10px color-mix(in srgb, var(--neon) 50%, transparent);
+  }
+
+  .pillars__item-title {
+    font-size: 1.05rem;
+    line-height: 1.25;
+    margin-top: 10px;
+  }
+
+  .pillars__item-desc {
+    margin-top: 9px;
+  }
+</style>
