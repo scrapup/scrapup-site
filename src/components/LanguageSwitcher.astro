@@ -38,12 +38,10 @@ const LABEL: Record<Lang, string> = { en: 'EN', pt: 'PT', ja: 'JA' };
   }
 </div>
 
-<script>
-  // Persist the explicit language choice so root auto-detection honors it (RN-05).
-  document.querySelectorAll<HTMLAnchorElement>('.lang-switch a[data-lang]').forEach((a) => {
-    a.addEventListener('click', () => {
-      const l = a.dataset.lang;
-      if (l) document.cookie = `scrapup_lang=${l}; path=/; max-age=31536000; samesite=lax; secure`;
-    });
-  });
-</script>
+<!--
+  External, same-origin module (public/lang-switch.js) instead of an inline script:
+  the production CSP is `script-src 'self'` (no 'unsafe-inline'), which would block an
+  inline script and break the cookie write (RN-05). `is:inline` keeps Astro from
+  bundling/re-inlining it, so it stays a plain 'self' reference.
+-->
+<script is:inline type="module" src="/lang-switch.js"></script>
