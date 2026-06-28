@@ -40,10 +40,15 @@ npm run preview    # serve the build locally
 1. Create a new Vercel project and connect it to the `scrapup/scrapup-site` GitHub repo.
 2. Framework preset: **Astro**. Build command `astro build`; output `dist` (defaults are fine with the
    `@astrojs/vercel` adapter).
-3. **Disable Vercel's automatic Git production deployments** — production is driven by the
-   `release-please` workflow, not by Vercel's Git integration. (Preview deployments are produced by the
-   `ci.yml` workflow via the Vercel CLI; you may also leave Vercel's PR previews on if preferred, but
-   keep a single source of truth.)
+3. **Disable Vercel's automatic Git deployments** — both production and preview are driven by the
+   GitHub Actions workflows via the Vercel CLI (`release-please.yml` for production, `ci.yml` for
+   previews), not by Vercel's Git integration. This is enforced declaratively in `vercel.json`:
+   ```json
+   "git": { "deploymentEnabled": false }
+   ```
+   It disables Git-integration auto-deploys (CLI `vercel deploy` from the workflows is unaffected),
+   keeping a single source of truth. Equivalent dashboard action: Project → Settings → Git →
+   disconnect the repository (or `vercel git disconnect`).
 4. Capture the three identifiers the workflows need:
 
 ```bash
