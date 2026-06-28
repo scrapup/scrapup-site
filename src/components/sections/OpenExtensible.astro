@@ -16,7 +16,7 @@ const tags = ['git', 'mcp', 'plantuml', 'markdown'];
 ---
 
 <div class="open-extensible">
-  <div class="open-extensible__kicker">
+  <div class="kicker open-extensible__kicker">
     <span>{t('open.label')}</span>
   </div>
   <h2 class="section-title open-extensible__title">
@@ -33,7 +33,7 @@ const tags = ['git', 'mcp', 'plantuml', 'markdown'];
     }
   </div>
   <div class="open-extensible__stack">
-    {tags.map((tag) => <span class="open-extensible__cy-tag">{tag}</span>)}
+    {tags.map((tag) => <span class="tag tag--cyan open-extensible__cy-tag">{tag}</span>)}
     <span class="tag tag--neon open-extensible__mit">MIT license</span>
   </div>
 </div>
@@ -44,8 +44,6 @@ const tags = ['git', 'mcp', 'plantuml', 'markdown'];
   }
 
   .open-extensible__kicker {
-    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
-    font-size: 11px;
     letter-spacing: 0.2em;
     color: var(--cy);
     margin-bottom: 16px;
@@ -77,11 +75,8 @@ const tags = ['git', 'mcp', 'plantuml', 'markdown'];
   }
 
   .open-extensible__cy-tag {
-    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
     font-size: 12px;
-    color: var(--cy);
-    background: color-mix(in srgb, var(--cy) 8%, transparent);
-    border: 1px solid color-mix(in srgb, var(--cy) 22%, transparent);
+    border-color: color-mix(in srgb, var(--cy) 22%, transparent);
     padding: 6px 12px;
   }
 

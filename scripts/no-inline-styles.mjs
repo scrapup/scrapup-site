@@ -12,6 +12,10 @@
  * Usage: node scripts/no-inline-styles.mjs [--strict]
  *
  * Mirrors the UX/exit conventions of scripts/i18n-parity.mjs.
+ *
+ * LIMITATION: detection is line-by-line. A multi-line style={{ ... }} block
+ * spanning several source lines will not be caught. Avoid multi-line inline
+ * style objects — the BEM/scoped-CSS convention prevents the need for them.
  */
 import { readFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';

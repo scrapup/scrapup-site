@@ -9,7 +9,7 @@ const t = useTranslations(lang);
 ---
 
 <div class="answer">
-  <div class="answer__kicker">
+  <div class="kicker answer__kicker">
     <span>{t('answer.label')}</span>
   </div>
   <h2 class="section-title answer__title">
@@ -44,8 +44,6 @@ const t = useTranslations(lang);
   }
 
   .answer__kicker {
-    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
-    font-size: 11px;
     letter-spacing: 0.2em;
     color: var(--cy);
     margin-bottom: 16px;

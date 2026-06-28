@@ -12,7 +12,7 @@ const t = useTranslations(lang);
   <div class="kicker how-it-works__kicker">
     <span>{t('how.label')}</span>
   </div>
-  <h2 class="how-it-works__title">
+  <h2 class="section-title how-it-works__title">
     {t('how.title')}
   </h2>
   <div class="how-it-works__bar"></div>
@@ -79,12 +79,10 @@ const t = useTranslations(lang);
 
   .how-it-works__title {
     margin: 0 0 16px;
-    font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
     font-weight: 700;
     font-size: clamp(2.4rem, 5vw, 4rem);
     line-height: 1;
     letter-spacing: -0.03em;
-    color: var(--text-strong);
     text-shadow: 0 0 34px rgba(53, 230, 224, 0.14);
   }
 
