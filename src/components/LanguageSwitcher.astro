@@ -14,24 +14,18 @@ const { lang } = Astro.props;
 const LABEL: Record<Lang, string> = { en: 'EN', pt: 'PT', ja: 'JA' };
 ---
 
-<div
-  class="lang-switch"
-  style="display:flex; align-items:stretch; border:1px solid rgba(120,190,210,.3);"
->
+<div class="lang-switch">
   {
-    LOCALES.map((l, i) => (
+    LOCALES.map((l) => (
       <a
         href={localizedPath(l, '')}
         data-lang={l}
         aria-current={l === lang ? 'true' : undefined}
-        style={`position:relative; appearance:none; text-decoration:none; ${i > 0 ? 'border-left:1px solid rgba(120,190,210,.3);' : ''} background:transparent; cursor:pointer; font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:12px; letter-spacing:.1em; padding:7px 12px; color:#ECEEF4;`}
+        class="lang-switch__item"
       >
         {LABEL[l]}
         {l === lang && (
-          <span
-            style="position:absolute; left:0; right:0; bottom:0; height:2px; background:var(--neon); box-shadow:0 0 10px color-mix(in srgb, var(--neon) 70%, transparent);"
-            aria-hidden="true"
-          />
+          <span class="lang-switch__underline" aria-hidden="true" />
         )}
       </a>
     ))
@@ -45,3 +39,38 @@ const LABEL: Record<Lang, string> = { en: 'EN', pt: 'PT', ja: 'JA' };
   bundling/re-inlining it, so it stays a plain 'self' reference.
 -->
 <script is:inline type="module" src="/lang-switch.js"></script>
+
+<style>
+  .lang-switch {
+    display: flex;
+    align-items: stretch;
+    border: 1px solid rgba(var(--hairline), 0.3);
+  }
+
+  .lang-switch__item {
+    position: relative;
+    appearance: none;
+    text-decoration: none;
+    background: transparent;
+    cursor: pointer;
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    padding: 7px 12px;
+    color: var(--light-ink);
+  }
+
+  .lang-switch__item:not(:first-child) {
+    border-left: 1px solid rgba(var(--hairline), 0.3);
+  }
+
+  .lang-switch__underline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--neon);
+    box-shadow: 0 0 10px color-mix(in srgb, var(--neon) 70%, transparent);
+  }
+</style>
