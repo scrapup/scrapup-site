@@ -1,0 +1,9 @@
+:root {
+  /* Canonical brand palette (the six brand-canonical tokens). */
+  --neon: #ff7a33; /* Neon forge — accent on dark (the flickering "up", CTAs, highlights) */
+  --neon-light: #e8641f; /* Forge (light) — accent on light/paper backgrounds */
+  --cy: #35e6e0; /* Cyan — secondary accent (section labels, links) */
+  --ink: #0a0d15; /* Ink — primary background */
+  --paper: #f2f0ea; /* Paper — light / inverse background */
+  --light-ink: #eceef4; /* Light ink — foreground text on ink */
+}
