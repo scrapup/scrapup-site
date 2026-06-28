@@ -21,6 +21,7 @@ Process — from informational _scrap_ to forged, auditable delivery) and drives
 | Language entry | On-demand EN root (`/`) auto-detects locale and 307-redirects           |
 | SEO            | `BaseLayout` + `Seo.astro` (meta/OG/Twitter/canonical/hreflang/JSON-LD) |
 | Sitemap        | `@astrojs/sitemap` (all locales, `www` host)                            |
+| Analytics      | Vercel Web Analytics (`@vercel/analytics/astro`, privacy-friendly, no cookies) |
 | Tests          | `@playwright/test` (Chromium) + `@axe-core/playwright`                  |
 | Versioning     | release-please (`release-type: node`), mirrors `scrapup`                |
 

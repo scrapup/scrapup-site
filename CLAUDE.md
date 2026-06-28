@@ -5,17 +5,24 @@ language rules, and conventions. This file is the project-specific guide.
 
 ## Current state
 
-Initial port of the Claude Design proposal only — **no build, no commit yet**.
+Trilingual Astro SSG deployed to Vercel. Build is green; routes `/`, `/pt/`, `/ja/` and `404`
+are live. The `.dc.html` design-project files are archived under `brand/` and are no longer
+the source of truth — the Astro component tree is.
 
-| File                        | Origin                                                       | Notes                                         |
-| --------------------------- | ------------------------------------------------------------ | --------------------------------------------- |
-| `scrapup - Landing.dc.html` | Claude Design project `f3b2dbb9-52a7-4956-895a-3f8a26729c47` | dc-runtime format                             |
-| `support.js`                | dc-runtime (`./support.js`)                                  | depends on `window.React` / `window.ReactDOM` |
+## Analytics
 
-The page is **not servable as static HTML**: it uses the Claude Design runtime format
-(`<x-dc>`, `<sc-if>`, template vars `{{ accent }}`, `{{ isEn/isPt/isJa }}`,
-`{{ setEn/setPt/setJa }}`) and needs the dc-runtime harness (React in global scope) to resolve
-the template and locale/accent state.
+**Vercel Web Analytics** — privacy-friendly, no cookies, zero additional setup.
+
+| Aspect | Detail |
+| ------ | ------ |
+| Package | `@vercel/analytics` (direct `dependencies`, `^1.6.1`) |
+| Component | `<Analytics />` from `@vercel/analytics/astro` |
+| Mounted in | `src/layouts/BaseLayout.astro` (covers EN on-demand + PT/JA static) and `src/pages/404.astro` (standalone, does not inherit BaseLayout) |
+| CSP | Unchanged — script and beacon are same-origin (`/_vercel/insights/*`); covered by existing `script-src 'self'` and `default-src 'self'` |
+| Test | `tests/e2e/analytics.spec.ts` asserts `<vercel-analytics>` present on all 4 routes |
+| Manual steps (Vercel dashboard) | 1. Enable **Web Analytics** in the project settings. 2. Remove the unused `NEXT_PUBLIC_GA_ID` env var. |
+
+> **Do not** add Google Analytics or any third-party analytics script — the CSP would need `'unsafe-inline'`/nonces and a foreign `connect-src`.
 
 ## Brand palette
 
