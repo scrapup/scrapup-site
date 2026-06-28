@@ -94,6 +94,50 @@ Protect `main`:
 `test`, `build`, `ci`, `chore`, `revert`). Pre-1.0 bumps: `fix`/`perf` → patch, `feat` → minor,
 breaking → minor (stays `0.x`).
 
+### 2.5 Preview deployments (how `ci.yml` produces the provisional URL)
+
+The `ci.yml` `preview` job builds a Vercel **preview** for every PR and posts its URL back to the
+PR — the provisional URL used for validation (RN-15) before any production cutover.
+
+**How it runs (per PR):**
+
+1. `verify` (check + build on Node 24) and `e2e` (Playwright on the pinned container) must pass
+   first — `preview` is `needs: [verify, e2e]`, so a red suite blocks the preview.
+2. A guard step checks whether `VERCEL_TOKEN` is set. If it is **absent**, the deploy is **skipped**
+   and the job stays green — the pipeline never hard-fails just because Vercel isn't configured yet.
+3. When the token is present, the job deploys with the three secrets:
+   ```bash
+   vercel pull --yes --environment=preview --token="$VERCEL_TOKEN"
+   vercel build --token="$VERCEL_TOKEN"
+   vercel deploy --prebuilt --token="$VERCEL_TOKEN"   # prints the *.vercel.app URL
+   ```
+4. The URL is posted as a **sticky PR comment** (created once, updated on subsequent pushes).
+
+**Prerequisites (one-time):**
+
+- Vercel project created and linked (§1) and the three repository secrets set (§2.1):
+  `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`. The CLI reads the org/project IDs from the
+  env the job exports; the **token must be scoped to the project's team**.
+- Workflow permissions allow PR writes for the comment (§2.2 — `pull-requests: write`, already
+  declared in `ci.yml`).
+
+**Verify it works:** open a throwaway PR (or push to an open one); after `verify` + `e2e` go green
+the `preview` job runs and a "🔎 Vercel preview" comment appears with a
+`https://<deployment>.vercel.app` link. Open it and run the §4.1 checklist.
+
+**Fork PRs:** GitHub does not expose secrets to workflows triggered from forked repositories, so the
+guard skips the deploy for fork PRs (no preview). Branches pushed to this repo (the normal flow)
+get previews.
+
+**Troubleshooting:**
+
+| Symptom                                       | Cause / fix                                                                             |
+| --------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `preview` job skipped / no comment            | `VERCEL_TOKEN` secret missing (or it's a fork PR). Set the secrets per §2.1.            |
+| `vercel pull`/`deploy` 403 or "project not found" | Token not scoped to the team, or wrong `VERCEL_ORG_ID`/`VERCEL_PROJECT_ID`. Re-capture from `.vercel/project.json` (§1). |
+| Deploy succeeds but no comment is posted      | Workflow permissions lack PR write — fix per §2.2.                                      |
+| `preview` never starts                        | `verify` or `e2e` failed — fix those first (preview is gated on them).                  |
+
 ---
 
 ## 3. Release & publication flow
