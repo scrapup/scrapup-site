@@ -1,0 +1,54 @@
+---
+import { useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const card =
+  'background:linear-gradient(180deg, rgba(20,26,40,.55), rgba(14,18,28,.55)); border:1px solid rgba(120,190,210,.16); padding:24px;';
+const title =
+  "font-family:'Space Grotesk','Noto Sans JP',sans-serif; font-weight:600; font-size:1.05rem; color:#ECEEF4;";
+const desc = 'font-size:13px; line-height:1.5; color:#8A90A0; margin-top:9px;';
+const cyTag =
+  "font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:12px; color:var(--cy); background:rgba(53,230,224,.08); border:1px solid rgba(53,230,224,.22); padding:6px 12px;";
+
+const axes = [
+  { title: 'open.axis1.title', desc: 'open.axis1.desc' },
+  { title: 'open.axis2.title', desc: 'open.axis2.desc' },
+  { title: 'open.axis3.title', desc: 'open.axis3.desc' },
+] as const;
+const tags = ['git', 'mcp', 'plantuml', 'markdown'];
+---
+
+<div style="margin-top:108px;">
+  <div
+    style="font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:11px; letter-spacing:.2em; color:var(--cy); margin-bottom:16px;"
+  >
+    <span>{t('open.label')}</span>
+  </div>
+  <h2
+    style="margin:0 0 30px; font-family:'Space Grotesk','Noto Sans JP',sans-serif; font-weight:600; font-size:clamp(1.7rem,3.2vw,2.6rem); line-height:1.08; letter-spacing:-.02em; color:#F2F3F8;"
+  >
+    {t('open.title')}
+  </h2>
+  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(248px,1fr)); gap:18px;">
+    {
+      axes.map((a) => (
+        <div style={card}>
+          <div style={title}>{t(a.title)}</div>
+          <div style={desc}>{t(a.desc)}</div>
+        </div>
+      ))
+    }
+  </div>
+  <div style="margin-top:22px; display:flex; flex-wrap:wrap; gap:10px;">
+    {tags.map((tag) => <span style={cyTag}>{tag}</span>)}
+    <span
+      style="font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:12px; color:var(--neon); background:color-mix(in srgb, var(--neon) 10%, transparent); border:1px solid color-mix(in srgb, var(--neon) 40%, transparent); padding:6px 12px;"
+      >MIT license</span
+    >
+  </div>
+</div>

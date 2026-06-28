@@ -1,0 +1,48 @@
+name: release-please
+
+# On push to main: open/maintain the Release PR. When that PR is merged
+# (release_created = true, the human-sealed gate, RN-15), build and deploy
+# production to Vercel. The custom domain is attached only at cutover (see
+# docs/runbook.md) — never here. No production deploy on ordinary main merges.
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+      # The steps below run only when a Release was just created (Release PR merged).
+      - uses: actions/checkout@v4
+        if: ${{ steps.release.outputs.release_created }}
+
+      - uses: actions/setup-node@v4
+        if: ${{ steps.release.outputs.release_created }}
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+        if: ${{ steps.release.outputs.release_created }}
+
+      - name: Deploy production to Vercel
+        if: ${{ steps.release.outputs.release_created }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          npx vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+          npx vercel build --prod --token="$VERCEL_TOKEN"
+          npx vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN"

@@ -1,0 +1,578 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+        <style>
+          * {
+            box-sizing: border-box;
+          }
+          html,
+          body {
+            margin: 0;
+            padding: 0;
+          }
+          body {
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            background: #0a0d15;
+          }
+          ::selection {
+            background: rgba(53, 230, 224, 0.28);
+            color: #fff;
+          }
+          @keyframes scrapupFlicker {
+            0%,
+            100% {
+              opacity: 1;
+            }
+            92% {
+              opacity: 1;
+            }
+            93% {
+              opacity: 0.55;
+            }
+            94% {
+              opacity: 1;
+            }
+            96% {
+              opacity: 0.7;
+            }
+            97% {
+              opacity: 1;
+            }
+          }
+          @keyframes glC {
+            0%,
+            46%,
+            53%,
+            77%,
+            84%,
+            100% {
+              opacity: 0;
+              transform: translate(0, 0);
+            }
+            48%,
+            51% {
+              opacity: 0.85;
+              transform: translate(-7px, -3px);
+            }
+            79%,
+            82% {
+              opacity: 0.7;
+              transform: translate(-4px, 3px);
+            }
+          }
+          @keyframes glM {
+            0%,
+            46%,
+            53%,
+            77%,
+            84%,
+            100% {
+              opacity: 0;
+              transform: translate(0, 0);
+            }
+            48%,
+            51% {
+              opacity: 0.8;
+              transform: translate(7px, 3px);
+            }
+            79%,
+            82% {
+              opacity: 0.6;
+              transform: translate(4px, -3px);
+            }
+          }
+          @keyframes glSlice {
+            0%,
+            49%,
+            52%,
+            79%,
+            82%,
+            100% {
+              clip-path: inset(46% 0 50% 0);
+              transform: translateX(0);
+            }
+            50% {
+              clip-path: inset(22% 0 68% 0);
+              transform: translateX(12px);
+            }
+            80% {
+              clip-path: inset(62% 0 30% 0);
+              transform: translateX(-9px);
+            }
+          }
+        </style>
+      </helmet>
+
+      <div
+        style="--neon: {{ accent }}; --cy:#35E6E0; position:relative; min-height:100vh; width:100%; background:#0A0D15; color:#ECEEF4; font-family:'IBM Plex Sans','Noto Sans JP',system-ui,sans-serif; overflow:hidden; display:flex; flex-direction:column;"
+      >
+        <!-- ambient glow -->
+        <div
+          style="
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+              radial-gradient(900px 520px at 14% -4%, rgba(53, 230, 224, 0.12), transparent 62%),
+              radial-gradient(
+                820px 620px at 102% 104%,
+                color-mix(in srgb, var(--neon) 16%, transparent),
+                transparent 60%
+              ),
+              radial-gradient(700px 500px at 88% 8%, rgba(179, 136, 255, 0.08), transparent 60%);
+          "
+        ></div>
+        <!-- scanlines -->
+        <div
+          style="
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.5;
+            background: repeating-linear-gradient(
+              to bottom,
+              rgba(0, 0, 0, 0) 0,
+              rgba(0, 0, 0, 0) 2px,
+              rgba(0, 0, 0, 0.14) 3px
+            );
+          "
+        ></div>
+        <!-- corner marks -->
+        <div
+          style="
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            width: 14px;
+            height: 14px;
+            border-left: 1.5px solid var(--cy);
+            border-bottom: 1.5px solid var(--cy);
+            box-shadow: 0 0 8px rgba(53, 230, 224, 0.5);
+            pointer-events: none;
+          "
+        ></div>
+        <div
+          style="
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 14px;
+            height: 14px;
+            border-right: 1.5px solid var(--cy);
+            border-bottom: 1.5px solid var(--cy);
+            box-shadow: 0 0 8px rgba(53, 230, 224, 0.5);
+            pointer-events: none;
+          "
+        ></div>
+        <div
+          style="
+            position: absolute;
+            top: 26px;
+            right: 42px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.16em;
+            color: rgba(53, 230, 224, 0.62);
+            pointer-events: none;
+          "
+        >
+          SCRAPUP.DEV
+        </div>
+        <div
+          style="
+            position: absolute;
+            bottom: 26px;
+            left: 42px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.16em;
+            color: rgba(53, 230, 224, 0.62);
+            pointer-events: none;
+          "
+        >
+          ERR · 404
+        </div>
+
+        <!-- TOP BAR -->
+        <div
+          style="
+            position: relative;
+            max-width: 1180px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 30px 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+          "
+        >
+          <a
+            href="/"
+            style="
+              text-decoration: none;
+              font-family: 'Space Grotesk', sans-serif;
+              font-weight: 700;
+              font-size: 22px;
+              letter-spacing: -0.02em;
+              line-height: 1;
+              color: #eceef4;
+            "
+            >scrap<span
+              style="
+                color: var(--neon);
+                text-shadow: 0 0 16px color-mix(in srgb, var(--neon) 60%, transparent);
+                animation: scrapupFlicker 7s infinite;
+              "
+              >up</span
+            ></a
+          >
+          <div
+            style="display: flex; align-items: stretch; border: 1px solid rgba(120, 190, 210, 0.3)"
+          >
+            <button
+              onClick="{{ setEn }}"
+              style="
+                position: relative;
+                appearance: none;
+                border: none;
+                background: transparent;
+                cursor: pointer;
+                font-family: 'IBM Plex Mono', monospace;
+                font-size: 12px;
+                letter-spacing: 0.1em;
+                padding: 7px 11px;
+                color: #eceef4;
+              "
+            >
+              EN<sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><div
+                  style="
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    height: 2px;
+                    background: var(--neon);
+                    box-shadow: 0 0 10px color-mix(in srgb, var(--neon) 70%, transparent);
+                  "
+                ></div
+              ></sc-if>
+            </button>
+            <button
+              onClick="{{ setPt }}"
+              style="
+                position: relative;
+                appearance: none;
+                border: none;
+                border-left: 1px solid rgba(120, 190, 210, 0.3);
+                background: transparent;
+                cursor: pointer;
+                font-family: 'IBM Plex Mono', monospace;
+                font-size: 12px;
+                letter-spacing: 0.1em;
+                padding: 7px 11px;
+                color: #eceef4;
+              "
+            >
+              PT<sc-if value="{{ isPt }}"
+                ><div
+                  style="
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    height: 2px;
+                    background: var(--neon);
+                    box-shadow: 0 0 10px color-mix(in srgb, var(--neon) 70%, transparent);
+                  "
+                ></div
+              ></sc-if>
+            </button>
+            <button
+              onClick="{{ setJa }}"
+              style="
+                position: relative;
+                appearance: none;
+                border: none;
+                border-left: 1px solid rgba(120, 190, 210, 0.3);
+                background: transparent;
+                cursor: pointer;
+                font-family: 'IBM Plex Mono', monospace;
+                font-size: 12px;
+                letter-spacing: 0.1em;
+                padding: 7px 11px;
+                color: #eceef4;
+              "
+            >
+              JA<sc-if value="{{ isJa }}"
+                ><div
+                  style="
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    height: 2px;
+                    background: var(--neon);
+                    box-shadow: 0 0 10px color-mix(in srgb, var(--neon) 70%, transparent);
+                  "
+                ></div
+              ></sc-if>
+            </button>
+          </div>
+        </div>
+
+        <!-- CENTER -->
+        <div
+          style="
+            position: relative;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px 48px 90px;
+          "
+        >
+          <div
+            style="
+              position: relative;
+              display: inline-block;
+              font-family: 'Space Grotesk', sans-serif;
+              font-weight: 700;
+              font-size: clamp(7rem, 24vw, 17rem);
+              line-height: 0.86;
+              letter-spacing: -0.04em;
+              color: var(--neon);
+            "
+          >
+            <span
+              aria-hidden="true"
+              style="
+                position: absolute;
+                inset: 0;
+                color: var(--cy);
+                mix-blend-mode: screen;
+                animation: glC 4.2s infinite;
+              "
+              >404</span
+            >
+            <span
+              aria-hidden="true"
+              style="
+                position: absolute;
+                inset: 0;
+                color: #ff3da6;
+                mix-blend-mode: screen;
+                animation: glM 4.2s infinite;
+              "
+              >404</span
+            >
+            <span
+              aria-hidden="true"
+              style="
+                position: absolute;
+                inset: 0;
+                color: var(--neon);
+                animation: glSlice 4.2s infinite;
+              "
+              >404</span
+            >
+            <span
+              style="
+                position: relative;
+                text-shadow:
+                  0 0 46px color-mix(in srgb, var(--neon) 55%, transparent),
+                  0 0 12px color-mix(in srgb, var(--neon) 45%, transparent);
+                animation: scrapupFlicker 6s infinite;
+              "
+              >404</span
+            >
+          </div>
+
+          <div
+            style="
+              font-family: 'IBM Plex Mono', monospace;
+              font-size: 12px;
+              letter-spacing: 0.2em;
+              color: var(--cy);
+              margin-top: 30px;
+            "
+          >
+            <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+              ><span>HTTP 404 · NO GATE SEALED</span></sc-if
+            >
+            <sc-if value="{{ isPt }}"><span>HTTP 404 · NENHUM GATE SELADO</span></sc-if>
+            <sc-if value="{{ isJa }}"><span>HTTP 404 · 封印された GATE なし</span></sc-if>
+          </div>
+
+          <h1
+            style="
+              margin: 16px 0 0;
+              max-width: 20ch;
+              font-family: 'Space Grotesk', sans-serif;
+              font-weight: 600;
+              font-size: clamp(1.5rem, 3.4vw, 2.4rem);
+              line-height: 1.12;
+              letter-spacing: -0.02em;
+              color: #f2f3f8;
+            "
+          >
+            <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+              ><span>This route never reached a milestone.</span></sc-if
+            >
+            <sc-if value="{{ isPt }}"><span>Esta rota nunca alcançou um milestone.</span></sc-if>
+            <sc-if value="{{ isJa }}"
+              ><span>このルートは milestone に到達しませんでした。</span></sc-if
+            >
+          </h1>
+
+          <p
+            style="
+              margin: 16px 0 0;
+              max-width: 520px;
+              font-size: 1.02rem;
+              line-height: 1.6;
+              color: #aeb4c2;
+            "
+          >
+            <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+              ><span
+                >The page you requested isn't part of the traced delivery. Check the path, or head
+                back to the baseline.</span
+              ></sc-if
+            >
+            <sc-if value="{{ isPt }}"
+              ><span
+                >A página que você pediu não faz parte da entrega rastreada. Confira o caminho, ou
+                volte para a baseline.</span
+              ></sc-if
+            >
+            <sc-if value="{{ isJa }}"
+              ><span
+                >リクエストされたページは、追跡された delivery
+                に含まれていません。パスを確認するか、baseline へ戻ってください。</span
+              ></sc-if
+            >
+          </p>
+
+          <div
+            style="
+              margin-top: 34px;
+              display: flex;
+              flex-wrap: wrap;
+              gap: 14px;
+              align-items: center;
+              justify-content: center;
+            "
+          >
+            <a
+              href="/"
+              style="
+                display: inline-flex;
+                align-items: center;
+                gap: 9px;
+                text-decoration: none;
+                background: var(--neon);
+                color: #0a0d15;
+                font-family: 'IBM Plex Mono', monospace;
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 0.06em;
+                padding: 14px 22px;
+                box-shadow: 0 0 26px color-mix(in srgb, var(--neon) 42%, transparent);
+              "
+              style-hover="filter:brightness(1.12);"
+            >
+              <span>←</span>
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span>BACK HOME</span></sc-if
+              ><sc-if value="{{ isPt }}"><span>VOLTAR AO INÍCIO</span></sc-if
+              ><sc-if value="{{ isJa }}"><span>ホームへ戻る</span></sc-if>
+            </a>
+            <a
+              href="https://github.com/scrapup/scrapup"
+              target="_blank"
+              rel="noopener"
+              style="
+                display: inline-flex;
+                align-items: center;
+                gap: 9px;
+                text-decoration: none;
+                color: var(--cy);
+                font-family: 'IBM Plex Mono', monospace;
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 0.06em;
+                padding: 14px 22px;
+                border: 1px solid rgba(53, 230, 224, 0.4);
+              "
+              style-hover="background:rgba(53,230,224,.08);"
+            >
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span>VIEW ON GITHUB ↗</span></sc-if
+              ><sc-if value="{{ isPt }}"><span>VER NO GITHUB ↗</span></sc-if
+              ><sc-if value="{{ isJa }}"><span>GITHUB を見る ↗</span></sc-if>
+            </a>
+          </div>
+
+          <div
+            style="
+              margin-top: 30px;
+              font-family: 'IBM Plex Mono', monospace;
+              font-size: 12px;
+              color: rgba(190, 200, 220, 0.5);
+            "
+          >
+            scrap <span style="color: var(--cy)">→</span> forge
+            <span style="color: var(--cy)">→</span>
+            <span style="color: var(--neon)">forged delivery</span>
+          </div>
+        </div>
+      </div>
+    </x-dc>
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{
+  "accent": { "editor": "color", "default": "#FF7A33", "options": ["#FF7A33", "#FF3D9A", "#35E6E0", "#B388FF"], "tsType": "string", "section": "Identity" },
+  "defaultLang": { "editor": "enum", "options": ["en", "pt", "ja"], "default": "en", "tsType": "string", "section": "Content" }
+}'
+    >
+      class Component extends DCLogic {
+        constructor(props) {
+          super(props);
+          const dl = (this.props && ['pt','ja'].indexOf(this.props.defaultLang) !== -1) ? this.props.defaultLang : 'en';
+          this.state = { lang: dl };
+        }
+        renderVals() {
+          const lang = this.state.lang;
+          return {
+            accent: this.props.accent ?? '#FF7A33',
+            isEn: lang === 'en',
+            isPt: lang === 'pt',
+            isJa: lang === 'ja',
+            setEn: () => this.setState({ lang: 'en' }),
+            setPt: () => this.setState({ lang: 'pt' }),
+            setJa: () => this.setState({ lang: 'ja' }),
+          };
+        }
+      }
+    </script>
+  </body>
+</html>

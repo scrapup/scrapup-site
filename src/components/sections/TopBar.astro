@@ -1,0 +1,43 @@
+---
+import { useTranslations, type Lang } from '../../i18n';
+import { REPO } from '../../config';
+import LanguageSwitcher from '../LanguageSwitcher.astro';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<div
+  style="display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; padding-bottom:30px; border-bottom:1px solid rgba(120,190,210,.16);"
+>
+  <div style="display:flex; align-items:baseline; gap:14px;">
+    <div
+      style="font-family:'Space Grotesk','Noto Sans JP',sans-serif; font-weight:700; font-size:24px; letter-spacing:-.02em; line-height:1; color:#ECEEF4;"
+    >
+      scrap<span
+        style="color:var(--neon); text-shadow:0 0 16px color-mix(in srgb, var(--neon) 60%, transparent), 0 0 3px color-mix(in srgb, var(--neon) 50%, transparent); animation:scrapupFlicker 7s infinite;"
+        >up</span
+      >
+    </div>
+    <div
+      style="font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:11px; letter-spacing:.08em; color:#7E8597;"
+    >
+      {t('nav.tagline')}
+    </div>
+  </div>
+  <div style="display:flex; align-items:center; gap:18px;">
+    <LanguageSwitcher lang={lang} />
+    <a
+      href={REPO}
+      target="_blank"
+      rel="noopener"
+      style="display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:var(--cy); font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:12px; letter-spacing:.04em; border-bottom:1px solid rgba(53,230,224,.35); padding-bottom:2px;"
+    >
+      <span style="font-weight:600;">github.com/scrapup</span>
+      <span style="color:var(--neon);">↗</span>
+    </a>
+  </div>
+</div>

@@ -1,0 +1,103 @@
+---
+import { useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const code =
+  "font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-weight:700; font-size:20px; letter-spacing:.03em; color:#ECEEF4;";
+const phase =
+  "font-family:'Space Grotesk','Noto Sans JP',sans-serif; font-weight:600; font-size:16px; color:#ECEEF4; margin-top:7px;";
+const desc = 'font-size:12.5px; line-height:1.45; color:#8A90A0; margin-top:8px;';
+---
+
+<div style="margin-top:108px;">
+  <div
+    style="font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:11px; letter-spacing:.2em; color:var(--cy); margin-bottom:16px;"
+  >
+    <span>{t('how.label')}</span>
+  </div>
+  <h2
+    style="margin:0 0 16px; font-family:'Space Grotesk','Noto Sans JP',sans-serif; font-weight:700; font-size:clamp(2.4rem,5vw,4rem); line-height:1.0; letter-spacing:-.03em; color:#F2F3F8; text-shadow:0 0 34px rgba(53,230,224,.14);"
+  >
+    {t('how.title')}
+  </h2>
+  <div
+    style="width:68px; height:3px; background:var(--neon); box-shadow:0 0 16px color-mix(in srgb, var(--neon) 75%, transparent); margin-bottom:18px;"
+  >
+  </div>
+  <p style="margin:0; max-width:640px; font-size:1.1rem; line-height:1.6; color:#C7CCD8;">
+    {t('how.body')}
+  </p>
+</div>
+
+<!-- MILESTONE AXIS -->
+<div
+  style="margin-top:32px; background:linear-gradient(180deg, rgba(20,26,40,.82), rgba(14,18,28,.82)); border:1px solid color-mix(in srgb, var(--neon) 24%, transparent); padding:42px 42px 36px; box-shadow:inset 0 0 70px rgba(0,0,0,.42), 0 0 60px color-mix(in srgb, var(--neon) 13%, transparent);"
+>
+  <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:30px;">
+    <div
+      style="font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:11px; letter-spacing:.18em; color:#8A90A0;"
+    >
+      <span>{t('how.axisLabel')}</span>
+    </div>
+    <div
+      style="font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:11px; letter-spacing:.12em; color:rgba(190,200,220,.4);"
+    >
+      UP AI-ASSISTED
+    </div>
+  </div>
+
+  <div style="display:flex; align-items:stretch; gap:0; flex-wrap:wrap;">
+    <!-- LCO -->
+    <div
+      style="flex:1 1 180px; min-width:150px; padding-right:18px; border-top:2px solid rgba(120,190,210,.3); padding-top:14px;"
+    >
+      <div style={code}>LCO</div>
+      <div style={phase}>{t('how.lco.name')}</div>
+      <div style={desc}>{t('how.lco.desc')}</div>
+    </div>
+    <!-- LCA -->
+    <div
+      style="flex:1 1 180px; min-width:150px; padding:14px 18px 0; border-top:2px solid rgba(120,190,210,.3);"
+    >
+      <div style={code}>LCA</div>
+      <div style={phase}>{t('how.lca.name')}</div>
+      <div style={desc}>{t('how.lca.desc')}</div>
+    </div>
+    <!-- IOC (current) -->
+    <div
+      style="flex:1 1 180px; min-width:150px; padding:14px 18px 0; border-top:2px solid var(--neon); position:relative; box-shadow:0 -1px 18px color-mix(in srgb, var(--neon) 30%, transparent);"
+    >
+      <div style="display:inline-flex; align-items:center; gap:7px; margin-bottom:2px;">
+        <span
+          style="width:7px; height:7px; border-radius:50%; background:var(--neon); box-shadow:0 0 10px color-mix(in srgb, var(--neon) 90%, transparent), 0 0 0 4px color-mix(in srgb, var(--neon) 18%, transparent);"
+        ></span>
+        <span
+          style="font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:10px; letter-spacing:.16em; color:var(--neon);"
+          >{t('how.ioc.now')}</span
+        >
+      </div>
+      <div
+        style="font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-weight:700; font-size:20px; letter-spacing:.03em; color:var(--neon); text-shadow:0 0 18px color-mix(in srgb, var(--neon) 60%, transparent);"
+      >
+        IOC
+      </div>
+      <div style={phase}>{t('how.ioc.name')}</div>
+      <div style="font-size:12.5px; line-height:1.45; color:#C7CCD8; margin-top:8px;">
+        {t('how.ioc.desc')}
+      </div>
+    </div>
+    <!-- Release -->
+    <div
+      style="flex:1 1 180px; min-width:150px; padding:14px 0 0 18px; border-top:2px solid rgba(120,190,210,.3);"
+    >
+      <div style={code}>RELEASE</div>
+      <div style={phase}>{t('how.release.name')}</div>
+      <div style={desc}>{t('how.release.desc')}</div>
+    </div>
+  </div>
+</div>

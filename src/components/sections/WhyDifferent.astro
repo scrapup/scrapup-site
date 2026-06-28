@@ -1,0 +1,44 @@
+---
+import { useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const labelMono =
+  "font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:11px; letter-spacing:.16em;";
+---
+
+<div style="margin-top:108px;">
+  <div
+    style="font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:11px; letter-spacing:.2em; color:var(--cy); margin-bottom:16px;"
+  >
+    <span>{t('diff.label')}</span>
+  </div>
+  <h2
+    style="margin:0 0 14px; font-family:'Space Grotesk','Noto Sans JP',sans-serif; font-weight:600; font-size:clamp(1.7rem,3.2vw,2.6rem); line-height:1.08; letter-spacing:-.02em; color:#F2F3F8;"
+  >
+    {t('diff.title')}
+  </h2>
+  <p style="margin:0 0 26px; max-width:640px; font-size:1.05rem; line-height:1.6; color:#AEB4C2;">
+    {t('diff.body')}
+  </p>
+  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:18px;">
+    <div style="border:1px dashed rgba(120,190,210,.3); padding:24px;">
+      <div style={`${labelMono} color:#7E8597;`}>{t('diff.floor.label')}</div>
+      <div style="font-size:14px; line-height:1.5; color:#AEB4C2; margin-top:10px;">
+        {t('diff.floor.desc')}
+      </div>
+    </div>
+    <div
+      style="border:1px solid var(--neon); background:color-mix(in srgb, var(--neon) 7%, transparent); padding:24px; box-shadow:0 0 30px color-mix(in srgb, var(--neon) 15%, transparent);"
+    >
+      <div style={`${labelMono} color:var(--neon);`}>{t('diff.edge.label')}</div>
+      <div style="font-size:14px; line-height:1.5; color:#ECEEF4; margin-top:10px;">
+        {t('diff.edge.desc')}
+      </div>
+    </div>
+  </div>
+</div>

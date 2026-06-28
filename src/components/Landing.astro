@@ -1,0 +1,77 @@
+---
+/*
+ * Landing — composes the full localized narrative inside the prototype's shell
+ * (ambient glow, scanlines, corner registration marks, centered container).
+ * One component per prototype section, each reading copy from the dictionary.
+ */
+import type { Lang } from '../i18n';
+import TopBar from './sections/TopBar.astro';
+import Hero from './sections/Hero.astro';
+import Problem from './sections/Problem.astro';
+import Answer from './sections/Answer.astro';
+import HowItWorks from './sections/HowItWorks.astro';
+import TwoRoles from './sections/TwoRoles.astro';
+import Pillars from './sections/Pillars.astro';
+import WhyDifferent from './sections/WhyDifferent.astro';
+import BuiltOnUP from './sections/BuiltOnUP.astro';
+import OpenExtensible from './sections/OpenExtensible.astro';
+import Status from './sections/Status.astro';
+import FinalCta from './sections/FinalCta.astro';
+import Footer from './sections/Footer.astro';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+---
+
+<div
+  style="position:relative; min-height:100vh; width:100%; background:var(--ink); color:var(--light-ink); font-family:'IBM Plex Sans','Noto Sans JP',system-ui,sans-serif; overflow:hidden;"
+>
+  <!-- ambient city glow -->
+  <div
+    style="position:absolute; inset:0; pointer-events:none; background:radial-gradient(900px 520px at 14% -4%, rgba(53,230,224,.12), transparent 62%), radial-gradient(820px 620px at 102% 104%, color-mix(in srgb, var(--neon) 16%, transparent), transparent 60%), radial-gradient(700px 500px at 88% 8%, rgba(179,136,255,.08), transparent 60%);"
+  >
+  </div>
+  <!-- scanlines -->
+  <div
+    style="position:absolute; inset:0; pointer-events:none; opacity:.5; background:repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0, rgba(0,0,0,0) 2px, rgba(0,0,0,.14) 3px);"
+  >
+  </div>
+  <!-- corner registration marks -->
+  <div
+    style="position:absolute; bottom:20px; left:20px; width:14px; height:14px; border-left:1.5px solid var(--cy); border-bottom:1.5px solid var(--cy); box-shadow:0 0 8px rgba(53,230,224,.5); pointer-events:none;"
+  >
+  </div>
+  <div
+    style="position:absolute; bottom:20px; right:20px; width:14px; height:14px; border-right:1.5px solid var(--cy); border-bottom:1.5px solid var(--cy); box-shadow:0 0 8px rgba(53,230,224,.5); pointer-events:none;"
+  >
+  </div>
+  <div
+    style="position:absolute; top:26px; right:42px; font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:10px; letter-spacing:.16em; color:rgba(53,230,224,.62); pointer-events:none;"
+  >
+    SCRAPUP.DEV
+  </div>
+  <div
+    style="position:absolute; bottom:26px; left:42px; font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:10px; letter-spacing:.16em; color:rgba(53,230,224,.62); pointer-events:none;"
+  >
+    FIG · 01 — IDENTITY
+  </div>
+
+  <main style="position:relative; max-width:1180px; margin:0 auto; padding:30px 48px 132px;">
+    <TopBar lang={lang} />
+    <Hero lang={lang} />
+    <Problem lang={lang} />
+    <Answer lang={lang} />
+    <HowItWorks lang={lang} />
+    <TwoRoles lang={lang} />
+    <Pillars lang={lang} />
+    <WhyDifferent lang={lang} />
+    <BuiltOnUP lang={lang} />
+    <OpenExtensible lang={lang} />
+    <Status lang={lang} />
+    <FinalCta lang={lang} />
+  </main>
+
+  <Footer />
+</div>

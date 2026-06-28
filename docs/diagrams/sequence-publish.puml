@@ -1,0 +1,14 @@
+@startuml seq_publish
+actor Maintainer
+participant "GitHub Actions" as GA
+participant "release-please" as RP
+participant "Vercel" as V
+Maintainer -> GA: merge feature PR (squash) to main
+GA -> RP: run release-please
+RP -> Maintainer: open/update Release PR
+Maintainer -> GA: merge Release PR (sealed gate)
+GA -> RP: release_created = true
+RP -> V: vercel --prod (build + deploy)
+V --> Maintainer: production deployment URL
+note over V: custom domain attached only at cutover (RN-15)
+@enduml

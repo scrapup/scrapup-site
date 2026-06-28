@@ -1,0 +1,69 @@
+---
+/*
+ * FinalCta — the waitlist form is dropped (no data collection); only the
+ * "Follow the build" card remains, with Star + Read the docs as plain outbound
+ * links to the GitHub repo (RN-06). No live star count (RN-12), no <form>.
+ */
+import { useTranslations, type Lang } from '../../i18n';
+import { REPO } from '../../config';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<div style="margin-top:108px;">
+  <div
+    style="font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:11px; letter-spacing:.2em; color:var(--cy); margin-bottom:16px;"
+  >
+    <span>{t('cta.label')}</span>
+  </div>
+  <h2
+    style="margin:0 0 14px; font-family:'Space Grotesk','Noto Sans JP',sans-serif; font-weight:600; font-size:clamp(2rem,3.6vw,3rem); line-height:1.05; letter-spacing:-.02em; color:#F2F3F8;"
+  >
+    {t('cta.title')}
+  </h2>
+  <p style="margin:0; max-width:600px; font-size:1.05rem; line-height:1.6; color:#AEB4C2;">
+    {t('cta.body')}
+  </p>
+</div>
+<div
+  style="margin-top:32px; display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:46px; align-items:start;"
+>
+  <div
+    style="background:linear-gradient(180deg, rgba(20,26,40,.55), rgba(14,18,28,.55)); border:1px solid rgba(120,190,210,.16); padding:28px; display:flex; flex-direction:column; gap:18px;"
+  >
+    <div
+      style="font-family:'Space Grotesk','Noto Sans JP',sans-serif; font-weight:600; font-size:1.2rem; color:#ECEEF4;"
+    >
+      {t('cta.card.title')}
+    </div>
+    <div style="font-size:13.5px; line-height:1.55; color:#8A90A0;">{t('cta.card.desc')}</div>
+    <div style="display:flex; flex-wrap:wrap; gap:12px;">
+      <a
+        href={REPO}
+        target="_blank"
+        rel="noopener"
+        style="display:inline-flex; align-items:center; gap:9px; text-decoration:none; background:var(--neon); color:#0A0D15; font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:13px; font-weight:600; letter-spacing:.06em; padding:13px 20px; box-shadow:0 0 24px color-mix(in srgb, var(--neon) 40%, transparent);"
+      >
+        <span>★</span><span>{t('cta.card.star')}</span>
+      </a>
+      <a
+        href={REPO}
+        target="_blank"
+        rel="noopener"
+        style="display:inline-flex; align-items:center; gap:9px; text-decoration:none; color:var(--cy); font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:13px; font-weight:600; letter-spacing:.06em; padding:13px 20px; border:1px solid rgba(53,230,224,.4);"
+      >
+        <span>{t('cta.card.docs')}</span>
+      </a>
+    </div>
+    <div
+      style="margin-top:4px; padding-top:18px; border-top:1px solid rgba(120,190,210,.12); font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:12px; letter-spacing:.06em; color:rgba(190,200,220,.55);"
+    >
+      scrap <span style="color:var(--cy);">→</span> forge <span style="color:var(--cy);">→</span>
+      <span style="color:var(--neon);">forged delivery</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+@startuml seq_language_detection
+actor Visitor
+participant "Vercel Edge\nMiddleware" as MW
+participant "Static CDN\n(Astro output)" as CDN
+
+Visitor -> MW: GET / (Accept-Language, cookie?)
+alt Explicit choice cookie present (RN-05)
+    MW -> CDN: Redirect 307 to chosen locale
+else No cookie — detect (RN-04)
+    alt Accept-Language matches pt
+        MW -> CDN: Redirect 307 to /pt/
+    else matches ja
+        MW -> CDN: Redirect 307 to /ja/
+    else unsupported / absent
+        MW -> CDN: Pass through to / (EN fallback)
+    end
+end
+CDN --> Visitor: 200 Pre-rendered localized HTML
+note over MW,CDN
+  Direct hits to /pt/ or /ja/ skip the middleware
+  redirect — every locale stays directly reachable
+  and indexable (no cloaking).
+end note
+@enduml

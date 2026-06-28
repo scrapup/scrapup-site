@@ -1,0 +1,71 @@
+---
+import { useTranslations, type Lang } from '../../i18n';
+import { REPO } from '../../config';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<div style="padding-top:64px;">
+  <div
+    style="display:inline-flex; align-items:center; gap:9px; padding:5px 11px; border:1px solid color-mix(in srgb, var(--neon) 60%, transparent); background:color-mix(in srgb, var(--neon) 10%, transparent); font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:11px; letter-spacing:.16em; color:var(--neon); margin-bottom:30px; box-shadow:0 0 22px color-mix(in srgb, var(--neon) 22%, transparent), inset 0 0 14px color-mix(in srgb, var(--neon) 8%, transparent);"
+  >
+    <span
+      style="width:6px; height:6px; border-radius:50%; background:var(--neon); box-shadow:0 0 10px color-mix(in srgb, var(--neon) 90%, transparent), 0 0 0 4px color-mix(in srgb, var(--neon) 20%, transparent);"
+    ></span>
+    <span>{t('hero.badge')}</span>
+  </div>
+
+  <div
+    style="font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:12px; letter-spacing:.2em; color:#7E8597; margin-bottom:22px;"
+  >
+    <span>{t('hero.eyebrow')}</span>
+  </div>
+
+  <h1
+    style="margin:0; max-width:18ch; font-family:'Space Grotesk','Noto Sans JP',sans-serif; font-weight:600; font-size:clamp(2.7rem,5.6vw,5.1rem); line-height:1.02; letter-spacing:-.025em; color:#F2F3F8;"
+  >
+    {t('hero.headline.pre')}<span
+      style="color:var(--neon); text-shadow:0 0 28px color-mix(in srgb, var(--neon) 55%, transparent), 0 0 6px color-mix(in srgb, var(--neon) 42%, transparent);"
+      >{t('hero.headline.em')}</span
+    >{t('hero.headline.post')}
+  </h1>
+
+  <p
+    style="margin:26px 0 0; max-width:600px; font-size:clamp(1.05rem,1.5vw,1.24rem); line-height:1.6; color:#AEB4C2;"
+  >
+    {t('hero.sub')}
+  </p>
+
+  <div
+    style="margin-top:30px; padding-left:16px; border-left:2px solid var(--neon); box-shadow:-1px 0 16px color-mix(in srgb, var(--neon) 20%, transparent);"
+  >
+    <p
+      style="margin:0; max-width:560px; font-size:.96rem; line-height:1.55; color:#8A90A0;"
+      set:html={t('hero.note.html')}
+    />
+  </div>
+
+  <div style="margin-top:40px; display:flex; flex-wrap:wrap; gap:14px; align-items:center;">
+    <a
+      href={REPO}
+      target="_blank"
+      rel="noopener"
+      style="display:inline-flex; align-items:center; gap:9px; text-decoration:none; background:var(--neon); color:#0A0D15; font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:13px; font-weight:600; letter-spacing:.06em; padding:14px 22px; box-shadow:0 0 26px color-mix(in srgb, var(--neon) 42%, transparent);"
+    >
+      <span>★</span>
+      <span>{t('hero.ctaStar')}</span>
+    </a>
+    <a
+      href={REPO}
+      target="_blank"
+      rel="noopener"
+      style="display:inline-flex; align-items:center; gap:9px; text-decoration:none; color:var(--cy); font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:13px; font-weight:600; letter-spacing:.06em; padding:14px 22px; border:1px solid rgba(53,230,224,.4);"
+    >
+      <span>{t('hero.ctaDocs')}</span>
+    </a>
+  </div>
+</div>

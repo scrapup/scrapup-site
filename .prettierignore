@@ -1,0 +1,22 @@
+# Build & deps
+dist
+.vercel
+.astro
+node_modules
+package-lock.json
+
+# Test artifacts
+playwright-report
+test-results
+tests/visual/__screenshots__
+
+# SDD artifacts & docs (authored separately — keep pristine)
+docs
+
+# Vendored design prototypes / brand runtime
+design-project
+brand/support.js
+brand/*.dc.html
+
+# Generated
+CHANGELOG.md

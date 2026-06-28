@@ -1,0 +1,140 @@
+/*
+ * Global styles — scrapup.dev landing.
+ * Base reset, selection, brand palette (canonical) and prototype animations.
+ * Palette source of truth: brand/scrapup - Logo System.dc.html (block F9 · PALETTE),
+ * see docs/specs/landing-page/plan.md §3.3.
+ */
+
+:root {
+  /* Canonical brand palette (the six brand-canonical tokens). */
+  --neon: #ff7a33; /* Neon forge — accent on dark (the flickering "up", CTAs, highlights) */
+  --neon-light: #e8641f; /* Forge (light) — accent on light/paper backgrounds */
+  --cy: #35e6e0; /* Cyan — secondary accent (section labels, links) */
+  --ink: #0a0d15; /* Ink — primary background */
+  --paper: #f2f0ea; /* Paper — light / inverse background */
+  --light-ink: #eceef4; /* Light ink — foreground text on ink */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  background: var(--ink);
+}
+
+::selection {
+  background: rgba(53, 230, 224, 0.28);
+  color: #fff;
+}
+
+input::placeholder {
+  color: rgba(184, 190, 204, 0.34);
+}
+
+/* Hero/wordmark flicker — the flickering "up". */
+@keyframes scrapupFlicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  93% {
+    opacity: 0.55;
+  }
+  94% {
+    opacity: 1;
+  }
+  96% {
+    opacity: 0.7;
+  }
+  97% {
+    opacity: 1;
+  }
+}
+
+/* 404 glitch layers. */
+@keyframes glC {
+  0%,
+  46%,
+  53%,
+  77%,
+  84%,
+  100% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+  48%,
+  51% {
+    opacity: 0.85;
+    transform: translate(-7px, -3px);
+  }
+  79%,
+  82% {
+    opacity: 0.7;
+    transform: translate(-4px, 3px);
+  }
+}
+
+@keyframes glM {
+  0%,
+  46%,
+  53%,
+  77%,
+  84%,
+  100% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+  48%,
+  51% {
+    opacity: 0.8;
+    transform: translate(7px, 3px);
+  }
+  79%,
+  82% {
+    opacity: 0.6;
+    transform: translate(4px, -3px);
+  }
+}
+
+@keyframes glSlice {
+  0%,
+  49%,
+  52%,
+  79%,
+  82%,
+  100% {
+    clip-path: inset(46% 0 50% 0);
+    transform: translateX(0);
+  }
+  50% {
+    clip-path: inset(22% 0 68% 0);
+    transform: translateX(12px);
+  }
+  80% {
+    clip-path: inset(62% 0 30% 0);
+    transform: translateX(-9px);
+  }
+}
+
+/* Honor the visitor's reduced-motion preference (a11y) without changing the visual identity. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

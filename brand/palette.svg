@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="200" viewBox="0 0 760 200" font-family="'IBM Plex Mono', ui-monospace, monospace" role="img" aria-label="scrapup brand palette">
+  <title>scrapup brand palette</title>
+  <rect width="760" height="200" fill="#0A0D15"/>
+  <text x="24" y="34" fill="#ECEEF4" font-size="14" font-weight="600" letter-spacing="2">SCRAPUP — BRAND PALETTE</text>
+
+  <!-- Neon forge -->
+  <g transform="translate(24,52)">
+    <rect width="104" height="80" fill="#FF7A33" rx="2"/>
+    <text x="0" y="100" fill="#ECEEF4" font-size="12" font-weight="600">Neon forge</text>
+    <text x="0" y="118" fill="#AEB4C2" font-size="11">#FF7A33</text>
+  </g>
+  <!-- Forge (light) -->
+  <g transform="translate(144,52)">
+    <rect width="104" height="80" fill="#E8641F" rx="2"/>
+    <text x="0" y="100" fill="#ECEEF4" font-size="12" font-weight="600">Forge (light)</text>
+    <text x="0" y="118" fill="#AEB4C2" font-size="11">#E8641F</text>
+  </g>
+  <!-- Cyan -->
+  <g transform="translate(264,52)">
+    <rect width="104" height="80" fill="#35E6E0" rx="2"/>
+    <text x="0" y="100" fill="#ECEEF4" font-size="12" font-weight="600">Cyan</text>
+    <text x="0" y="118" fill="#AEB4C2" font-size="11">#35E6E0</text>
+  </g>
+  <!-- Ink -->
+  <g transform="translate(384,52)">
+    <rect width="104" height="80" fill="#0A0D15" rx="2" stroke="#2A3242" stroke-width="1"/>
+    <text x="0" y="100" fill="#ECEEF4" font-size="12" font-weight="600">Ink</text>
+    <text x="0" y="118" fill="#AEB4C2" font-size="11">#0A0D15</text>
+  </g>
+  <!-- Paper -->
+  <g transform="translate(504,52)">
+    <rect width="104" height="80" fill="#F2F0EA" rx="2"/>
+    <text x="0" y="100" fill="#ECEEF4" font-size="12" font-weight="600">Paper</text>
+    <text x="0" y="118" fill="#AEB4C2" font-size="11">#F2F0EA</text>
+  </g>
+  <!-- Light ink -->
+  <g transform="translate(624,52)">
+    <rect width="104" height="80" fill="#ECEEF4" rx="2"/>
+    <text x="0" y="100" fill="#ECEEF4" font-size="12" font-weight="600">Light ink</text>
+    <text x="0" y="118" fill="#AEB4C2" font-size="11">#ECEEF4</text>
+  </g>
+</svg>

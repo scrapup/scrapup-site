@@ -1,0 +1,2905 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+        <style>
+          * {
+            box-sizing: border-box;
+          }
+          html,
+          body {
+            margin: 0;
+            padding: 0;
+          }
+          body {
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            background: #0a0d15;
+          }
+          ::selection {
+            background: rgba(53, 230, 224, 0.28);
+            color: #fff;
+          }
+          input::placeholder {
+            color: rgba(184, 190, 204, 0.34);
+          }
+          @keyframes scrapupFlicker {
+            0%,
+            100% {
+              opacity: 1;
+            }
+            92% {
+              opacity: 1;
+            }
+            93% {
+              opacity: 0.55;
+            }
+            94% {
+              opacity: 1;
+            }
+            96% {
+              opacity: 0.7;
+            }
+            97% {
+              opacity: 1;
+            }
+          }
+        </style>
+      </helmet>
+
+      <div
+        style="--neon: {{ accent }}; --cy:#35E6E0; position:relative; min-height:100vh; width:100%; background:#0A0D15; color:#ECEEF4; font-family:'IBM Plex Sans','Noto Sans JP',system-ui,sans-serif; overflow:hidden;"
+      >
+        <!-- ambient city glow -->
+        <div
+          style="
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+              radial-gradient(900px 520px at 14% -4%, rgba(53, 230, 224, 0.12), transparent 62%),
+              radial-gradient(
+                820px 620px at 102% 104%,
+                color-mix(in srgb, var(--neon) 16%, transparent),
+                transparent 60%
+              ),
+              radial-gradient(700px 500px at 88% 8%, rgba(179, 136, 255, 0.08), transparent 60%);
+          "
+        ></div>
+
+        <!-- scanlines -->
+        <div
+          style="
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.5;
+            background: repeating-linear-gradient(
+              to bottom,
+              rgba(0, 0, 0, 0) 0,
+              rgba(0, 0, 0, 0) 2px,
+              rgba(0, 0, 0, 0.14) 3px
+            );
+          "
+        ></div>
+
+        <!-- corner registration marks -->
+        <div
+          style="
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            width: 14px;
+            height: 14px;
+            border-left: 1.5px solid var(--cy);
+            border-bottom: 1.5px solid var(--cy);
+            box-shadow: 0 0 8px rgba(53, 230, 224, 0.5);
+            pointer-events: none;
+          "
+        ></div>
+        <div
+          style="
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 14px;
+            height: 14px;
+            border-right: 1.5px solid var(--cy);
+            border-bottom: 1.5px solid var(--cy);
+            box-shadow: 0 0 8px rgba(53, 230, 224, 0.5);
+            pointer-events: none;
+          "
+        ></div>
+        <div
+          style="
+            position: absolute;
+            top: 26px;
+            right: 42px;
+            font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+            font-size: 10px;
+            letter-spacing: 0.16em;
+            color: rgba(53, 230, 224, 0.62);
+            pointer-events: none;
+          "
+        >
+          SCRAPUP.DEV
+        </div>
+        <div
+          style="
+            position: absolute;
+            bottom: 26px;
+            left: 42px;
+            font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+            font-size: 10px;
+            letter-spacing: 0.16em;
+            color: rgba(53, 230, 224, 0.62);
+            pointer-events: none;
+          "
+        >
+          FIG · 01 — IDENTITY
+        </div>
+
+        <div
+          style="position: relative; max-width: 1180px; margin: 0 auto; padding: 30px 48px 132px"
+        >
+          <!-- TOP BAR -->
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              gap: 24px;
+              flex-wrap: wrap;
+              padding-bottom: 30px;
+              border-bottom: 1px solid rgba(120, 190, 210, 0.16);
+            "
+          >
+            <div style="display: flex; align-items: baseline; gap: 14px">
+              <div
+                style="
+                  font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                  font-weight: 700;
+                  font-size: 24px;
+                  letter-spacing: -0.02em;
+                  line-height: 1;
+                  color: #eceef4;
+                "
+              >
+                scrap<span
+                  style="
+                    color: var(--neon);
+                    text-shadow:
+                      0 0 16px color-mix(in srgb, var(--neon) 60%, transparent),
+                      0 0 3px color-mix(in srgb, var(--neon) 50%, transparent);
+                    animation: scrapupFlicker 7s infinite;
+                  "
+                  >up</span
+                >
+              </div>
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><div
+                  style="
+                    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                    font-size: 11px;
+                    letter-spacing: 0.08em;
+                    color: #7e8597;
+                  "
+                >
+                  AI-assisted Unified Process
+                </div></sc-if
+              >
+              <sc-if value="{{ isPt }}"
+                ><div
+                  style="
+                    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                    font-size: 11px;
+                    letter-spacing: 0.08em;
+                    color: #7e8597;
+                  "
+                >
+                  Processo Unificado assistido por IA
+                </div></sc-if
+              ><sc-if value="{{ isJa }}"
+                ><div
+                  style="
+                    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                    font-size: 11px;
+                    letter-spacing: 0.08em;
+                    color: #7e8597;
+                  "
+                >
+                  AI支援の Unified Process
+                </div></sc-if
+              >
+            </div>
+            <div style="display: flex; align-items: center; gap: 18px">
+              <div
+                style="
+                  display: flex;
+                  align-items: stretch;
+                  border: 1px solid rgba(120, 190, 210, 0.3);
+                "
+              >
+                <button
+                  onClick="{{ setEn }}"
+                  style="
+                    position: relative;
+                    appearance: none;
+                    border: none;
+                    background: transparent;
+                    cursor: pointer;
+                    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                    font-size: 12px;
+                    letter-spacing: 0.1em;
+                    padding: 7px 12px;
+                    color: #eceef4;
+                  "
+                >
+                  EN<sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><div
+                      style="
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        height: 2px;
+                        background: var(--neon);
+                        box-shadow: 0 0 10px color-mix(in srgb, var(--neon) 70%, transparent);
+                      "
+                    ></div
+                  ></sc-if>
+                </button>
+                <button
+                  onClick="{{ setPt }}"
+                  style="
+                    position: relative;
+                    appearance: none;
+                    border: none;
+                    border-left: 1px solid rgba(120, 190, 210, 0.3);
+                    background: transparent;
+                    cursor: pointer;
+                    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                    font-size: 12px;
+                    letter-spacing: 0.1em;
+                    padding: 7px 12px;
+                    color: #eceef4;
+                  "
+                >
+                  PT<sc-if value="{{ isPt }}"
+                    ><div
+                      style="
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        height: 2px;
+                        background: var(--neon);
+                        box-shadow: 0 0 10px color-mix(in srgb, var(--neon) 70%, transparent);
+                      "
+                    ></div
+                  ></sc-if></button
+                ><button
+                  onClick="{{ setJa }}"
+                  style="
+                    position: relative;
+                    appearance: none;
+                    border: none;
+                    border-left: 1px solid rgba(120, 190, 210, 0.3);
+                    background: transparent;
+                    cursor: pointer;
+                    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                    font-size: 12px;
+                    letter-spacing: 0.1em;
+                    padding: 7px 12px;
+                    color: #eceef4;
+                  "
+                >
+                  JA<sc-if value="{{ isJa }}"
+                    ><div
+                      style="
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        height: 2px;
+                        background: var(--neon);
+                        box-shadow: 0 0 10px color-mix(in srgb, var(--neon) 70%, transparent);
+                      "
+                    ></div
+                  ></sc-if>
+                </button>
+              </div>
+              <a
+                href="https://github.com/scrapup/scrapup"
+                target="_blank"
+                rel="noopener"
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 8px;
+                  text-decoration: none;
+                  color: var(--cy);
+                  font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                  font-size: 12px;
+                  letter-spacing: 0.04em;
+                  border-bottom: 1px solid rgba(53, 230, 224, 0.35);
+                  padding-bottom: 2px;
+                "
+              >
+                <span style="font-weight: 600">github.com/scrapup</span>
+                <span style="color: var(--neon)">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- HERO -->
+          <div style="padding-top: 64px">
+            <div
+              style="
+                display: inline-flex;
+                align-items: center;
+                gap: 9px;
+                padding: 5px 11px;
+                border: 1px solid color-mix(in srgb, var(--neon) 60%, transparent);
+                background: color-mix(in srgb, var(--neon) 10%, transparent);
+                font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                font-size: 11px;
+                letter-spacing: 0.16em;
+                color: var(--neon);
+                margin-bottom: 30px;
+                box-shadow:
+                  0 0 22px color-mix(in srgb, var(--neon) 22%, transparent),
+                  inset 0 0 14px color-mix(in srgb, var(--neon) 8%, transparent);
+              "
+            >
+              <span
+                style="
+                  width: 6px;
+                  height: 6px;
+                  border-radius: 50%;
+                  background: var(--neon);
+                  box-shadow:
+                    0 0 10px color-mix(in srgb, var(--neon) 90%, transparent),
+                    0 0 0 4px color-mix(in srgb, var(--neon) 20%, transparent);
+                "
+              ></span>
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span>BETA · COMING SOON</span></sc-if
+              >
+              <sc-if value="{{ isPt }}"><span>BETA · EM BREVE</span></sc-if
+              ><sc-if value="{{ isJa }}"><span>ベータ · 近日公開</span></sc-if>
+            </div>
+
+            <div
+              style="
+                font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                font-size: 12px;
+                letter-spacing: 0.2em;
+                color: #7e8597;
+                margin-bottom: 22px;
+              "
+            >
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span>PLUGIN FOR CLAUDE CODE — DOCUMENT → VALIDATE → DELIVER</span></sc-if
+              >
+              <sc-if value="{{ isPt }}"
+                ><span>PLUGIN PARA O CLAUDE CODE — DOCUMENT → VALIDATE → DELIVER</span></sc-if
+              ><sc-if value="{{ isJa }}"
+                ><span>CLAUDE CODE 用プラグイン — DOCUMENT → VALIDATE → DELIVER</span></sc-if
+              >
+            </div>
+
+            <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}">
+              <h1
+                style="
+                  margin: 0;
+                  max-width: 18ch;
+                  font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                  font-weight: 600;
+                  font-size: clamp(2.7rem, 5.6vw, 5.1rem);
+                  line-height: 1.02;
+                  letter-spacing: -0.025em;
+                  color: #f2f3f8;
+                "
+              >
+                From informational scrap to
+                <span
+                  style="
+                    color: var(--neon);
+                    text-shadow:
+                      0 0 28px color-mix(in srgb, var(--neon) 55%, transparent),
+                      0 0 6px color-mix(in srgb, var(--neon) 42%, transparent);
+                  "
+                  >forged</span
+                >
+                delivery.
+              </h1>
+            </sc-if>
+            <sc-if value="{{ isPt }}">
+              <h1
+                style="
+                  margin: 0;
+                  max-width: 18ch;
+                  font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                  font-weight: 600;
+                  font-size: clamp(2.7rem, 5.6vw, 5.1rem);
+                  line-height: 1.02;
+                  letter-spacing: -0.025em;
+                  color: #f2f3f8;
+                "
+              >
+                Do scrap informacional à entrega
+                <span
+                  style="
+                    color: var(--neon);
+                    text-shadow:
+                      0 0 28px color-mix(in srgb, var(--neon) 55%, transparent),
+                      0 0 6px color-mix(in srgb, var(--neon) 42%, transparent);
+                  "
+                  >forjada</span
+                >.
+              </h1> </sc-if
+            ><sc-if value="{{ isJa }}">
+              <h1
+                style="
+                  margin: 0;
+                  max-width: 24ch;
+                  font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                  font-weight: 600;
+                  font-size: clamp(2.4rem, 4.8vw, 4.4rem);
+                  line-height: 1.14;
+                  letter-spacing: -0.02em;
+                  color: #f2f3f8;
+                "
+              >
+                情報の scrap から、<span
+                  style="
+                    color: var(--neon);
+                    text-shadow:
+                      0 0 28px color-mix(in srgb, var(--neon) 55%, transparent),
+                      0 0 6px color-mix(in srgb, var(--neon) 42%, transparent);
+                  "
+                  >鍛造された</span
+                >デリバリーへ。
+              </h1>
+            </sc-if>
+
+            <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}">
+              <p
+                style="
+                  margin: 26px 0 0;
+                  max-width: 580px;
+                  font-size: clamp(1.05rem, 1.5vw, 1.24rem);
+                  line-height: 1.55;
+                  color: #aeb4c2;
+                "
+              >
+                An ecosystem of skills, agents, and commands for Claude Code that operationalizes
+                the document → validate → deliver cycle with engineering rigor — a modernized,
+                AI-assisted Unified Process.
+              </p>
+            </sc-if>
+            <sc-if value="{{ isPt }}">
+              <p
+                style="
+                  margin: 26px 0 0;
+                  max-width: 580px;
+                  font-size: clamp(1.05rem, 1.5vw, 1.24rem);
+                  line-height: 1.55;
+                  color: #aeb4c2;
+                "
+              >
+                Um ecossistema de skills, agents e commands para o Claude Code que operacionaliza o
+                ciclo document → validate → deliver com rigor de engenharia — um Processo Unificado
+                modernizado e assistido por IA.
+              </p> </sc-if
+            ><sc-if value="{{ isJa }}">
+              <p
+                style="
+                  margin: 26px 0 0;
+                  max-width: 600px;
+                  font-size: clamp(1.02rem, 1.5vw, 1.18rem);
+                  line-height: 1.7;
+                  color: #aeb4c2;
+                "
+              >
+                Claude Code 向けの skill・agent・command のエコシステム。document → validate →
+                deliver のサイクルをエンジニアリングの厳密さで運用する — 近代化された、AI支援の
+                Unified Process。
+              </p>
+            </sc-if>
+
+            <div
+              style="
+                margin-top: 30px;
+                padding-left: 16px;
+                border-left: 2px solid var(--neon);
+                box-shadow: -1px 0 16px color-mix(in srgb, var(--neon) 20%, transparent);
+              "
+            >
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><p
+                  style="
+                    margin: 0;
+                    max-width: 560px;
+                    font-size: 0.96rem;
+                    line-height: 1.5;
+                    color: #8a90a0;
+                  "
+                >
+                  The developer moves from
+                  <strong style="color: #eceef4; font-weight: 600">executor</strong> to
+                  <strong style="color: #eceef4; font-weight: 600">architect and validator</strong>
+                  — agents run the engineering workflows; the human decides and seals.
+                </p></sc-if
+              >
+              <sc-if value="{{ isPt }}"
+                ><p
+                  style="
+                    margin: 0;
+                    max-width: 560px;
+                    font-size: 0.96rem;
+                    line-height: 1.5;
+                    color: #8a90a0;
+                  "
+                >
+                  O desenvolvedor passa de
+                  <strong style="color: #eceef4; font-weight: 600">executor</strong> a
+                  <strong style="color: #eceef4; font-weight: 600">arquiteto e validador</strong> —
+                  os agents executam os workflows de engenharia; o humano decide e sela.
+                </p></sc-if
+              ><sc-if value="{{ isJa }}"
+                ><p
+                  style="
+                    margin: 0;
+                    max-width: 560px;
+                    font-size: 0.96rem;
+                    line-height: 1.7;
+                    color: #8a90a0;
+                  "
+                >
+                  開発者は <strong style="color: #eceef4; font-weight: 600">実行者</strong> から
+                  <strong style="color: #eceef4; font-weight: 600"
+                    >アーキテクト兼バリデーター</strong
+                  >
+                  へ — agent がエンジニアリングの workflow を実行し、人間が判断して封印する。
+                </p></sc-if
+              >
+            </div>
+
+            <!-- HERO CTA -->
+            <div
+              style="
+                margin-top: 40px;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 14px;
+                align-items: center;
+              "
+            >
+              <a
+                href="https://github.com/scrapup/scrapup"
+                target="_blank"
+                rel="noopener"
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 9px;
+                  text-decoration: none;
+                  background: var(--neon);
+                  color: #0a0d15;
+                  font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                  font-size: 13px;
+                  font-weight: 600;
+                  letter-spacing: 0.06em;
+                  padding: 14px 22px;
+                  box-shadow: 0 0 26px color-mix(in srgb, var(--neon) 42%, transparent);
+                "
+                style-hover="filter:brightness(1.12);"
+              >
+                <span>★</span>
+                <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                  ><span>STAR ON GITHUB</span></sc-if
+                ><sc-if value="{{ isPt }}"><span>STAR NO GITHUB</span></sc-if
+                ><sc-if value="{{ isJa }}"><span>GITHUB でスター</span></sc-if>
+              </a>
+              <a
+                href="https://github.com/scrapup/scrapup"
+                target="_blank"
+                rel="noopener"
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 9px;
+                  text-decoration: none;
+                  color: var(--cy);
+                  font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                  font-size: 13px;
+                  font-weight: 600;
+                  letter-spacing: 0.06em;
+                  padding: 14px 22px;
+                  border: 1px solid rgba(53, 230, 224, 0.4);
+                "
+                style-hover="background:rgba(53,230,224,.08);"
+              >
+                <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                  ><span>READ THE DOCS ↗</span></sc-if
+                ><sc-if value="{{ isPt }}"><span>LER A DOCUMENTAÇÃO ↗</span></sc-if
+                ><sc-if value="{{ isJa }}"><span>ドキュメントを読む ↗</span></sc-if>
+              </a>
+            </div>
+          </div>
+
+          <!-- 01 · THE PROBLEM -->
+          <div style="margin-top: 108px">
+            <div
+              style="
+                font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                font-size: 11px;
+                letter-spacing: 0.2em;
+                color: var(--cy);
+                margin-bottom: 16px;
+              "
+            >
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span>// 01 — THE PROBLEM</span></sc-if
+              ><sc-if value="{{ isPt }}"><span>// 01 — O PROBLEMA</span></sc-if
+              ><sc-if value="{{ isJa }}"><span>// 01 — 課題</span></sc-if>
+            </div>
+            <h2
+              style="
+                margin: 0 0 14px;
+                max-width: 20ch;
+                font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                font-weight: 600;
+                font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+                line-height: 1.08;
+                letter-spacing: -0.02em;
+                color: #f2f3f8;
+              "
+            >
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span>AI is fast. Left unsupervised, it's fragile.</span></sc-if
+              ><sc-if value="{{ isPt }}"
+                ><span>A IA é rápida. Sem supervisão, é frágil.</span></sc-if
+              ><sc-if value="{{ isJa }}"><span>AIは速い。監督がなければ脆い。</span></sc-if>
+            </h2>
+            <p
+              style="
+                margin: 0;
+                max-width: 640px;
+                font-size: 1.05rem;
+                line-height: 1.6;
+                color: #aeb4c2;
+              "
+            >
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span
+                  >Iterating with AI and no human in the loop degrades security and reliability —
+                  and spec scaffolding alone does not guarantee the agent follows it.</span
+                ></sc-if
+              ><sc-if value="{{ isPt }}"
+                ><span
+                  >Iterar com IA sem um humano no loop degrada segurança e confiabilidade — e o
+                  scaffolding de spec sozinho não garante que o agent o siga.</span
+                ></sc-if
+              ><sc-if value="{{ isJa }}"
+                ><span
+                  >人間不在でAIを反復すると、セキュリティと信頼性が劣化する — spec
+                  のスキャフォールディングだけでは agent がそれに従う保証はない。</span
+                ></sc-if
+              >
+            </p>
+
+            <div
+              style="
+                margin-top: 34px;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(248px, 1fr));
+                gap: 18px;
+              "
+            >
+              <div
+                style="
+                  background: linear-gradient(
+                    180deg,
+                    rgba(20, 26, 40, 0.55),
+                    rgba(14, 18, 28, 0.55)
+                  );
+                  border: 1px solid rgba(120, 190, 210, 0.16);
+                  padding: 24px;
+                "
+              >
+                <div
+                  style="
+                    font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                    font-weight: 700;
+                    font-size: 2.7rem;
+                    line-height: 1;
+                    color: var(--neon);
+                    text-shadow: 0 0 24px color-mix(in srgb, var(--neon) 45%, transparent);
+                  "
+                >
+                  +37.6%
+                </div>
+                <div style="font-size: 13.5px; line-height: 1.5; color: #aeb4c2; margin-top: 12px">
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span
+                      >critical vulnerabilities after five AI refinement iterations — "feedback-loop
+                      security degradation."</span
+                    ></sc-if
+                  ><sc-if value="{{ isPt }}"
+                    ><span
+                      >vulnerabilidades críticas após cinco iterações de refino por IA — "degradação
+                      de segurança em feedback loop".</span
+                    ></sc-if
+                  ><sc-if value="{{ isJa }}"
+                    ><span
+                      >AIによる5回の改善反復後の重大な脆弱性 —
+                      「フィードバックループのセキュリティ劣化」。</span
+                    ></sc-if
+                  >
+                </div>
+                <div
+                  style="
+                    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                    font-size: 11px;
+                    letter-spacing: 0.04em;
+                    color: rgba(190, 200, 220, 0.4);
+                    margin-top: 14px;
+                  "
+                >
+                  arXiv 2506.11022
+                </div>
+              </div>
+              <div
+                style="
+                  background: linear-gradient(
+                    180deg,
+                    rgba(20, 26, 40, 0.55),
+                    rgba(14, 18, 28, 0.55)
+                  );
+                  border: 1px solid rgba(120, 190, 210, 0.16);
+                  padding: 24px;
+                "
+              >
+                <div
+                  style="
+                    font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                    font-weight: 700;
+                    font-size: 2.7rem;
+                    line-height: 1;
+                    color: var(--cy);
+                    text-shadow: 0 0 24px rgba(53, 230, 224, 0.4);
+                  "
+                >
+                  500k+
+                </div>
+                <div style="font-size: 13.5px; line-height: 1.5; color: #aeb4c2; margin-top: 12px">
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span
+                      >samples analyzed — AI-generated code carries more high-risk vulnerabilities
+                      than human-written code.</span
+                    ></sc-if
+                  ><sc-if value="{{ isPt }}"
+                    ><span
+                      >amostras analisadas — código gerado por IA carrega mais vulnerabilidades de
+                      alto risco que código humano.</span
+                    ></sc-if
+                  ><sc-if value="{{ isJa }}"
+                    ><span
+                      >分析されたサンプル —
+                      AI生成コードは人間が書いたコードより高リスクの脆弱性を多く含む。</span
+                    ></sc-if
+                  >
+                </div>
+                <div
+                  style="
+                    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                    font-size: 11px;
+                    letter-spacing: 0.04em;
+                    color: rgba(190, 200, 220, 0.4);
+                    margin-top: 14px;
+                  "
+                >
+                  arXiv 2508.21634
+                </div>
+              </div>
+              <div
+                style="
+                  background: linear-gradient(
+                    180deg,
+                    rgba(20, 26, 40, 0.55),
+                    rgba(14, 18, 28, 0.55)
+                  );
+                  border: 1px solid rgba(120, 190, 210, 0.16);
+                  padding: 24px;
+                "
+              >
+                <div
+                  style="
+                    font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                    font-weight: 600;
+                    font-size: 1.15rem;
+                    line-height: 1.2;
+                    color: #eceef4;
+                  "
+                >
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span>Scaffolding alone isn't enough.</span></sc-if
+                  ><sc-if value="{{ isPt }}"><span>Scaffolding sozinho não basta.</span></sc-if
+                  ><sc-if value="{{ isJa }}"
+                    ><span>スキャフォールディングだけでは不十分。</span></sc-if
+                  >
+                </div>
+                <div style="font-size: 13.5px; line-height: 1.5; color: #aeb4c2; margin-top: 12px">
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span
+                      >Even with templates and checklists, agents skip instructions. Independent
+                      verification is required.</span
+                    ></sc-if
+                  ><sc-if value="{{ isPt }}"
+                    ><span
+                      >Mesmo com templates e checklists, agents pulam instruções. Verificação
+                      independente é obrigatória.</span
+                    ></sc-if
+                  ><sc-if value="{{ isJa }}"
+                    ><span
+                      >テンプレートやチェックリストがあっても agent
+                      は指示を飛ばす。独立した検証が必須。</span
+                    ></sc-if
+                  >
+                </div>
+                <div
+                  style="
+                    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                    font-size: 11px;
+                    letter-spacing: 0.04em;
+                    color: rgba(190, 200, 220, 0.4);
+                    margin-top: 14px;
+                  "
+                >
+                  martinfowler.com · ACM TechBrief 2026
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 02 · THE ANSWER -->
+          <div style="margin-top: 108px">
+            <div
+              style="
+                font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                font-size: 11px;
+                letter-spacing: 0.2em;
+                color: var(--cy);
+                margin-bottom: 16px;
+              "
+            >
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span>// 02 — THE ANSWER</span></sc-if
+              ><sc-if value="{{ isPt }}"><span>// 02 — A RESPOSTA</span></sc-if
+              ><sc-if value="{{ isJa }}"><span>// 02 — 解決策</span></sc-if>
+            </div>
+            <h2
+              style="
+                margin: 0 0 14px;
+                max-width: 18ch;
+                font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                font-weight: 600;
+                font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+                line-height: 1.08;
+                letter-spacing: -0.02em;
+                color: #f2f3f8;
+              "
+            >
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span>Agents execute. Humans seal the gates.</span></sc-if
+              ><sc-if value="{{ isPt }}"
+                ><span>Agents executam. Humanos selam os gates.</span></sc-if
+              ><sc-if value="{{ isJa }}"
+                ><span>Agent が実行し、人間が gate を封印する。</span></sc-if
+              >
+            </h2>
+            <p
+              style="
+                margin: 0;
+                max-width: 640px;
+                font-size: 1.05rem;
+                line-height: 1.6;
+                color: #aeb4c2;
+              "
+            >
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span
+                  >scrapup turns AI from a fast-and-fragile code generator into a governed
+                  engineering process — a traceable, auditable contract from intent to
+                  production.</span
+                ></sc-if
+              ><sc-if value="{{ isPt }}"
+                ><span
+                  >O scrapup transforma a IA de gerador de código rápido-e-frágil em um processo de
+                  engenharia governado — um contrato rastreável e auditável da intenção à
+                  produção.</span
+                ></sc-if
+              ><sc-if value="{{ isJa }}"
+                ><span
+                  >scrapup
+                  は、速くて脆いコード生成器だったAIを、統制されたエンジニアリング・プロセスへ変える
+                  — 意図から本番まで、追跡可能で監査可能な契約。</span
+                ></sc-if
+              >
+            </p>
+
+            <div
+              style="
+                margin-top: 34px;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 0;
+                border-top: 1px solid rgba(120, 190, 210, 0.16);
+              "
+            >
+              <div
+                style="padding: 22px 22px 22px 0; border-right: 1px solid rgba(120, 190, 210, 0.1)"
+              >
+                <div
+                  style="
+                    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                    font-size: 12px;
+                    color: var(--neon);
+                    text-shadow: 0 0 10px color-mix(in srgb, var(--neon) 50%, transparent);
+                  "
+                >
+                  01
+                </div>
+                <div
+                  style="
+                    font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                    font-weight: 600;
+                    font-size: 17px;
+                    color: #eceef4;
+                    margin-top: 8px;
+                  "
+                >
+                  document
+                </div>
+                <div style="font-size: 13px; line-height: 1.5; color: #8a90a0; margin-top: 5px">
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span
+                      >Every feature derives from a versioned spec, not a loose prompt.</span
+                    ></sc-if
+                  ><sc-if value="{{ isPt }}"
+                    ><span
+                      >Cada feature deriva de um spec versionado, não de um prompt solto.</span
+                    ></sc-if
+                  ><sc-if value="{{ isJa }}"
+                    ><span
+                      >各 feature はバージョン管理された spec から導かれる。場当たり的な prompt
+                      ではない。</span
+                    ></sc-if
+                  >
+                </div>
+              </div>
+              <div style="padding: 22px; border-right: 1px solid rgba(120, 190, 210, 0.1)">
+                <div
+                  style="
+                    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                    font-size: 12px;
+                    color: var(--neon);
+                    text-shadow: 0 0 10px color-mix(in srgb, var(--neon) 50%, transparent);
+                  "
+                >
+                  02
+                </div>
+                <div
+                  style="
+                    font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                    font-weight: 600;
+                    font-size: 17px;
+                    color: #eceef4;
+                    margin-top: 8px;
+                  "
+                >
+                  validate
+                </div>
+                <div style="font-size: 13px; line-height: 1.5; color: #8a90a0; margin-top: 5px">
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span
+                      >Multi-lens review — quality, security, architecture — before
+                      concluding.</span
+                    ></sc-if
+                  ><sc-if value="{{ isPt }}"
+                    ><span
+                      >Revisão multi-lente — qualidade, segurança, arquitetura — antes de
+                      concluir.</span
+                    ></sc-if
+                  ><sc-if value="{{ isJa }}"
+                    ><span
+                      >マルチレンズのレビュー — 品質・セキュリティ・アーキテクチャ —
+                      結論の前に。</span
+                    ></sc-if
+                  >
+                </div>
+              </div>
+              <div style="padding: 22px">
+                <div
+                  style="
+                    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                    font-size: 12px;
+                    color: var(--neon);
+                    text-shadow: 0 0 10px color-mix(in srgb, var(--neon) 50%, transparent);
+                  "
+                >
+                  03
+                </div>
+                <div
+                  style="
+                    font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                    font-weight: 600;
+                    font-size: 17px;
+                    color: #eceef4;
+                    margin-top: 8px;
+                  "
+                >
+                  deliver
+                </div>
+                <div style="font-size: 13px; line-height: 1.5; color: #8a90a0; margin-top: 5px">
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span
+                      >Nothing is done without observable, evidence-backed verification.</span
+                    ></sc-if
+                  ><sc-if value="{{ isPt }}"
+                    ><span
+                      >Nada é done sem verificação observável e baseada em evidência.</span
+                    ></sc-if
+                  ><sc-if value="{{ isJa }}"
+                    ><span>観測可能で証拠に基づく検証なしに done はない。</span></sc-if
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 03 · HOW IT WORKS -->
+          <div style="margin-top: 108px">
+            <div
+              style="
+                font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                font-size: 11px;
+                letter-spacing: 0.2em;
+                color: var(--cy);
+                margin-bottom: 16px;
+              "
+            >
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span>// 03 — HOW IT WORKS</span></sc-if
+              ><sc-if value="{{ isPt }}"><span>// 03 — COMO FUNCIONA</span></sc-if
+              ><sc-if value="{{ isJa }}"><span>// 03 — 仕組み</span></sc-if>
+            </div>
+            <h2
+              style="
+                margin: 0 0 16px;
+                font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                font-weight: 700;
+                font-size: clamp(2.4rem, 5vw, 4rem);
+                line-height: 1;
+                letter-spacing: -0.03em;
+                color: #f2f3f8;
+                text-shadow: 0 0 34px rgba(53, 230, 224, 0.14);
+              "
+            >
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span>The four-phase spine.</span></sc-if
+              ><sc-if value="{{ isPt }}"><span>A espinha de quatro fases.</span></sc-if
+              ><sc-if value="{{ isJa }}"><span>4フェーズの背骨。</span></sc-if>
+            </h2>
+            <div
+              style="
+                width: 68px;
+                height: 3px;
+                background: var(--neon);
+                box-shadow: 0 0 16px color-mix(in srgb, var(--neon) 75%, transparent);
+                margin-bottom: 18px;
+              "
+            ></div>
+            <p
+              style="
+                margin: 0;
+                max-width: 640px;
+                font-size: 1.1rem;
+                line-height: 1.6;
+                color: #c7ccd8;
+              "
+            >
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span
+                  >Each phase closes at a milestone a human Validator seals. Construction shrinks;
+                  judgment migrates to Inception and Elaboration.</span
+                ></sc-if
+              ><sc-if value="{{ isPt }}"
+                ><span
+                  >Cada fase fecha em um milestone que um Validador humano sela. A Construção
+                  encolhe; o julgamento migra para Concepção e Elaboração.</span
+                ></sc-if
+              ><sc-if value="{{ isJa }}"
+                ><span
+                  >各フェーズは、人間の Validator が封印する milestone で閉じる。Construction
+                  は縮小し、判断が Inception と Elaboration へ移る。</span
+                ></sc-if
+              >
+            </p>
+          </div>
+
+          <!-- MILESTONE AXIS -->
+          <div
+            style="
+              margin-top: 32px;
+              background: linear-gradient(180deg, rgba(20, 26, 40, 0.82), rgba(14, 18, 28, 0.82));
+              border: 1px solid color-mix(in srgb, var(--neon) 24%, transparent);
+              padding: 42px 42px 36px;
+              box-shadow:
+                inset 0 0 70px rgba(0, 0, 0, 0.42),
+                0 0 60px color-mix(in srgb, var(--neon) 13%, transparent);
+            "
+          >
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 30px;
+              "
+            >
+              <div
+                style="
+                  font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                  font-size: 11px;
+                  letter-spacing: 0.18em;
+                  color: #8a90a0;
+                "
+              >
+                <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                  ><span>LIFECYCLE — MILESTONE GATES</span></sc-if
+                >
+                <sc-if value="{{ isPt }}"><span>CICLO DE VIDA — GATES DE MILESTONE</span></sc-if
+                ><sc-if value="{{ isJa }}"
+                  ><span>ライフサイクル — マイルストーン・ゲート</span></sc-if
+                >
+              </div>
+              <div
+                style="
+                  font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                  font-size: 11px;
+                  letter-spacing: 0.12em;
+                  color: rgba(190, 200, 220, 0.4);
+                "
+              >
+                UP AI-ASSISTED
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: stretch; gap: 0; flex-wrap: wrap">
+              <!-- LCO -->
+              <div
+                style="
+                  flex: 1 1 180px;
+                  min-width: 150px;
+                  padding-right: 18px;
+                  border-top: 2px solid rgba(120, 190, 210, 0.3);
+                  padding-top: 14px;
+                "
+              >
+                <div
+                  style="
+                    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                    font-weight: 700;
+                    font-size: 20px;
+                    letter-spacing: 0.03em;
+                    color: #eceef4;
+                  "
+                >
+                  LCO
+                </div>
+                <div
+                  style="
+                    font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                    font-weight: 600;
+                    font-size: 16px;
+                    color: #eceef4;
+                    margin-top: 7px;
+                  "
+                >
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span>Inception</span></sc-if
+                  ><sc-if value="{{ isPt }}"><span>Concepção</span></sc-if
+                  ><sc-if value="{{ isJa }}"><span>方向付け</span></sc-if>
+                </div>
+                <div style="font-size: 12.5px; line-height: 1.45; color: #8a90a0; margin-top: 8px">
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span>Scope, actors, candidate architecture, critical risks.</span></sc-if
+                  ><sc-if value="{{ isPt }}"
+                    ><span>Escopo, atores, arquitetura candidata, riscos críticos.</span></sc-if
+                  ><sc-if value="{{ isJa }}"
+                    ><span>スコープ、アクター、候補アーキテクチャ、重大リスク。</span></sc-if
+                  >
+                </div>
+              </div>
+              <!-- LCA -->
+              <div
+                style="
+                  flex: 1 1 180px;
+                  min-width: 150px;
+                  padding: 14px 18px 0;
+                  border-top: 2px solid rgba(120, 190, 210, 0.3);
+                "
+              >
+                <div
+                  style="
+                    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                    font-weight: 700;
+                    font-size: 20px;
+                    letter-spacing: 0.03em;
+                    color: #eceef4;
+                  "
+                >
+                  LCA
+                </div>
+                <div
+                  style="
+                    font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                    font-weight: 600;
+                    font-size: 16px;
+                    color: #eceef4;
+                    margin-top: 7px;
+                  "
+                >
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span>Elaboration</span></sc-if
+                  ><sc-if value="{{ isPt }}"><span>Elaboração</span></sc-if
+                  ><sc-if value="{{ isJa }}"><span>推敲</span></sc-if>
+                </div>
+                <div style="font-size: 12.5px; line-height: 1.45; color: #8a90a0; margin-top: 8px">
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span>Executable architectural baseline; risks mitigated.</span></sc-if
+                  ><sc-if value="{{ isPt }}"
+                    ><span>Baseline arquitetural executável; riscos mitigados.</span></sc-if
+                  ><sc-if value="{{ isJa }}"
+                    ><span>実行可能なアーキテクチャ baseline。リスクは低減済み。</span></sc-if
+                  >
+                </div>
+              </div>
+              <!-- IOC (current) -->
+              <div
+                style="
+                  flex: 1 1 180px;
+                  min-width: 150px;
+                  padding: 14px 18px 0;
+                  border-top: 2px solid var(--neon);
+                  position: relative;
+                  box-shadow: 0 -1px 18px color-mix(in srgb, var(--neon) 30%, transparent);
+                "
+              >
+                <div
+                  style="display: inline-flex; align-items: center; gap: 7px; margin-bottom: 2px"
+                >
+                  <span
+                    style="
+                      width: 7px;
+                      height: 7px;
+                      border-radius: 50%;
+                      background: var(--neon);
+                      box-shadow:
+                        0 0 10px color-mix(in srgb, var(--neon) 90%, transparent),
+                        0 0 0 4px color-mix(in srgb, var(--neon) 18%, transparent);
+                    "
+                  ></span>
+                  <span
+                    style="
+                      font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                      font-size: 10px;
+                      letter-spacing: 0.16em;
+                      color: var(--neon);
+                    "
+                    >NOW · BETA</span
+                  >
+                </div>
+                <div
+                  style="
+                    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                    font-weight: 700;
+                    font-size: 20px;
+                    letter-spacing: 0.03em;
+                    color: var(--neon);
+                    text-shadow: 0 0 18px color-mix(in srgb, var(--neon) 60%, transparent);
+                  "
+                >
+                  IOC
+                </div>
+                <div
+                  style="
+                    font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                    font-weight: 600;
+                    font-size: 16px;
+                    color: #eceef4;
+                    margin-top: 7px;
+                  "
+                >
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span>Construction</span></sc-if
+                  ><sc-if value="{{ isPt }}"><span>Construção</span></sc-if
+                  ><sc-if value="{{ isJa }}"><span>作成</span></sc-if>
+                </div>
+                <div style="font-size: 12.5px; line-height: 1.45; color: #c7ccd8; margin-top: 8px">
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span>First public release — ready for beta in your environment.</span></sc-if
+                  ><sc-if value="{{ isPt }}"
+                    ><span
+                      >Primeiro release público — pronto para beta no seu ambiente.</span
+                    ></sc-if
+                  ><sc-if value="{{ isJa }}"
+                    ><span>最初の公開リリース — あなたの環境でベータ可能。</span></sc-if
+                  >
+                </div>
+              </div>
+              <!-- Release -->
+              <div
+                style="
+                  flex: 1 1 180px;
+                  min-width: 150px;
+                  padding: 14px 0 0 18px;
+                  border-top: 2px solid rgba(120, 190, 210, 0.3);
+                "
+              >
+                <div
+                  style="
+                    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                    font-weight: 700;
+                    font-size: 20px;
+                    letter-spacing: 0.03em;
+                    color: #eceef4;
+                  "
+                >
+                  RELEASE
+                </div>
+                <div
+                  style="
+                    font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                    font-weight: 600;
+                    font-size: 16px;
+                    color: #eceef4;
+                    margin-top: 7px;
+                  "
+                >
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span>Transition</span></sc-if
+                  ><sc-if value="{{ isPt }}"><span>Transição</span></sc-if
+                  ><sc-if value="{{ isJa }}"><span>移行</span></sc-if>
+                </div>
+                <div style="font-size: 12.5px; line-height: 1.45; color: #8a90a0; margin-top: 8px">
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span>Running in production; verified by telemetry.</span></sc-if
+                  ><sc-if value="{{ isPt }}"
+                    ><span>Em produção; verificado por telemetria.</span></sc-if
+                  ><sc-if value="{{ isJa }}"><span>本番で稼働。テレメトリで検証。</span></sc-if>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 03b · TWO ROLES -->
+          <div
+            style="
+              margin-top: 30px;
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+              gap: 18px;
+            "
+          >
+            <div
+              style="
+                background: linear-gradient(180deg, rgba(20, 26, 40, 0.55), rgba(14, 18, 28, 0.55));
+                border: 1px solid rgba(120, 190, 210, 0.16);
+                border-left: 2px solid var(--neon);
+                padding: 24px;
+              "
+            >
+              <div
+                style="
+                  font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                  font-size: 11px;
+                  letter-spacing: 0.16em;
+                  color: var(--neon);
+                "
+              >
+                RETAINED HUMAN ROLE · 01
+              </div>
+              <div
+                style="
+                  font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                  font-weight: 600;
+                  font-size: 1.35rem;
+                  color: #eceef4;
+                  margin-top: 8px;
+                "
+              >
+                <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                  ><span>The Architect</span></sc-if
+                ><sc-if value="{{ isPt }}"><span>O Arquiteto</span></sc-if
+                ><sc-if value="{{ isJa }}"><span>アーキテクト</span></sc-if>
+              </div>
+              <div style="font-size: 13.5px; line-height: 1.55; color: #aeb4c2; margin-top: 8px">
+                <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                  ><span
+                    >Owns architecture-centric decisions: defines and validates the architecture,
+                    approves the executable baseline, fixes constraints.</span
+                  ></sc-if
+                ><sc-if value="{{ isPt }}"
+                  ><span
+                    >Dono das decisões architecture-centric: define e valida a arquitetura, aprova o
+                    baseline executável, fixa as restrições.</span
+                  ></sc-if
+                ><sc-if value="{{ isJa }}"
+                  ><span
+                    >アーキテクチャ中心の意思決定を担う。アーキテクチャを定義・検証し、実行可能な
+                    baseline を承認し、制約を固定する。</span
+                  ></sc-if
+                >
+              </div>
+            </div>
+            <div
+              style="
+                background: linear-gradient(180deg, rgba(20, 26, 40, 0.55), rgba(14, 18, 28, 0.55));
+                border: 1px solid rgba(120, 190, 210, 0.16);
+                border-left: 2px solid var(--cy);
+                padding: 24px;
+              "
+            >
+              <div
+                style="
+                  font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                  font-size: 11px;
+                  letter-spacing: 0.16em;
+                  color: var(--cy);
+                "
+              >
+                RETAINED HUMAN ROLE · 02
+              </div>
+              <div
+                style="
+                  font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                  font-weight: 600;
+                  font-size: 1.35rem;
+                  color: #eceef4;
+                  margin-top: 8px;
+                "
+              >
+                <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                  ><span>The Validator</span></sc-if
+                ><sc-if value="{{ isPt }}"><span>O Validador</span></sc-if
+                ><sc-if value="{{ isJa }}"><span>バリデーター</span></sc-if>
+              </div>
+              <div style="font-size: 13.5px; line-height: 1.55; color: #aeb4c2; margin-top: 8px">
+                <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                  ><span
+                    >Owns quality and verification: adjudicates the review lenses, decides risk
+                    ordering, seals each milestone.</span
+                  ></sc-if
+                ><sc-if value="{{ isPt }}"
+                  ><span
+                    >Dono da qualidade e verificação: adjudica as lentes de revisão, decide a ordem
+                    de risco, sela cada milestone.</span
+                  ></sc-if
+                ><sc-if value="{{ isJa }}"
+                  ><span
+                    >品質と検証を担う。レビューのレンズを裁定し、リスクの順序を決め、各 milestone
+                    を封印する。</span
+                  ></sc-if
+                >
+              </div>
+            </div>
+          </div>
+          <div
+            style="
+              margin-top: 18px;
+              font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+              font-size: 13px;
+              color: #c7ccd8;
+            "
+          >
+            <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+              ><span
+                >The AI proposes and verifies.
+                <span style="color: var(--neon)">The human decides and seals.</span></span
+              ></sc-if
+            ><sc-if value="{{ isPt }}"
+              ><span
+                >A IA propõe e verifica.
+                <span style="color: var(--neon)">O humano decide e sela.</span></span
+              ></sc-if
+            ><sc-if value="{{ isJa }}"
+              ><span
+                >AI が提案し検証する。<span style="color: var(--neon)"
+                  >人間が決定し封印する。</span
+                ></span
+              ></sc-if
+            >
+          </div>
+
+          <!-- 04 · FOUR PILLARS -->
+          <div style="margin-top: 108px">
+            <div
+              style="
+                font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                font-size: 11px;
+                letter-spacing: 0.2em;
+                color: var(--cy);
+                margin-bottom: 16px;
+              "
+            >
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span>// 04 — FOUR PILLARS</span></sc-if
+              ><sc-if value="{{ isPt }}"><span>// 04 — QUATRO PILARES</span></sc-if
+              ><sc-if value="{{ isJa }}"><span>// 04 — 4本の柱</span></sc-if>
+            </div>
+            <h2
+              style="
+                margin: 0 0 30px;
+                font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                font-weight: 600;
+                font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+                line-height: 1.08;
+                letter-spacing: -0.02em;
+                color: #f2f3f8;
+              "
+            >
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span>What scrapup gives you.</span></sc-if
+              ><sc-if value="{{ isPt }}"><span>O que o scrapup entrega.</span></sc-if
+              ><sc-if value="{{ isJa }}"><span>scrapup が提供するもの。</span></sc-if>
+            </h2>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(248px, 1fr));
+                gap: 18px;
+              "
+            >
+              <div
+                style="
+                  background: linear-gradient(
+                    180deg,
+                    rgba(20, 26, 40, 0.55),
+                    rgba(14, 18, 28, 0.55)
+                  );
+                  border: 1px solid rgba(120, 190, 210, 0.16);
+                  padding: 24px;
+                "
+              >
+                <div
+                  style="
+                    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                    font-size: 12px;
+                    color: var(--neon);
+                    text-shadow: 0 0 10px color-mix(in srgb, var(--neon) 50%, transparent);
+                  "
+                >
+                  P1
+                </div>
+                <div
+                  style="
+                    font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                    font-weight: 600;
+                    font-size: 1.05rem;
+                    line-height: 1.25;
+                    color: #eceef4;
+                    margin-top: 10px;
+                  "
+                >
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span>Traceable &amp; auditable, end-to-end</span></sc-if
+                  ><sc-if value="{{ isPt }}"
+                    ><span>Rastreável e auditável, ponta a ponta</span></sc-if
+                  ><sc-if value="{{ isJa }}"
+                    ><span>追跡可能・監査可能、エンドツーエンド</span></sc-if
+                  >
+                </div>
+                <div style="font-size: 13px; line-height: 1.5; color: #8a90a0; margin-top: 9px">
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span
+                      >Intent → spec → code → test → commit → release. Features derive from
+                      versioned specs (SDD).</span
+                    ></sc-if
+                  ><sc-if value="{{ isPt }}"
+                    ><span
+                      >Intenção → spec → código → test → commit → release. Features derivam de specs
+                      versionados (SDD).</span
+                    ></sc-if
+                  ><sc-if value="{{ isJa }}"
+                    ><span
+                      >意図 → spec → コード → test → commit → release。Feature
+                      はバージョン管理された spec（SDD）から導かれる。</span
+                    ></sc-if
+                  >
+                </div>
+              </div>
+              <div
+                style="
+                  background: linear-gradient(
+                    180deg,
+                    rgba(20, 26, 40, 0.55),
+                    rgba(14, 18, 28, 0.55)
+                  );
+                  border: 1px solid rgba(120, 190, 210, 0.16);
+                  padding: 24px;
+                "
+              >
+                <div
+                  style="
+                    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                    font-size: 12px;
+                    color: var(--neon);
+                    text-shadow: 0 0 10px color-mix(in srgb, var(--neon) 50%, transparent);
+                  "
+                >
+                  P2
+                </div>
+                <div
+                  style="
+                    font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                    font-weight: 600;
+                    font-size: 1.05rem;
+                    line-height: 1.25;
+                    color: #eceef4;
+                    margin-top: 10px;
+                  "
+                >
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span>Human-sealed milestone gates</span></sc-if
+                  ><sc-if value="{{ isPt }}"
+                    ><span>Gates de milestone selados por humano</span></sc-if
+                  ><sc-if value="{{ isJa }}"><span>人間が封印する milestone gate</span></sc-if>
+                </div>
+                <div style="font-size: 13px; line-height: 1.5; color: #8a90a0; margin-top: 9px">
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span
+                      >Risk-driven LCO → LCA → IOC → Release. Nothing advances without
+                      sign-off.</span
+                    ></sc-if
+                  ><sc-if value="{{ isPt }}"
+                    ><span
+                      >LCO → LCA → IOC → Release orientados a risco. Nada avança sem
+                      aprovação.</span
+                    ></sc-if
+                  ><sc-if value="{{ isJa }}"
+                    ><span
+                      >リスク駆動の LCO → LCA → IOC → Release。承認なしに前進しない。</span
+                    ></sc-if
+                  >
+                </div>
+              </div>
+              <div
+                style="
+                  background: linear-gradient(
+                    180deg,
+                    rgba(20, 26, 40, 0.55),
+                    rgba(14, 18, 28, 0.55)
+                  );
+                  border: 1px solid rgba(120, 190, 210, 0.16);
+                  padding: 24px;
+                "
+              >
+                <div
+                  style="
+                    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                    font-size: 12px;
+                    color: var(--neon);
+                    text-shadow: 0 0 10px color-mix(in srgb, var(--neon) 50%, transparent);
+                  "
+                >
+                  P3
+                </div>
+                <div
+                  style="
+                    font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                    font-weight: 600;
+                    font-size: 1.05rem;
+                    line-height: 1.25;
+                    color: #eceef4;
+                    margin-top: 10px;
+                  "
+                >
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span>Multi-lens validation</span></sc-if
+                  ><sc-if value="{{ isPt }}"><span>Validação multi-lente</span></sc-if
+                  ><sc-if value="{{ isJa }}"><span>マルチレンズ検証</span></sc-if>
+                </div>
+                <div style="font-size: 13px; line-height: 1.5; color: #8a90a0; margin-top: 9px">
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span
+                      >Independent review from multiple perspectives before anything is "done."
+                      Evidence required.</span
+                    ></sc-if
+                  ><sc-if value="{{ isPt }}"
+                    ><span
+                      >Revisão independente de múltiplas perspectivas antes de qualquer "done".
+                      Evidência obrigatória.</span
+                    ></sc-if
+                  ><sc-if value="{{ isJa }}"
+                    ><span
+                      >あらゆる「done」の前に、複数視点からの独立レビュー。証拠が必須。</span
+                    ></sc-if
+                  >
+                </div>
+              </div>
+              <div
+                style="
+                  background: linear-gradient(
+                    180deg,
+                    rgba(20, 26, 40, 0.55),
+                    rgba(14, 18, 28, 0.55)
+                  );
+                  border: 1px solid rgba(120, 190, 210, 0.16);
+                  padding: 24px;
+                "
+              >
+                <div
+                  style="
+                    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                    font-size: 12px;
+                    color: var(--neon);
+                    text-shadow: 0 0 10px color-mix(in srgb, var(--neon) 50%, transparent);
+                  "
+                >
+                  P4
+                </div>
+                <div
+                  style="
+                    font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                    font-weight: 600;
+                    font-size: 1.05rem;
+                    line-height: 1.25;
+                    color: #eceef4;
+                    margin-top: 10px;
+                  "
+                >
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span>Open &amp; extensible by default</span></sc-if
+                  ><sc-if value="{{ isPt }}"><span>Aberto e extensível por padrão</span></sc-if
+                  ><sc-if value="{{ isJa }}"><span>デフォルトで開かれ、拡張可能</span></sc-if>
+                </div>
+                <div style="font-size: 13px; line-height: 1.5; color: #8a90a0; margin-top: 9px">
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span>Git, MCP, PlantUML, markdown — no proprietary lock-in.</span></sc-if
+                  ><sc-if value="{{ isPt }}"
+                    ><span>Git, MCP, PlantUML, markdown — sem lock-in proprietário.</span></sc-if
+                  ><sc-if value="{{ isJa }}"
+                    ><span
+                      >Git、MCP、PlantUML、markdown — プロプライエタリなロックインなし。</span
+                    ></sc-if
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 05 · WHY DIFFERENT -->
+          <div style="margin-top: 108px">
+            <div
+              style="
+                font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                font-size: 11px;
+                letter-spacing: 0.2em;
+                color: var(--cy);
+                margin-bottom: 16px;
+              "
+            >
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span>// 05 — WHY IT'S DIFFERENT</span></sc-if
+              ><sc-if value="{{ isPt }}"><span>// 05 — POR QUE É DIFERENTE</span></sc-if
+              ><sc-if value="{{ isJa }}"><span>// 05 — 何が違うか</span></sc-if>
+            </div>
+            <h2
+              style="
+                margin: 0 0 14px;
+                font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                font-weight: 600;
+                font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+                line-height: 1.08;
+                letter-spacing: -0.02em;
+                color: #f2f3f8;
+              "
+            >
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span>Spec-as-contract is the floor.</span></sc-if
+              ><sc-if value="{{ isPt }}"><span>Spec-as-contract é o piso.</span></sc-if
+              ><sc-if value="{{ isJa }}"><span>Spec-as-contract は最低ライン。</span></sc-if>
+            </h2>
+            <p
+              style="
+                margin: 0 0 26px;
+                max-width: 640px;
+                font-size: 1.05rem;
+                line-height: 1.6;
+                color: #aeb4c2;
+              "
+            >
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span
+                  >GitHub Spec Kit, Amazon Kiro, Superpowers, Tessl — all converge on
+                  spec-as-contract. The real question is no longer which model writes better code,
+                  but which process maintains context, traceability, and control.</span
+                ></sc-if
+              ><sc-if value="{{ isPt }}"
+                ><span
+                  >GitHub Spec Kit, Amazon Kiro, Superpowers, Tessl — todos convergem em
+                  spec-as-contract. A pergunta real não é mais qual modelo escreve melhor código,
+                  mas qual processo mantém contexto, rastreabilidade e controle.</span
+                ></sc-if
+              ><sc-if value="{{ isJa }}"
+                ><span
+                  >GitHub Spec Kit、Amazon Kiro、Superpowers、Tessl — すべて spec-as-contract
+                  に収束する。真の問いは、どのモデルが良いコードを書くかではなく、どのプロセスが文脈・追跡可能性・統制を保つか。</span
+                ></sc-if
+              >
+            </p>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 18px;
+              "
+            >
+              <div style="border: 1px dashed rgba(120, 190, 210, 0.3); padding: 24px">
+                <div
+                  style="
+                    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                    font-size: 11px;
+                    letter-spacing: 0.16em;
+                    color: #7e8597;
+                  "
+                >
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span>THE FLOOR — WHAT PEERS DO</span></sc-if
+                  ><sc-if value="{{ isPt }}"><span>O PISO — O QUE OS PARES FAZEM</span></sc-if
+                  ><sc-if value="{{ isJa }}"><span>最低ライン — 競合がやること</span></sc-if>
+                </div>
+                <div style="font-size: 14px; line-height: 1.5; color: #aeb4c2; margin-top: 10px">
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span
+                      >Spec-as-contract. Without a classical engineering foundation, frameworks just
+                      institutionalize vibe coding under new terminology.</span
+                    ></sc-if
+                  ><sc-if value="{{ isPt }}"
+                    ><span
+                      >Spec-as-contract. Sem fundação de engenharia clássica, frameworks só
+                      institucionalizam vibe coding com terminologia nova.</span
+                    ></sc-if
+                  ><sc-if value="{{ isJa }}"
+                    ><span
+                      >Spec-as-contract。古典的なエンジニアリングの土台がなければ、フレームワークは新しい用語で
+                      vibe coding を制度化するだけ。</span
+                    ></sc-if
+                  >
+                </div>
+              </div>
+              <div
+                style="
+                  border: 1px solid var(--neon);
+                  background: color-mix(in srgb, var(--neon) 7%, transparent);
+                  padding: 24px;
+                  box-shadow: 0 0 30px color-mix(in srgb, var(--neon) 15%, transparent);
+                "
+              >
+                <div
+                  style="
+                    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                    font-size: 11px;
+                    letter-spacing: 0.16em;
+                    color: var(--neon);
+                  "
+                >
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span>SCRAPUP'S EDGE</span></sc-if
+                  ><sc-if value="{{ isPt }}"><span>O DIFERENCIAL DO SCRAPUP</span></sc-if
+                  ><sc-if value="{{ isJa }}"><span>SCRAPUP の強み</span></sc-if>
+                </div>
+                <div style="font-size: 14px; line-height: 1.5; color: #eceef4; margin-top: 10px">
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span
+                      >The control the evidence demands — human-sealed, risk-driven milestone gates
+                      plus multi-lens validation, anchored in the Unified Process.</span
+                    ></sc-if
+                  ><sc-if value="{{ isPt }}"
+                    ><span
+                      >O controle que a evidência exige — gates de milestone selados por humano e
+                      orientados a risco, somados à validação multi-lente, ancorados no Processo
+                      Unificado.</span
+                    ></sc-if
+                  ><sc-if value="{{ isJa }}"
+                    ><span
+                      >証拠が要求する統制 — 人間が封印しリスク駆動の milestone gate
+                      に、マルチレンズ検証を重ね、Unified Process に根ざす。</span
+                    ></sc-if
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 06 · BUILT ON UP -->
+          <div style="margin-top: 108px">
+            <div
+              style="
+                font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                font-size: 11px;
+                letter-spacing: 0.2em;
+                color: var(--cy);
+                margin-bottom: 16px;
+              "
+            >
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span>// 06 — BUILT ON THE UNIFIED PROCESS</span></sc-if
+              ><sc-if value="{{ isPt }}"
+                ><span>// 06 — CONSTRUÍDO SOBRE O PROCESSO UNIFICADO</span></sc-if
+              ><sc-if value="{{ isJa }}"><span>// 06 — UNIFIED PROCESS の上に</span></sc-if>
+            </div>
+            <h2
+              style="
+                margin: 0 0 14px;
+                max-width: 20ch;
+                font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                font-weight: 600;
+                font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+                line-height: 1.08;
+                letter-spacing: -0.02em;
+                color: #f2f3f8;
+              "
+            >
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span>Classical engineering, applied to a new medium.</span></sc-if
+              ><sc-if value="{{ isPt }}"
+                ><span>Engenharia clássica, aplicada a um novo meio.</span></sc-if
+              ><sc-if value="{{ isJa }}"
+                ><span>古典的エンジニアリングを、新しい媒体へ。</span></sc-if
+              >
+            </h2>
+            <p
+              style="
+                margin: 0 0 24px;
+                max-width: 640px;
+                font-size: 1.05rem;
+                line-height: 1.6;
+                color: #aeb4c2;
+              "
+            >
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span
+                  >The Unified Process (Jacobson, Booch, Rumbaugh, 1999) supplies a foundation no
+                  competitor explicitly claims. Its pillars stay immutable — only who does the work
+                  changes.</span
+                ></sc-if
+              ><sc-if value="{{ isPt }}"
+                ><span
+                  >O Processo Unificado (Jacobson, Booch, Rumbaugh, 1999) fornece uma fundação que
+                  nenhum concorrente reivindica explicitamente. Seus pilares permanecem imutáveis —
+                  só muda quem faz o trabalho.</span
+                ></sc-if
+              ><sc-if value="{{ isJa }}"
+                ><span
+                  >Unified Process（Jacobson, Booch, Rumbaugh,
+                  1999）は、どの競合も明示的に主張しない土台を与える。その柱は不変のまま —
+                  変わるのは「誰が作業するか」だけ。</span
+                ></sc-if
+              >
+            </p>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px">
+              <span
+                style="
+                  font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                  font-size: 12px;
+                  color: #c7ccd8;
+                  background: rgba(53, 230, 224, 0.07);
+                  border: 1px solid rgba(53, 230, 224, 0.2);
+                  padding: 7px 13px;
+                "
+                >use-case driven</span
+              >
+              <span
+                style="
+                  font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                  font-size: 12px;
+                  color: #c7ccd8;
+                  background: rgba(53, 230, 224, 0.07);
+                  border: 1px solid rgba(53, 230, 224, 0.2);
+                  padding: 7px 13px;
+                "
+                >architecture-centric</span
+              >
+              <span
+                style="
+                  font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                  font-size: 12px;
+                  color: #c7ccd8;
+                  background: rgba(53, 230, 224, 0.07);
+                  border: 1px solid rgba(53, 230, 224, 0.2);
+                  padding: 7px 13px;
+                "
+                >iterative &amp; incremental</span
+              >
+              <span
+                style="
+                  font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                  font-size: 12px;
+                  color: #c7ccd8;
+                  background: rgba(53, 230, 224, 0.07);
+                  border: 1px solid rgba(53, 230, 224, 0.2);
+                  padding: 7px 13px;
+                "
+                >risk-driven</span
+              >
+            </div>
+            <div
+              style="
+                margin-top: 18px;
+                font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                font-size: 13px;
+                color: #8a90a0;
+              "
+            >
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span
+                  >Workers become dispatchable agents — canonical UP tailoring, not a rupture.</span
+                ></sc-if
+              ><sc-if value="{{ isPt }}"
+                ><span
+                  >Os workers viram agents despacháveis — tailoring canônico do UP, não uma
+                  ruptura.</span
+                ></sc-if
+              ><sc-if value="{{ isJa }}"
+                ><span
+                  >worker は派遣可能な agent になる — UP の正統な tailoring
+                  であり、断絶ではない。</span
+                ></sc-if
+              >
+            </div>
+          </div>
+
+          <!-- 07 · OPEN & EXTENSIBLE -->
+          <div style="margin-top: 108px">
+            <div
+              style="
+                font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                font-size: 11px;
+                letter-spacing: 0.2em;
+                color: var(--cy);
+                margin-bottom: 16px;
+              "
+            >
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span>// 07 — OPEN &amp; EXTENSIBLE</span></sc-if
+              ><sc-if value="{{ isPt }}"><span>// 07 — ABERTO E EXTENSÍVEL</span></sc-if
+              ><sc-if value="{{ isJa }}"><span>// 07 — 開かれ、拡張可能</span></sc-if>
+            </div>
+            <h2
+              style="
+                margin: 0 0 30px;
+                font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                font-weight: 600;
+                font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+                line-height: 1.08;
+                letter-spacing: -0.02em;
+                color: #f2f3f8;
+              "
+            >
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span>No lock-in. Three axes of extension.</span></sc-if
+              ><sc-if value="{{ isPt }}"><span>Sem lock-in. Três eixos de extensão.</span></sc-if
+              ><sc-if value="{{ isJa }}"><span>ロックインなし。拡張の3つの軸。</span></sc-if>
+            </h2>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(248px, 1fr));
+                gap: 18px;
+              "
+            >
+              <div
+                style="
+                  background: linear-gradient(
+                    180deg,
+                    rgba(20, 26, 40, 0.55),
+                    rgba(14, 18, 28, 0.55)
+                  );
+                  border: 1px solid rgba(120, 190, 210, 0.16);
+                  padding: 24px;
+                "
+              >
+                <div
+                  style="
+                    font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                    font-weight: 600;
+                    font-size: 1.05rem;
+                    color: #eceef4;
+                  "
+                >
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span>Composable pieces</span></sc-if
+                  ><sc-if value="{{ isPt }}"><span>Peças componíveis</span></sc-if
+                  ><sc-if value="{{ isJa }}"><span>組み合わせ可能な部品</span></sc-if>
+                </div>
+                <div style="font-size: 13px; line-height: 1.5; color: #8a90a0; margin-top: 9px">
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span
+                      >Skills, agents, and review lenses you can add, swap, or remove.</span
+                    ></sc-if
+                  ><sc-if value="{{ isPt }}"
+                    ><span
+                      >Skills, agents e lentes de revisão que você adiciona, troca ou remove.</span
+                    ></sc-if
+                  ><sc-if value="{{ isJa }}"
+                    ><span>追加・交換・削除できる skill、agent、レビューのレンズ。</span></sc-if
+                  >
+                </div>
+              </div>
+              <div
+                style="
+                  background: linear-gradient(
+                    180deg,
+                    rgba(20, 26, 40, 0.55),
+                    rgba(14, 18, 28, 0.55)
+                  );
+                  border: 1px solid rgba(120, 190, 210, 0.16);
+                  padding: 24px;
+                "
+              >
+                <div
+                  style="
+                    font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                    font-weight: 600;
+                    font-size: 1.05rem;
+                    color: #eceef4;
+                  "
+                >
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span>Tailorable process</span></sc-if
+                  ><sc-if value="{{ isPt }}"><span>Processo ajustável</span></sc-if
+                  ><sc-if value="{{ isJa }}"><span>調整可能なプロセス</span></sc-if>
+                </div>
+                <div style="font-size: 13px; line-height: 1.5; color: #8a90a0; margin-top: 9px">
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span
+                      >Lean increment → full flow. Ceremony scales to risk, never bureaucracy.</span
+                    ></sc-if
+                  ><sc-if value="{{ isPt }}"
+                    ><span
+                      >Incremento enxuto → fluxo completo. A cerimônia escala com o risco, nunca
+                      burocracia.</span
+                    ></sc-if
+                  ><sc-if value="{{ isJa }}"
+                    ><span
+                      >リーンな増分 →
+                      フルフロー。儀式はリスクに応じて拡大し、官僚主義にはならない。</span
+                    ></sc-if
+                  >
+                </div>
+              </div>
+              <div
+                style="
+                  background: linear-gradient(
+                    180deg,
+                    rgba(20, 26, 40, 0.55),
+                    rgba(14, 18, 28, 0.55)
+                  );
+                  border: 1px solid rgba(120, 190, 210, 0.16);
+                  padding: 24px;
+                "
+              >
+                <div
+                  style="
+                    font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                    font-weight: 600;
+                    font-size: 1.05rem;
+                    color: #eceef4;
+                  "
+                >
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span>Open integrations</span></sc-if
+                  ><sc-if value="{{ isPt }}"><span>Integrações abertas</span></sc-if
+                  ><sc-if value="{{ isJa }}"><span>開かれた統合</span></sc-if>
+                </div>
+                <div style="font-size: 13px; line-height: 1.5; color: #8a90a0; margin-top: 9px">
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span
+                      >Built on the open stack — no closed proprietary UI in the way.</span
+                    ></sc-if
+                  ><sc-if value="{{ isPt }}"
+                    ><span
+                      >Sobre a stack aberta — nenhuma UI proprietária fechada no caminho.</span
+                    ></sc-if
+                  ><sc-if value="{{ isJa }}"
+                    ><span
+                      >開かれたスタックの上に — 閉じたプロプライエタリ UI は介在しない。</span
+                    ></sc-if
+                  >
+                </div>
+              </div>
+            </div>
+            <div style="margin-top: 22px; display: flex; flex-wrap: wrap; gap: 10px">
+              <span
+                style="
+                  font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                  font-size: 12px;
+                  color: var(--cy);
+                  background: rgba(53, 230, 224, 0.08);
+                  border: 1px solid rgba(53, 230, 224, 0.22);
+                  padding: 6px 12px;
+                "
+                >git</span
+              >
+              <span
+                style="
+                  font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                  font-size: 12px;
+                  color: var(--cy);
+                  background: rgba(53, 230, 224, 0.08);
+                  border: 1px solid rgba(53, 230, 224, 0.22);
+                  padding: 6px 12px;
+                "
+                >mcp</span
+              >
+              <span
+                style="
+                  font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                  font-size: 12px;
+                  color: var(--cy);
+                  background: rgba(53, 230, 224, 0.08);
+                  border: 1px solid rgba(53, 230, 224, 0.22);
+                  padding: 6px 12px;
+                "
+                >plantuml</span
+              >
+              <span
+                style="
+                  font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                  font-size: 12px;
+                  color: var(--cy);
+                  background: rgba(53, 230, 224, 0.08);
+                  border: 1px solid rgba(53, 230, 224, 0.22);
+                  padding: 6px 12px;
+                "
+                >markdown</span
+              >
+              <span
+                style="
+                  font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                  font-size: 12px;
+                  color: var(--neon);
+                  background: color-mix(in srgb, var(--neon) 10%, transparent);
+                  border: 1px solid color-mix(in srgb, var(--neon) 40%, transparent);
+                  padding: 6px 12px;
+                "
+                >MIT license</span
+              >
+            </div>
+          </div>
+
+          <!-- 08 · STATUS -->
+          <div style="margin-top: 108px">
+            <div
+              style="
+                font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                font-size: 11px;
+                letter-spacing: 0.2em;
+                color: var(--cy);
+                margin-bottom: 16px;
+              "
+            >
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span>// 08 — STATUS</span></sc-if
+              ><sc-if value="{{ isPt }}"><span>// 08 — STATUS</span></sc-if
+              ><sc-if value="{{ isJa }}"><span>// 08 — ステータス</span></sc-if>
+            </div>
+            <h2
+              style="
+                margin: 0 0 30px;
+                font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                font-weight: 600;
+                font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+                line-height: 1.08;
+                letter-spacing: -0.02em;
+                color: #f2f3f8;
+              "
+            >
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span>Beta — and honest about it.</span></sc-if
+              ><sc-if value="{{ isPt }}"><span>Beta — e honesto quanto a isso.</span></sc-if
+              ><sc-if value="{{ isJa }}"><span>ベータ — そしてそれに正直。</span></sc-if>
+            </h2>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 18px;
+              "
+            >
+              <div
+                style="
+                  background: linear-gradient(
+                    180deg,
+                    rgba(20, 26, 40, 0.55),
+                    rgba(14, 18, 28, 0.55)
+                  );
+                  border: 1px solid rgba(120, 190, 210, 0.16);
+                  padding: 24px;
+                "
+              >
+                <div
+                  style="
+                    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                    font-size: 11px;
+                    letter-spacing: 0.16em;
+                    color: var(--neon);
+                    margin-bottom: 14px;
+                  "
+                >
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span>● SHIPPED NOW</span></sc-if
+                  ><sc-if value="{{ isPt }}"><span>● JÁ DISPONÍVEL</span></sc-if
+                  ><sc-if value="{{ isJa }}"><span>● 提供中</span></sc-if>
+                </div>
+                <div
+                  style="
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                    font-size: 13.5px;
+                    color: #c7ccd8;
+                  "
+                >
+                  <div>
+                    <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                      ><span>Solo-usable Beta</span></sc-if
+                    ><sc-if value="{{ isPt }}"><span>Beta usável solo</span></sc-if
+                    ><sc-if value="{{ isJa }}"><span>ソロで使えるベータ</span></sc-if>
+                  </div>
+                  <div>
+                    <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                      ><span>Multi-lens review</span></sc-if
+                    ><sc-if value="{{ isPt }}"><span>Revisão multi-lente</span></sc-if
+                    ><sc-if value="{{ isJa }}"><span>マルチレンズ・レビュー</span></sc-if>
+                  </div>
+                  <div>
+                    <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                      ><span>Lean increment flow</span></sc-if
+                    ><sc-if value="{{ isPt }}"><span>Fluxo de incremento enxuto</span></sc-if
+                    ><sc-if value="{{ isJa }}"><span>リーン増分フロー</span></sc-if>
+                  </div>
+                  <div>
+                    <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                      ><span>Open tooling (Git / MCP / markdown)</span></sc-if
+                    ><sc-if value="{{ isPt }}"
+                      ><span>Tooling aberto (Git / MCP / markdown)</span></sc-if
+                    ><sc-if value="{{ isJa }}"
+                      ><span>開かれたツール（Git / MCP / markdown）</span></sc-if
+                    >
+                  </div>
+                </div>
+              </div>
+              <div
+                style="
+                  background: linear-gradient(180deg, rgba(16, 20, 30, 0.5), rgba(12, 15, 23, 0.5));
+                  border: 1px dashed rgba(120, 190, 210, 0.28);
+                  padding: 24px;
+                "
+              >
+                <div
+                  style="
+                    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                    font-size: 11px;
+                    letter-spacing: 0.16em;
+                    color: #7e8597;
+                    margin-bottom: 14px;
+                  "
+                >
+                  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span>○ ON THE ROADMAP</span></sc-if
+                  ><sc-if value="{{ isPt }}"><span>○ NO ROADMAP</span></sc-if
+                  ><sc-if value="{{ isJa }}"><span>○ ロードマップ</span></sc-if>
+                </div>
+                <div
+                  style="
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                    font-size: 13.5px;
+                    color: #8a90a0;
+                  "
+                >
+                  <div>
+                    <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                      ><span>Team-scale governance</span></sc-if
+                    ><sc-if value="{{ isPt }}"><span>Governança em escala de time</span></sc-if
+                    ><sc-if value="{{ isJa }}"><span>チーム規模のガバナンス</span></sc-if>
+                  </div>
+                  <div>
+                    <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                      ><span>Sealed LCA gate · risk-ordered iterations</span></sc-if
+                    ><sc-if value="{{ isPt }}"
+                      ><span>Gate LCA selado · iterações ordenadas por risco</span></sc-if
+                    ><sc-if value="{{ isJa }}"
+                      ><span>封印された LCA gate · リスク順の反復</span></sc-if
+                    >
+                  </div>
+                  <div>
+                    <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                      ><span>Traceability matrix</span></sc-if
+                    ><sc-if value="{{ isPt }}"><span>Matriz de rastreabilidade</span></sc-if
+                    ><sc-if value="{{ isJa }}"><span>トレーサビリティ・マトリクス</span></sc-if>
+                  </div>
+                  <div>
+                    <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                      ><span>Transition via telemetry</span></sc-if
+                    ><sc-if value="{{ isPt }}"><span>Transição via telemetria</span></sc-if
+                    ><sc-if value="{{ isJa }}"><span>テレメトリによる移行</span></sc-if>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 09 · FINAL CTA -->
+          <div style="margin-top: 108px">
+            <div
+              style="
+                font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                font-size: 11px;
+                letter-spacing: 0.2em;
+                color: var(--cy);
+                margin-bottom: 16px;
+              "
+            >
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span>// 09 — GET EARLY ACCESS</span></sc-if
+              ><sc-if value="{{ isPt }}"><span>// 09 — ACESSO ANTECIPADO</span></sc-if
+              ><sc-if value="{{ isJa }}"><span>// 09 — 早期アクセス</span></sc-if>
+            </div>
+            <h2
+              style="
+                margin: 0 0 14px;
+                font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                font-weight: 600;
+                font-size: clamp(2rem, 3.6vw, 3rem);
+                line-height: 1.05;
+                letter-spacing: -0.02em;
+                color: #f2f3f8;
+              "
+            >
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span>Forge with us.</span></sc-if
+              ><sc-if value="{{ isPt }}"><span>Forje com a gente.</span></sc-if
+              ><sc-if value="{{ isJa }}"><span>一緒に鍛えよう。</span></sc-if>
+            </h2>
+            <p
+              style="
+                margin: 0;
+                max-width: 600px;
+                font-size: 1.05rem;
+                line-height: 1.6;
+                color: #aeb4c2;
+              "
+            >
+              <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                ><span
+                  >scrapup is solo-usable Beta today. Join the waitlist for first access — or star
+                  the repo to follow the build from Beta to Release.</span
+                ></sc-if
+              ><sc-if value="{{ isPt }}"
+                ><span
+                  >O scrapup é Beta usável solo hoje. Entre na waitlist para o primeiro acesso — ou
+                  dê star no repo para acompanhar de Beta a Release.</span
+                ></sc-if
+              ><sc-if value="{{ isJa }}"
+                ><span
+                  >scrapup は現在ソロで使えるベータ。最初のアクセスは waitlist へ — または repo
+                  にスターを付けて、Beta から Release まで追ってください。</span
+                ></sc-if
+              >
+            </p>
+          </div>
+          <div
+            style="
+              margin-top: 32px;
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+              gap: 46px;
+              align-items: start;
+            "
+          >
+            <!-- WAITLIST -->
+            <div>
+              <div
+                style="
+                  font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                  font-size: 11px;
+                  letter-spacing: 0.2em;
+                  color: var(--cy);
+                  margin-bottom: 14px;
+                "
+              >
+                <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                  ><span>// JOIN THE WAITLIST</span></sc-if
+                >
+                <sc-if value="{{ isPt }}"><span>// ENTRE NA WAITLIST</span></sc-if
+                ><sc-if value="{{ isJa }}"><span>// WAITLIST に参加</span></sc-if>
+              </div>
+
+              <form onSubmit="{{ onSubmit }}">
+                <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+                  <div
+                    style="
+                      display: flex;
+                      flex-wrap: wrap;
+                      gap: 0;
+                      border: 1.5px solid rgba(120, 190, 210, 0.32);
+                      background: rgba(10, 14, 22, 0.6);
+                      max-width: 480px;
+                    "
+                  >
+                    <input
+                      type="email"
+                      required
+                      value="{{ email }}"
+                      onChange="{{ onEmail }}"
+                      placeholder="{{ ph }}"
+                      style="
+                        flex: 1 1 200px;
+                        min-width: 0;
+                        appearance: none;
+                        border: none;
+                        outline: none;
+                        background: transparent;
+                        padding: 15px 16px;
+                        font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                        font-size: 14px;
+                        color: #eceef4;
+                      "
+                    />
+                    <button
+                      type="submit"
+                      style="
+                        appearance: none;
+                        border: none;
+                        cursor: pointer;
+                        background: var(--neon);
+                        color: #0a0d15;
+                        padding: 15px 22px;
+                        font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                        font-size: 13px;
+                        font-weight: 600;
+                        letter-spacing: 0.08em;
+                        white-space: nowrap;
+                        box-shadow: 0 0 26px color-mix(in srgb, var(--neon) 45%, transparent);
+                      "
+                      style-hover="filter:brightness(1.12);"
+                    >
+                      <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                        ><span>JOIN THE WAITLIST ↗</span></sc-if
+                      >
+                      <sc-if value="{{ isPt }}"><span>ENTRAR NA WAITLIST ↗</span></sc-if
+                      ><sc-if value="{{ isJa }}"><span>WAITLIST に参加 ↗</span></sc-if>
+                    </button>
+                  </div>
+                  <div style="margin-top: 12px; font-size: 12.5px; color: #7e8597">
+                    <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                      ><span>No spam — one message when access opens.</span></sc-if
+                    >
+                    <sc-if value="{{ isPt }}"
+                      ><span>Sem spam — uma mensagem quando o acesso abrir.</span></sc-if
+                    ><sc-if value="{{ isJa }}"
+                      ><span>スパムなし — アクセス開放時に一通だけ。</span></sc-if
+                    >
+                  </div>
+                </sc-if>
+                <sc-if value="{{ submitted }}">
+                  <div
+                    style="
+                      max-width: 480px;
+                      border: 1.5px solid color-mix(in srgb, var(--neon) 60%, transparent);
+                      background: color-mix(in srgb, var(--neon) 9%, transparent);
+                      padding: 18px 20px;
+                      display: flex;
+                      gap: 12px;
+                      align-items: flex-start;
+                      box-shadow: 0 0 30px color-mix(in srgb, var(--neon) 18%, transparent);
+                    "
+                  >
+                    <span
+                      style="
+                        color: var(--neon);
+                        font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                        font-weight: 600;
+                        margin-top: 1px;
+                        text-shadow: 0 0 12px color-mix(in srgb, var(--neon) 60%, transparent);
+                      "
+                      >✓</span
+                    >
+                    <div>
+                      <div
+                        style="
+                          font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                          font-weight: 600;
+                          font-size: 15px;
+                          color: #eceef4;
+                        "
+                      >
+                        <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                          ><span>You're on the list.</span></sc-if
+                        ><sc-if value="{{ isPt }}"><span>Você está na lista.</span></sc-if
+                        ><sc-if value="{{ isJa }}"><span>登録が完了しました。</span></sc-if>
+                      </div>
+                      <div style="font-size: 13px; color: #8a90a0; margin-top: 5px">
+                        <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                          ><span
+                            >We'll reach out at first access. Forging the public release.</span
+                          ></sc-if
+                        ><sc-if value="{{ isPt }}"
+                          ><span
+                            >Falaremos no primeiro acesso. Forjando o release público.</span
+                          ></sc-if
+                        ><sc-if value="{{ isJa }}"
+                          ><span
+                            >最初のアクセス時にご連絡します。公開リリースを鍛造中。</span
+                          ></sc-if
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </sc-if>
+              </form>
+
+              <div
+                style="
+                  margin-top: 22px;
+                  font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                  font-size: 12px;
+                  color: rgba(190, 200, 220, 0.5);
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                  flex-wrap: wrap;
+                "
+              >
+                <span style="color: rgba(190, 200, 220, 0.45)"
+                  ><sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span>install when live →</span></sc-if
+                  ><sc-if value="{{ isPt }}"><span>instale quando abrir →</span></sc-if
+                  ><sc-if value="{{ isJa }}"><span>公開時にインストール →</span></sc-if></span
+                >
+                <code
+                  style="
+                    color: var(--cy);
+                    background: rgba(53, 230, 224, 0.1);
+                    border: 1px solid rgba(53, 230, 224, 0.18);
+                    padding: 3px 8px;
+                  "
+                  >/plugin install scrapup</code
+                >
+              </div>
+            </div>
+
+            <!-- CTA CARD -->
+            <div
+              style="
+                background: linear-gradient(180deg, rgba(20, 26, 40, 0.55), rgba(14, 18, 28, 0.55));
+                border: 1px solid rgba(120, 190, 210, 0.16);
+                padding: 28px;
+                display: flex;
+                flex-direction: column;
+                gap: 18px;
+              "
+            >
+              <div
+                style="
+                  font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+                  font-weight: 600;
+                  font-size: 1.2rem;
+                  color: #eceef4;
+                "
+              >
+                <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                  ><span>Follow the build.</span></sc-if
+                ><sc-if value="{{ isPt }}"><span>Acompanhe a construção.</span></sc-if
+                ><sc-if value="{{ isJa }}"><span>構築を追う。</span></sc-if>
+              </div>
+              <div style="font-size: 13.5px; line-height: 1.55; color: #8a90a0">
+                <sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                  ><span
+                    >Open-source, MIT-licensed. Star the repo to track each milestone, or read the
+                    docs to see the process in full.</span
+                  ></sc-if
+                ><sc-if value="{{ isPt }}"
+                  ><span
+                    >Open-source, licença MIT. Dê star no repo para acompanhar cada milestone, ou
+                    leia a documentação para ver o processo completo.</span
+                  ></sc-if
+                ><sc-if value="{{ isJa }}"
+                  ><span
+                    >オープンソース、MITライセンス。各 milestone を追うなら repo
+                    にスター、プロセス全体を見るならドキュメントを。</span
+                  ></sc-if
+                >
+              </div>
+              <div style="display: flex; flex-wrap: wrap; gap: 12px">
+                <a
+                  href="https://github.com/scrapup/scrapup"
+                  target="_blank"
+                  rel="noopener"
+                  style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 9px;
+                    text-decoration: none;
+                    background: var(--neon);
+                    color: #0a0d15;
+                    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                    font-size: 13px;
+                    font-weight: 600;
+                    letter-spacing: 0.06em;
+                    padding: 13px 20px;
+                    box-shadow: 0 0 24px color-mix(in srgb, var(--neon) 40%, transparent);
+                  "
+                  style-hover="filter:brightness(1.12);"
+                  ><span>★</span
+                  ><sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span>STAR ON GITHUB</span></sc-if
+                  ><sc-if value="{{ isPt }}"><span>STAR NO GITHUB</span></sc-if
+                  ><sc-if value="{{ isJa }}"><span>GITHUB でスター</span></sc-if></a
+                >
+                <a
+                  href="https://github.com/scrapup/scrapup"
+                  target="_blank"
+                  rel="noopener"
+                  style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 9px;
+                    text-decoration: none;
+                    color: var(--cy);
+                    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                    font-size: 13px;
+                    font-weight: 600;
+                    letter-spacing: 0.06em;
+                    padding: 13px 20px;
+                    border: 1px solid rgba(53, 230, 224, 0.4);
+                  "
+                  style-hover="background:rgba(53,230,224,.08);"
+                  ><sc-if value="{{ isEn }}" hint-placeholder-val="{{ true }}"
+                    ><span>READ THE DOCS ↗</span></sc-if
+                  ><sc-if value="{{ isPt }}"><span>DOCUMENTAÇÃO ↗</span></sc-if
+                  ><sc-if value="{{ isJa }}"><span>ドキュメント ↗</span></sc-if></a
+                >
+              </div>
+              <div
+                style="
+                  margin-top: 4px;
+                  padding-top: 18px;
+                  border-top: 1px solid rgba(120, 190, 210, 0.12);
+                  font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+                  font-size: 12px;
+                  letter-spacing: 0.06em;
+                  color: rgba(190, 200, 220, 0.55);
+                "
+              >
+                scrap <span style="color: var(--cy)">→</span> forge
+                <span style="color: var(--cy)">→</span>
+                <span style="color: var(--neon)">forged delivery</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div
+          style="
+            position: relative;
+            background: #07090e;
+            border-top: 1px solid rgba(120, 190, 210, 0.12);
+            color: #9aa0b0;
+          "
+        >
+          <div
+            style="
+              max-width: 1180px;
+              margin: 0 auto;
+              padding: 22px 48px;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              gap: 20px;
+              flex-wrap: wrap;
+              font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+              font-size: 11.5px;
+              letter-spacing: 0.04em;
+            "
+          >
+            <div style="display: flex; align-items: center; gap: 18px; flex-wrap: wrap">
+              <span style="color: #eceef4; font-weight: 600"
+                >scrap<span
+                  style="
+                    color: var(--neon);
+                    text-shadow: 0 0 12px color-mix(in srgb, var(--neon) 55%, transparent);
+                  "
+                  >up</span
+                ></span
+              >
+              <span style="color: #5a6172">MIT © 2026</span>
+              <span style="color: #5a6172">scrapup.dev</span>
+            </div>
+            <div style="color: #5a6172">Marco Antonio Luqueti Faustino</div>
+          </div>
+        </div>
+      </div>
+    </x-dc>
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{
+  "accent": { "editor": "color", "default": "#FF7A33", "options": ["#FF7A33", "#FF3D9A", "#35E6E0", "#B388FF"], "tsType": "string", "section": "Identity" },
+  "defaultLang": { "editor": "enum", "options": ["en", "pt", "ja"], "default": "en", "tsType": "string", "section": "Content" }
+}'
+    >
+      class Component extends DCLogic {
+        constructor(props) {
+          super(props);
+          const dl = (this.props && ['pt','ja'].indexOf(this.props.defaultLang) !== -1) ? this.props.defaultLang : 'en';
+          this.state = { lang: dl, email: '', submitted: false };
+        }
+        renderVals() {
+          const lang = this.state.lang;
+          const isPt = lang === 'pt';
+          const isJa = lang === 'ja';
+          return {
+            accent: this.props.accent ?? '#FF7A33',
+            showGrid: this.props.showGrid ?? true,
+            isEn: lang === 'en',
+            isPt: isPt,
+            isJa: isJa,
+            setEn: () => this.setState({ lang: 'en' }),
+            setPt: () => this.setState({ lang: 'pt' }),
+            setJa: () => this.setState({ lang: 'ja' }),
+            email: this.state.email,
+            submitted: this.state.submitted,
+            notSubmitted: !this.state.submitted,
+            ph: isJa ? 'you@example.jp' : isPt ? 'voce@dominio.dev' : 'you@domain.dev',
+            onEmail: (e) => this.setState({ email: e.target.value }),
+            onSubmit: (e) => {
+              e.preventDefault();
+              const v = (this.state.email || '').trim();
+              if (!/.+@.+\..+/.test(v)) return;
+              try {
+                const k = 'scrapup_waitlist';
+                const arr = JSON.parse(localStorage.getItem(k) || '[]');
+                arr.push({ email: v, lang: this.state.lang, at: Date.now() });
+                localStorage.setItem(k, JSON.stringify(arr));
+              } catch (err) {}
+              this.setState({ submitted: true });
+            },
+          };
+        }
+      }
+    </script>
+  </body>
+</html>

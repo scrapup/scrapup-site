@@ -1,0 +1,25 @@
+@startuml C4_Component_scrapup_site
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+Container_Boundary(astro, "Astro Project") {
+    Component(mw, "Language Middleware", "src/middleware.ts", "Root Accept-Language detection + redirect")
+    Component(pages, "Locale Pages", "src/pages/{index,pt/index,ja/index,404}.astro", "One pre-rendered page per locale")
+    Component(layout, "BaseLayout", "src/layouts/BaseLayout.astro", "HTML head, fonts, global CSS, slots")
+    Component(seo, "Seo Component", "src/components/Seo.astro", "Title/description/OG/Twitter/canonical/hreflang/JSON-LD")
+    Component(sections, "Section Components", "src/components/sections/*.astro", "Hero, Problem, Answer, HowItWorks, Pillars, WhyDifferent, BuiltOnUP, OpenExtensible, Status, FinalCta, Footer")
+    Component(switcher, "LanguageSwitcher", "src/components/LanguageSwitcher.astro", "Plain <a> links; sets choice cookie")
+    Component(i18n, "i18n Dictionary", "src/i18n/ui.ts + index.ts", "Typed EN/PT/JA strings + helpers (source of truth: EN)")
+    Component(sitemap, "Sitemap/Robots", "@astrojs/sitemap + public/robots.txt", "All localized routes")
+}
+
+ComponentDb(brand, "Brand assets", "src/assets + public", "favicon, social/OG image, wordmarks")
+
+Rel(mw, pages, "Routes to locale")
+Rel(pages, layout, "Wraps")
+Rel(layout, seo, "Renders head")
+Rel(pages, sections, "Compose page")
+Rel(sections, i18n, "Read strings")
+Rel(seo, i18n, "Localized metadata")
+Rel(layout, switcher, "Renders")
+Rel(seo, brand, "OG image ref")
+@enduml

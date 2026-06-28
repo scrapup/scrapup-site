@@ -1,0 +1,36 @@
+---
+import { useTranslations, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const card =
+  'background:linear-gradient(180deg, rgba(20,26,40,.55), rgba(14,18,28,.55)); border:1px solid rgba(120,190,210,.16); padding:24px;';
+const kicker =
+  "font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:11px; letter-spacing:.16em;";
+const name =
+  "font-family:'Space Grotesk','Noto Sans JP',sans-serif; font-weight:600; font-size:1.35rem; color:#ECEEF4; margin-top:8px;";
+const desc = 'font-size:13.5px; line-height:1.55; color:#AEB4C2; margin-top:8px;';
+---
+
+<div
+  style="margin-top:30px; display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:18px;"
+>
+  <div style={`${card} border-left:2px solid var(--neon);`}>
+    <div style={`${kicker} color:var(--neon);`}>{t('roles.r1.kicker')}</div>
+    <div style={name}>{t('roles.r1.name')}</div>
+    <div style={desc}>{t('roles.r1.desc')}</div>
+  </div>
+  <div style={`${card} border-left:2px solid var(--cy);`}>
+    <div style={`${kicker} color:var(--cy);`}>{t('roles.r2.kicker')}</div>
+    <div style={name}>{t('roles.r2.name')}</div>
+    <div style={desc}>{t('roles.r2.desc')}</div>
+  </div>
+</div>
+<div
+  style="margin-top:18px; font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:13px; color:#C7CCD8;"
+  set:html={t('roles.seal.html')}
+/>

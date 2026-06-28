@@ -1,0 +1,49 @@
+---
+/*
+ * LanguageSwitcher — three plain <a> links to /, /pt/, /ja/ with an active state.
+ * Clicking writes the `scrapup_lang` cookie so the edge auto-detection respects the
+ * explicit choice (RN-05). With JS disabled the links still navigate (only the
+ * cookie write is skipped) — progressive enhancement, the single piece of client JS.
+ */
+import { LOCALES, localizedPath, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const LABEL: Record<Lang, string> = { en: 'EN', pt: 'PT', ja: 'JA' };
+---
+
+<div
+  class="lang-switch"
+  style="display:flex; align-items:stretch; border:1px solid rgba(120,190,210,.3);"
+>
+  {
+    LOCALES.map((l, i) => (
+      <a
+        href={localizedPath(l, '')}
+        data-lang={l}
+        aria-current={l === lang ? 'true' : undefined}
+        style={`position:relative; appearance:none; text-decoration:none; ${i > 0 ? 'border-left:1px solid rgba(120,190,210,.3);' : ''} background:transparent; cursor:pointer; font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:12px; letter-spacing:.1em; padding:7px 12px; color:#ECEEF4;`}
+      >
+        {LABEL[l]}
+        {l === lang && (
+          <span
+            style="position:absolute; left:0; right:0; bottom:0; height:2px; background:var(--neon); box-shadow:0 0 10px color-mix(in srgb, var(--neon) 70%, transparent);"
+            aria-hidden="true"
+          />
+        )}
+      </a>
+    ))
+  }
+</div>
+
+<script>
+  // Persist the explicit language choice so root auto-detection honors it (RN-05).
+  document.querySelectorAll<HTMLAnchorElement>('.lang-switch a[data-lang]').forEach((a) => {
+    a.addEventListener('click', () => {
+      const l = a.dataset.lang;
+      if (l) document.cookie = `scrapup_lang=${l}; path=/; max-age=31536000; samesite=lax; secure`;
+    });
+  });
+</script>

@@ -1,0 +1,40 @@
+{
+  "name": "scrapup-site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "scrapup.dev — trilingual public landing page (Astro SSG on Vercel).",
+  "homepage": "https://www.scrapup.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scrapup/scrapup-site.git"
+  },
+  "bugs": {
+    "url": "https://github.com/scrapup/scrapup-site/issues"
+  },
+  "author": "Marco Antonio Luqueti Faustino",
+  "license": "MIT",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "SSR_ADAPTER=node astro build && SSR_ADAPTER=node astro preview",
+    "check": "astro check && node scripts/i18n-parity.mjs",
+    "format": "prettier -w .",
+    "test:e2e": "playwright test",
+    "test:e2e:update": "playwright test --update-snapshots"
+  },
+  "dependencies": {
+    "@astrojs/node": "^9.5.5",
+    "@astrojs/sitemap": "^3.2.1",
+    "@astrojs/vercel": "^8.0.4",
+    "astro": "^5.1.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@axe-core/playwright": "^4.10.1",
+    "@playwright/test": "^1.49.1",
+    "prettier": "^3.4.2",
+    "prettier-plugin-astro": "^0.14.1",
+    "typescript": "^5.7.2"
+  }
+}
