@@ -31,129 +31,284 @@ const t = useTranslations(lang);
     />
   </head>
   <body>
-    <div
-      style="position:relative; min-height:100vh; width:100%; background:var(--ink); color:var(--light-ink); font-family:'IBM Plex Sans','Noto Sans JP',system-ui,sans-serif; overflow:hidden; display:flex; flex-direction:column;"
-    >
+    <div class="notfound">
       <!-- ambient glow -->
-      <div
-        style="position:absolute; inset:0; pointer-events:none; background:radial-gradient(900px 520px at 14% -4%, rgba(53,230,224,.12), transparent 62%), radial-gradient(820px 620px at 102% 104%, color-mix(in srgb, var(--neon) 16%, transparent), transparent 60%), radial-gradient(700px 500px at 88% 8%, rgba(179,136,255,.08), transparent 60%);"
-      >
-      </div>
+      <div class="notfound__ambient" aria-hidden="true"></div>
       <!-- scanlines -->
-      <div
-        style="position:absolute; inset:0; pointer-events:none; opacity:.5; background:repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0, rgba(0,0,0,0) 2px, rgba(0,0,0,.14) 3px);"
-      >
-      </div>
+      <div class="notfound__scanlines" aria-hidden="true"></div>
       <!-- corner marks -->
-      <div
-        style="position:absolute; bottom:20px; left:20px; width:14px; height:14px; border-left:1.5px solid var(--cy); border-bottom:1.5px solid var(--cy); box-shadow:0 0 8px rgba(53,230,224,.5); pointer-events:none;"
-      >
-      </div>
-      <div
-        style="position:absolute; bottom:20px; right:20px; width:14px; height:14px; border-right:1.5px solid var(--cy); border-bottom:1.5px solid var(--cy); box-shadow:0 0 8px rgba(53,230,224,.5); pointer-events:none;"
-      >
-      </div>
-      <div
-        style="position:absolute; top:26px; right:42px; font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:10px; letter-spacing:.16em; color:rgba(53,230,224,.62); pointer-events:none;"
-      >
-        SCRAPUP.DEV
-      </div>
-      <div
-        style="position:absolute; bottom:26px; left:42px; font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:10px; letter-spacing:.16em; color:rgba(53,230,224,.62); pointer-events:none;"
-      >
-        ERR · 404
-      </div>
+      <div class="notfound__corner notfound__corner--bl" aria-hidden="true"></div>
+      <div class="notfound__corner notfound__corner--br" aria-hidden="true"></div>
+      <!-- decorative labels -->
+      <div class="notfound__label notfound__label--tr" aria-hidden="true">SCRAPUP.DEV</div>
+      <div class="notfound__label notfound__label--bl" aria-hidden="true">ERR · 404</div>
 
       <!-- TOP BAR -->
-      <div
-        style="position:relative; max-width:1180px; width:100%; margin:0 auto; padding:30px 48px; display:flex; align-items:center; justify-content:space-between; gap:20px;"
-      >
-        <a
-          href="/"
-          style="text-decoration:none; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:22px; letter-spacing:-.02em; line-height:1; color:#ECEEF4;"
-          >scrap<span
-            style="color:var(--neon); text-shadow:0 0 16px color-mix(in srgb, var(--neon) 60%, transparent); animation:scrapupFlicker 7s infinite;"
-            >up</span
-          ></a
+      <div class="notfound__topbar">
+        <a href="/" class="notfound__wordmark"
+          >scrap<span class="notfound__wordmark-up">up</span></a
         >
         <LanguageSwitcher lang={lang} />
       </div>
 
       <!-- CENTER -->
-      <div
-        style="position:relative; flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:20px 48px 90px;"
-      >
-        <div
-          style="position:relative; display:inline-block; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:clamp(7rem,24vw,17rem); line-height:.86; letter-spacing:-.04em; color:var(--neon);"
-        >
+      <div class="notfound__center">
+        <div class="notfound__glitch-wrap">
           <span
             aria-hidden="true"
-            style="position:absolute; inset:0; color:var(--cy); mix-blend-mode:screen; animation:glC 4.2s infinite;"
+            class="notfound__glitch-layer--c"
             >404</span
           >
           <span
             aria-hidden="true"
-            style="position:absolute; inset:0; color:#FF3DA6; mix-blend-mode:screen; animation:glM 4.2s infinite;"
+            class="notfound__glitch-layer--m"
             >404</span
           >
           <span
             aria-hidden="true"
-            style="position:absolute; inset:0; color:var(--neon); animation:glSlice 4.2s infinite;"
+            class="notfound__glitch-layer--n"
             >404</span
           >
-          <span
-            style="position:relative; text-shadow:0 0 46px color-mix(in srgb, var(--neon) 55%, transparent), 0 0 12px color-mix(in srgb, var(--neon) 45%, transparent); animation:scrapupFlicker 6s infinite;"
-            >404</span
-          >
+          <span class="notfound__glitch-main">404</span>
         </div>
 
-        <div
-          style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.2em; color:var(--cy); margin-top:30px;"
-        >
+        <div class="kicker notfound__status">
           <span>{t('notFound.status')}</span>
         </div>
 
-        <h1
-          style="margin:16px 0 0; max-width:20ch; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:clamp(1.5rem,3.4vw,2.4rem); line-height:1.12; letter-spacing:-.02em; color:#F2F3F8;"
-        >
+        <h1 class="notfound__title">
           {t('notFound.title')}
         </h1>
 
-        <p
-          style="margin:16px 0 0; max-width:520px; font-size:1.02rem; line-height:1.6; color:#AEB4C2;"
-        >
+        <p class="notfound__body">
           {t('notFound.body')}
         </p>
 
-        <div
-          style="margin-top:34px; display:flex; flex-wrap:wrap; gap:14px; align-items:center; justify-content:center;"
-        >
-          <a
-            href="/"
-            style="display:inline-flex; align-items:center; gap:9px; text-decoration:none; background:var(--neon); color:#0A0D15; font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; letter-spacing:.06em; padding:14px 22px; box-shadow:0 0 26px color-mix(in srgb, var(--neon) 42%, transparent);"
-          >
+        <div class="notfound__ctas">
+          <a href="/" class="btn btn--primary">
             <span>←</span>
             <span>{t('notFound.back')}</span>
           </a>
-          <a
-            href={REPO}
-            target="_blank"
-            rel="noopener"
-            style="display:inline-flex; align-items:center; gap:9px; text-decoration:none; color:var(--cy); font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; letter-spacing:.06em; padding:14px 22px; border:1px solid rgba(53,230,224,.4);"
-          >
+          <a href={REPO} target="_blank" rel="noopener" class="btn btn--ghost">
             <span>{t('notFound.github')}</span>
           </a>
         </div>
 
-        <div
-          style="margin-top:30px; font-family:'IBM Plex Mono',monospace; font-size:12px; color:rgba(190,200,220,.5);"
-        >
-          scrap <span style="color:var(--cy);">→</span> forge <span style="color:var(--cy);">→</span
+        <div class="notfound__tagline">
+          scrap <span class="notfound__tagline-arrow">→</span> forge <span
+            class="notfound__tagline-arrow">→</span
           >
-          <span style="color:var(--neon);">forged delivery</span>
+          <span class="notfound__tagline-accent">forged delivery</span>
         </div>
       </div>
     </div>
     <Analytics />
   </body>
 </html>
+
+<style>
+  .notfound {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    background: var(--ink);
+    color: var(--light-ink);
+    font-family: 'IBM Plex Sans', 'Noto Sans JP', system-ui, sans-serif;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .notfound__ambient {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(900px 520px at 14% -4%, color-mix(in srgb, var(--cy) 12%, transparent), transparent 62%),
+      radial-gradient(820px 620px at 102% 104%, color-mix(in srgb, var(--neon) 16%, transparent), transparent 60%),
+      radial-gradient(700px 500px at 88% 8%, rgba(var(--violet), 0.08), transparent 60%);
+  }
+
+  .notfound__scanlines {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0,
+      rgba(0, 0, 0, 0) 2px,
+      rgba(0, 0, 0, 0.14) 3px
+    );
+  }
+
+  .notfound__corner {
+    position: absolute;
+    bottom: 20px;
+    width: 14px;
+    height: 14px;
+    border-bottom: 1.5px solid var(--cy);
+    box-shadow: 0 0 8px color-mix(in srgb, var(--cy) 50%, transparent);
+    pointer-events: none;
+  }
+
+  .notfound__corner--bl {
+    left: 20px;
+    border-left: 1.5px solid var(--cy);
+  }
+
+  .notfound__corner--br {
+    right: 20px;
+    border-right: 1.5px solid var(--cy);
+  }
+
+  .notfound__label {
+    position: absolute;
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: color-mix(in srgb, var(--cy) 62%, transparent);
+    pointer-events: none;
+  }
+
+  .notfound__label--tr {
+    top: 26px;
+    right: 42px;
+  }
+
+  .notfound__label--bl {
+    bottom: 26px;
+    left: 42px;
+  }
+
+  .notfound__topbar {
+    position: relative;
+    max-width: 1180px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 30px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .notfound__wordmark {
+    text-decoration: none;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--light-ink);
+  }
+
+  .notfound__wordmark-up {
+    color: var(--neon);
+    text-shadow: 0 0 16px color-mix(in srgb, var(--neon) 60%, transparent);
+    animation: scrapupFlicker 7s infinite;
+  }
+
+  .notfound__center {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px 48px 90px;
+  }
+
+  .notfound__glitch-wrap {
+    position: relative;
+    display: inline-block;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(7rem, 24vw, 17rem);
+    line-height: 0.86;
+    letter-spacing: -0.04em;
+    color: var(--neon);
+  }
+
+  .notfound__glitch-layer--c {
+    position: absolute;
+    inset: 0;
+    color: var(--cy);
+    mix-blend-mode: screen;
+    animation: glC 4.2s infinite;
+  }
+
+  .notfound__glitch-layer--m {
+    position: absolute;
+    inset: 0;
+    color: var(--glitch-magenta);
+    mix-blend-mode: screen;
+    animation: glM 4.2s infinite;
+  }
+
+  .notfound__glitch-layer--n {
+    position: absolute;
+    inset: 0;
+    color: var(--neon);
+    animation: glSlice 4.2s infinite;
+  }
+
+  .notfound__glitch-main {
+    position: relative;
+    text-shadow:
+      0 0 46px color-mix(in srgb, var(--neon) 55%, transparent),
+      0 0 12px color-mix(in srgb, var(--neon) 45%, transparent);
+    animation: scrapupFlicker 6s infinite;
+  }
+
+  .notfound__status {
+    color: var(--cy);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    margin-top: 30px;
+  }
+
+  .notfound__title {
+    margin: 16px 0 0;
+    max-width: 20ch;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: clamp(1.5rem, 3.4vw, 2.4rem);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    color: var(--text-strong);
+  }
+
+  .notfound__body {
+    margin: 16px 0 0;
+    max-width: 520px;
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+  }
+
+  .notfound__ctas {
+    margin-top: 34px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .notfound__tagline {
+    margin-top: 30px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: rgba(var(--mark), 0.5);
+  }
+
+  .notfound__tagline-arrow {
+    color: var(--cy);
+  }
+
+  .notfound__tagline-accent {
+    color: var(--neon);
+  }
+</style>
