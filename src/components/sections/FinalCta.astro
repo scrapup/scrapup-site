@@ -14,39 +14,29 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 ---
 
-<div style="margin-top:108px;">
-  <div
-    style="font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:11px; letter-spacing:.2em; color:var(--cy); margin-bottom:16px;"
-  >
+<div class="final-cta">
+  <div class="kicker final-cta__kicker">
     <span>{t('cta.label')}</span>
   </div>
-  <h2
-    style="margin:0 0 14px; font-family:'Space Grotesk','Noto Sans JP',sans-serif; font-weight:600; font-size:clamp(2rem,3.6vw,3rem); line-height:1.05; letter-spacing:-.02em; color:#F2F3F8;"
-  >
+  <h2 class="section-title final-cta__title">
     {t('cta.title')}
   </h2>
-  <p style="margin:0; max-width:600px; font-size:1.05rem; line-height:1.6; color:#AEB4C2;">
+  <p class="lede final-cta__lede">
     {t('cta.body')}
   </p>
 </div>
-<div
-  style="margin-top:32px; display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:46px; align-items:start;"
->
-  <div
-    style="background:linear-gradient(180deg, rgba(20,26,40,.55), rgba(14,18,28,.55)); border:1px solid rgba(120,190,210,.16); padding:28px; display:flex; flex-direction:column; gap:18px;"
-  >
-    <div
-      style="font-family:'Space Grotesk','Noto Sans JP',sans-serif; font-weight:600; font-size:1.2rem; color:#ECEEF4;"
-    >
+<div class="final-cta__grid">
+  <div class="card card--accent final-cta__card">
+    <div class="item-title final-cta__card-title">
       {t('cta.card.title')}
     </div>
-    <div style="font-size:13.5px; line-height:1.55; color:#8A90A0;">{t('cta.card.desc')}</div>
-    <div style="display:flex; flex-wrap:wrap; gap:12px;">
+    <div class="final-cta__card-desc">{t('cta.card.desc')}</div>
+    <div class="final-cta__card-actions">
       <a
         href={REPO}
         target="_blank"
         rel="noopener"
-        style="display:inline-flex; align-items:center; gap:9px; text-decoration:none; background:var(--neon); color:#0A0D15; font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:13px; font-weight:600; letter-spacing:.06em; padding:13px 20px; box-shadow:0 0 24px color-mix(in srgb, var(--neon) 40%, transparent);"
+        class="btn btn--primary final-cta__btn"
       >
         <span>★</span><span>{t('cta.card.star')}</span>
       </a>
@@ -54,16 +44,92 @@ const t = useTranslations(lang);
         href={REPO}
         target="_blank"
         rel="noopener"
-        style="display:inline-flex; align-items:center; gap:9px; text-decoration:none; color:var(--cy); font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:13px; font-weight:600; letter-spacing:.06em; padding:13px 20px; border:1px solid rgba(53,230,224,.4);"
+        class="btn btn--ghost final-cta__btn"
       >
         <span>{t('cta.card.docs')}</span>
       </a>
     </div>
-    <div
-      style="margin-top:4px; padding-top:18px; border-top:1px solid rgba(120,190,210,.12); font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:12px; letter-spacing:.06em; color:rgba(190,200,220,.55);"
-    >
-      scrap <span style="color:var(--cy);">→</span> forge <span style="color:var(--cy);">→</span>
-      <span style="color:var(--neon);">forged delivery</span>
+    <div class="final-cta__tagline">
+      scrap <span class="final-cta__tagline-arrow">→</span> forge <span
+        class="final-cta__tagline-arrow">→</span
+      >
+      <span class="final-cta__tagline-accent">forged delivery</span>
     </div>
   </div>
 </div>
+
+<style>
+  .final-cta {
+    margin-top: 108px;
+  }
+
+  .final-cta__kicker {
+    color: var(--cy);
+    letter-spacing: 0.2em;
+    margin-bottom: 16px;
+  }
+
+  .final-cta__title {
+    font-size: clamp(2rem, 3.6vw, 3rem);
+    margin: 0 0 14px;
+  }
+
+  .final-cta__lede {
+    margin: 0;
+    max-width: 600px;
+  }
+
+  .final-cta__grid {
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 46px;
+    align-items: start;
+  }
+
+  .final-cta__card {
+    background: linear-gradient(180deg, rgba(var(--panel-hi), 0.55), rgba(var(--panel-lo), 0.55));
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .final-cta__card-title {
+    font-size: 1.2rem;
+  }
+
+  .final-cta__card-desc {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--text-faint);
+  }
+
+  .final-cta__card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .final-cta__btn {
+    padding: 13px 20px;
+  }
+
+  .final-cta__tagline {
+    margin-top: 4px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(var(--hairline), 0.12);
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: rgba(var(--mark), 0.55);
+  }
+
+  .final-cta__tagline-arrow {
+    color: var(--cy);
+  }
+
+  .final-cta__tagline-accent {
+    color: var(--neon);
+  }
+</style>
