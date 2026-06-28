@@ -1,0 +1,20 @@
+@startuml migration_loop
+start
+:Pre-migration baseline committed\n(RUN_VISUAL=1, CI container);
+repeat
+  :Pick next slice (component/layer);
+  :Move inline styles → scoped <style>\n+ primitive classes + tokens;
+  :Remove inline style="" rulesets;
+  :npm run check\n(astro check + i18n parity + no-inline guard);
+  :npm run test:e2e\n(tokens + e2e + screenshot regression);
+  if (all green AND screenshot == baseline?) then (yes)
+    :Commit slice (render preserved);
+  else (no)
+    :Revert / fix — render drift is a bug (RN-01);
+  endif
+repeat while (more slices?) is (yes)
+->no;
+:Flip no-inline guard to hard-fail;
+:Document convention (README/CONTRIBUTING);
+stop
+@enduml
