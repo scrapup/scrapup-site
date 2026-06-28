@@ -27,7 +27,7 @@ the source of truth — the Astro component tree is.
 ## Brand palette
 
 Canonical palette — **source of truth: `brand/scrapup - Logo System.dc.html` (block F9 · PALETTE)**.
-Implemented as CSS custom properties in `src/styles/global.css`; see `docs/specs/landing-page/plan.md` §3.3.
+Implemented in `src/styles/tokens.css` (canonical palette) and `src/styles/tokens.css` (auxiliary text scale: `--text-strong` through `--text-quiet`; RGB-triplet tokens: `--panel-hi`, `--panel-lo`, `--hairline`, `--mark`, `--violet`). Entry point is `src/styles/global.css` (imports `tokens.css`, `base.css`, `animations.css`, `primitives.css`).
 
 | Token          | Hex       | Name          | Use                                                    |
 | -------------- | --------- | ------------- | ------------------------------------------------------ |

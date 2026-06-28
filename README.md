@@ -25,6 +25,43 @@ Process — from informational _scrap_ to forged, auditable delivery) and drives
 | Tests          | `@playwright/test` (Chromium) + `@axe-core/playwright`                  |
 | Versioning     | release-please (`release-type: node`), mirrors `scrapup`                |
 
+## Styling
+
+All visual styles use **scoped `<style>` blocks** in Astro components — no global utility classes or Tailwind.
+
+### Token layers
+
+| File | Purpose |
+|------|---------|
+| `src/styles/tokens.css` | Design tokens — canonical palette + auxiliary text scale + RGB-triplets |
+| `src/styles/base.css` | Reset, `html`/`body`, `::selection`, font-smoothing |
+| `src/styles/animations.css` | Keyframes (`scrapupFlicker`, `glC`, `glM`, `glSlice`) + `prefers-reduced-motion` |
+| `src/styles/primitives.css` | Shared primitive classes: `.section-title`, `.lede`, `.kicker`, `.btn`, `.card`, `.tag` |
+| `src/styles/global.css` | Entry point — imports the four sheets above |
+
+### Naming convention
+
+Components use **BEM-style** class names: `block__element` and `block__element--modifier`.  
+The block name matches the component's kebab-case filename (e.g. `TopBar.astro` → `.top-bar`).  
+Modifiers go on the same element (`class="block__element block__element--modifier"`).
+
+### No inline styles
+
+The `scripts/no-inline-styles.mjs` guard (zero-dependency Node ESM) scans `src/**/*.astro` for `style="..."` / `style={...}` containing CSS declarations. It runs as part of `npm run check` in `--strict` mode — the build fails if any inline ruleset is present.
+
+**Rule:** add new shared patterns as primitives in `src/styles/primitives.css`; add per-component deltas as scoped BEM rules inside the component's `<style>` block. Never `style=`.
+
+### Visual baselines
+
+Screenshot baselines must be generated on the **CI Playwright container** only — macOS font rendering is non-deterministic and produces different pixel hashes.
+
+```
+# Regenerate baselines (CI only):
+RUN_VISUAL=1 npm run test:e2e:update -- tests/visual/layout.spec.ts
+# Verify against committed baselines:
+RUN_VISUAL=1 npm run test:e2e -- tests/visual/layout.spec.ts
+```
+
 ## Quick start
 
 ```bash

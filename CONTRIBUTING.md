@@ -28,6 +28,14 @@ change** (`src/i18n/ui.ts`: `en`, `pt`, `ja`). The key sets must match exactly �
 fails and names any missing/extra/empty key. Keep consecrated technical terms (spec, commit,
 milestone, gate, skill, agent, …) untranslated, as in the prototype.
 
+## Styling
+
+- **Always scoped:** add styles inside the component's `<style>` block (Astro scopes them automatically). Never use `style=` attributes.
+- **BEM-style naming:** class names follow `block__element--modifier` where `block` is the component's kebab-case name.
+- **Tokens:** use `var(--token-name)` from `src/styles/tokens.css`. Never hardcode hex values. See `README.md` for the token catalog.
+- **Shared patterns:** if a pattern appears in ≥2 components, extract it as a primitive class in `src/styles/primitives.css`.
+- **Guard:** `npm run check` runs `scripts/no-inline-styles.mjs --strict`. A PR with any `style=` inline ruleset will fail CI.
+
 ## Visual baselines
 
 Screenshot regression (`tests/visual/layout.spec.ts`) is **opt-in** via `RUN_VISUAL=1` and its
