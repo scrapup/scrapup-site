@@ -25,40 +25,18 @@ interface Props {
 const { lang } = Astro.props;
 ---
 
-<div
-  style="position:relative; min-height:100vh; width:100%; background:var(--ink); color:var(--light-ink); font-family:'IBM Plex Sans','Noto Sans JP',system-ui,sans-serif; overflow:hidden;"
->
+<div class="landing">
   <!-- ambient city glow -->
-  <div
-    style="position:absolute; inset:0; pointer-events:none; background:radial-gradient(900px 520px at 14% -4%, rgba(53,230,224,.12), transparent 62%), radial-gradient(820px 620px at 102% 104%, color-mix(in srgb, var(--neon) 16%, transparent), transparent 60%), radial-gradient(700px 500px at 88% 8%, rgba(179,136,255,.08), transparent 60%);"
-  >
-  </div>
+  <div class="landing__glow" aria-hidden="true"></div>
   <!-- scanlines -->
-  <div
-    style="position:absolute; inset:0; pointer-events:none; opacity:.5; background:repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0, rgba(0,0,0,0) 2px, rgba(0,0,0,.14) 3px);"
-  >
-  </div>
+  <div class="landing__scanlines" aria-hidden="true"></div>
   <!-- corner registration marks -->
-  <div
-    style="position:absolute; bottom:20px; left:20px; width:14px; height:14px; border-left:1.5px solid var(--cy); border-bottom:1.5px solid var(--cy); box-shadow:0 0 8px rgba(53,230,224,.5); pointer-events:none;"
-  >
-  </div>
-  <div
-    style="position:absolute; bottom:20px; right:20px; width:14px; height:14px; border-right:1.5px solid var(--cy); border-bottom:1.5px solid var(--cy); box-shadow:0 0 8px rgba(53,230,224,.5); pointer-events:none;"
-  >
-  </div>
-  <div
-    style="position:absolute; top:26px; right:42px; font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:10px; letter-spacing:.16em; color:rgba(53,230,224,.62); pointer-events:none;"
-  >
-    SCRAPUP.DEV
-  </div>
-  <div
-    style="position:absolute; bottom:26px; left:42px; font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:10px; letter-spacing:.16em; color:rgba(53,230,224,.62); pointer-events:none;"
-  >
-    FIG · 01 — IDENTITY
-  </div>
+  <div class="landing__mark-bl" aria-hidden="true"></div>
+  <div class="landing__mark-br" aria-hidden="true"></div>
+  <div class="landing__label-tr" aria-hidden="true">SCRAPUP.DEV</div>
+  <div class="landing__label-bl" aria-hidden="true">FIG · 01 — IDENTITY</div>
 
-  <main style="position:relative; max-width:1180px; margin:0 auto; padding:30px 48px 132px;">
+  <main class="landing__main">
     <TopBar lang={lang} />
     <Hero lang={lang} />
     <Problem lang={lang} />
@@ -75,3 +53,91 @@ const { lang } = Astro.props;
 
   <Footer />
 </div>
+
+<style>
+  .landing {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    background: var(--ink);
+    color: var(--light-ink);
+    font-family: 'IBM Plex Sans', 'Noto Sans JP', system-ui, sans-serif;
+    overflow: hidden;
+  }
+
+  .landing__glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(900px 520px at 14% -4%, color-mix(in srgb, var(--cy) 12%, transparent), transparent 62%),
+      radial-gradient(820px 620px at 102% 104%, color-mix(in srgb, var(--neon) 16%, transparent), transparent 60%),
+      radial-gradient(700px 500px at 88% 8%, rgba(var(--violet), 0.08), transparent 60%);
+  }
+
+  .landing__scanlines {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0,
+      rgba(0, 0, 0, 0) 2px,
+      rgba(0, 0, 0, 0.14) 3px
+    );
+  }
+
+  .landing__mark-bl {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: 14px;
+    height: 14px;
+    border-left: 1.5px solid var(--cy);
+    border-bottom: 1.5px solid var(--cy);
+    box-shadow: 0 0 8px color-mix(in srgb, var(--cy) 50%, transparent);
+    pointer-events: none;
+  }
+
+  .landing__mark-br {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 14px;
+    height: 14px;
+    border-right: 1.5px solid var(--cy);
+    border-bottom: 1.5px solid var(--cy);
+    box-shadow: 0 0 8px color-mix(in srgb, var(--cy) 50%, transparent);
+    pointer-events: none;
+  }
+
+  .landing__label-tr {
+    position: absolute;
+    top: 26px;
+    right: 42px;
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: color-mix(in srgb, var(--cy) 62%, transparent);
+    pointer-events: none;
+  }
+
+  .landing__label-bl {
+    position: absolute;
+    bottom: 26px;
+    left: 42px;
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: color-mix(in srgb, var(--cy) 62%, transparent);
+    pointer-events: none;
+  }
+
+  .landing__main {
+    position: relative;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 30px 48px 132px;
+  }
+</style>
