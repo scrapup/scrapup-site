@@ -32,15 +32,34 @@ milestone, gate, skill, agent, …) untranslated, as in the prototype.
 
 Screenshot regression (`tests/visual/layout.spec.ts`) is **opt-in** via `RUN_VISUAL=1` and its
 baselines are deterministic **only on the official Playwright CI container**. Never commit a
-baseline generated on macOS/Windows. To (re)generate, run on the pinned container image
-(`mcr.microsoft.com/playwright:v1.61.1-noble`):
+baseline generated on macOS/Windows — OS-level font rendering differs and will cause false
+failures in CI.
+
+Baselines are committed PNGs stored under `tests/visual/` (the `snapshotDir` is configured in
+`playwright.config.ts`). The suite is skipped unless `RUN_VISUAL=1` is set; **no baseline PNGs
+are committed yet** — they will be generated on the first CI run.
+
+Each screenshot is captured with `animations: 'disabled'` and
+`mask: [page.locator('[aria-hidden="true"]')]` to suppress animated and decorative elements that
+would otherwise produce flaky diffs.
+
+**Regenerate baselines** (run inside the pinned container image
+`mcr.microsoft.com/playwright:v1.61.1-noble`):
 
 ```bash
-RUN_VISUAL=1 npm run test:e2e:update
+RUN_VISUAL=1 npm run test:e2e:update -- tests/visual/layout.spec.ts
 ```
 
-then commit the updated `tests/visual/__screenshots__/`. The computed-style layer
-(`tests/visual/tokens.spec.ts`) is deterministic everywhere and always runs.
+Then commit the updated files under `tests/visual/`.
+
+**Verify baselines** (same container, no `--update-snapshots`):
+
+```bash
+RUN_VISUAL=1 npm run test:e2e -- tests/visual/layout.spec.ts
+```
+
+The computed-style layer (`tests/visual/tokens.spec.ts`) is deterministic everywhere and always
+runs without the `RUN_VISUAL` flag.
 
 ## Releases (do not bump versions by hand)
 
