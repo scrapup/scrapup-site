@@ -6,56 +6,100 @@ interface Props {
 }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-
-const card =
-  'background:linear-gradient(180deg, rgba(20,26,40,.55), rgba(14,18,28,.55)); border:1px solid rgba(120,190,210,.16); padding:24px;';
-const stat =
-  "font-family:'Space Grotesk','Noto Sans JP',sans-serif; font-weight:700; font-size:2.7rem; line-height:1;";
-const src =
-  "font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:11px; letter-spacing:.04em; color:rgba(190,200,220,.4); margin-top:14px;";
-const desc = 'font-size:13.5px; line-height:1.5; color:#AEB4C2; margin-top:12px;';
 ---
 
-<div style="margin-top:108px;">
-  <div
-    style="font-family:'IBM Plex Mono','Noto Sans JP',monospace; font-size:11px; letter-spacing:.2em; color:var(--cy); margin-bottom:16px;"
-  >
+<div class="problem">
+  <div class="problem__kicker">
     <span>{t('problem.label')}</span>
   </div>
-  <h2
-    style="margin:0 0 14px; max-width:20ch; font-family:'Space Grotesk','Noto Sans JP',sans-serif; font-weight:600; font-size:clamp(1.7rem,3.2vw,2.6rem); line-height:1.08; letter-spacing:-.02em; color:#F2F3F8;"
-  >
+  <h2 class="section-title problem__title">
     {t('problem.title')}
   </h2>
-  <p style="margin:0; max-width:640px; font-size:1.05rem; line-height:1.6; color:#AEB4C2;">
+  <p class="lede problem__lede">
     {t('problem.body')}
   </p>
 
-  <div
-    style="margin-top:34px; display:grid; grid-template-columns:repeat(auto-fit,minmax(248px,1fr)); gap:18px;"
-  >
-    <div style={card}>
-      <div
-        style={`${stat} color:var(--neon); text-shadow:0 0 24px color-mix(in srgb, var(--neon) 45%, transparent);`}
-      >
-        +37.6%
-      </div>
-      <div style={desc}>{t('problem.stat1.desc')}</div>
-      <div style={src}>arXiv 2506.11022</div>
+  <div class="problem__grid">
+    <div class="card">
+      <div class="problem__stat problem__stat--neon">+37.6%</div>
+      <div class="item-desc problem__desc">{t('problem.stat1.desc')}</div>
+      <div class="problem__src">arXiv 2506.11022</div>
     </div>
-    <div style={card}>
-      <div style={`${stat} color:var(--cy); text-shadow:0 0 24px rgba(53,230,224,.4);`}>500k+</div>
-      <div style={desc}>{t('problem.stat2.desc')}</div>
-      <div style={src}>arXiv 2508.21634</div>
+    <div class="card">
+      <div class="problem__stat problem__stat--cy">500k+</div>
+      <div class="item-desc problem__desc">{t('problem.stat2.desc')}</div>
+      <div class="problem__src">arXiv 2508.21634</div>
     </div>
-    <div style={card}>
-      <div
-        style="font-family:'Space Grotesk','Noto Sans JP',sans-serif; font-weight:600; font-size:1.15rem; line-height:1.2; color:#ECEEF4;"
-      >
-        {t('problem.card3.title')}
-      </div>
-      <div style={desc}>{t('problem.card3.desc')}</div>
-      <div style={src}>martinfowler.com · ACM TechBrief 2026</div>
+    <div class="card">
+      <div class="item-title problem__card-title">{t('problem.card3.title')}</div>
+      <div class="item-desc problem__desc">{t('problem.card3.desc')}</div>
+      <div class="problem__src">martinfowler.com · ACM TechBrief 2026</div>
     </div>
   </div>
 </div>
+
+<style>
+  .problem {
+    margin-top: 108px;
+  }
+
+  .problem__kicker {
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--cy);
+    margin-bottom: 16px;
+  }
+
+  .problem__title {
+    margin: 0 0 14px;
+    max-width: 20ch;
+  }
+
+  .problem__lede {
+    margin: 0;
+  }
+
+  .problem__grid {
+    margin-top: 34px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(248px, 1fr));
+    gap: 18px;
+  }
+
+  .problem__stat {
+    font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+    font-weight: 700;
+    font-size: 2.7rem;
+    line-height: 1;
+  }
+
+  .problem__stat--neon {
+    color: var(--neon);
+    text-shadow: 0 0 24px color-mix(in srgb, var(--neon) 45%, transparent);
+  }
+
+  .problem__stat--cy {
+    color: var(--cy);
+    text-shadow: 0 0 24px rgba(53, 230, 224, 0.4);
+  }
+
+  .problem__desc {
+    color: var(--text-muted);
+    font-size: 13.5px;
+    margin-top: 12px;
+  }
+
+  .problem__card-title {
+    font-size: 1.15rem;
+    line-height: 1.2;
+  }
+
+  .problem__src {
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: rgba(var(--mark), 0.4);
+    margin-top: 14px;
+  }
+</style>
