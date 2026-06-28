@@ -5,6 +5,7 @@
  * on GitHub). Copy from ui.notFound.* in all three locales; default language EN.
  * Served with HTTP 404 by Vercel for any unknown path. Marked noindex.
  */
+import Analytics from '@vercel/analytics/astro';
 import '../styles/global.css';
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 import { useTranslations, type Lang } from '../i18n';
@@ -153,5 +154,6 @@ const t = useTranslations(lang);
         </div>
       </div>
     </div>
+    <Analytics />
   </body>
 </html>
