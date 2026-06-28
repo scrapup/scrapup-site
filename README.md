@@ -27,7 +27,7 @@ Process — from informational _scrap_ to forged, auditable delivery) and drives
 ## Quick start
 
 ```bash
-nvm use          # honors .nvmrc (Node 20)
+nvm use          # honors .nvmrc (Node 24)
 npm install
 npm run dev      # http://localhost:4321 (HMR)
 ```

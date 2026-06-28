@@ -20,13 +20,13 @@ Release PR merge). There is no deploy on ordinary `main` merges.
 | GitHub repository `scrapup/scrapup-site` (org `scrapup`)       | Source, Actions, release-please       |
 | A Vercel account/team with access to create a project          | Hosting, preview + production deploys |
 | Cloudflare account managing DNS for `scrapup.dev`              | Domain cutover                        |
-| Local Node 20 (`.nvmrc`) + npm                                 | Running/building the site locally     |
+| Local Node 24 (`.nvmrc`) + npm                                 | Running/building the site locally     |
 | `vercel` CLI (`npm i -g vercel`) — optional, for local linking | Obtaining project/org IDs             |
 
 Local sanity check before anything else:
 
 ```bash
-nvm use            # honors .nvmrc (Node 20)
+nvm use            # honors .nvmrc (Node 24)
 npm install
 npm run check      # astro check + i18n parity
 npm run build      # static output in dist/
