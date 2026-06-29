@@ -5,6 +5,7 @@
  * on GitHub). Copy from ui.notFound.* in all three locales; default language EN.
  * Served with HTTP 404 by Vercel for any unknown path. Marked noindex.
  */
+import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from '@vercel/speed-insights/astro';
 import '../styles/global.css';
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
@@ -29,6 +30,7 @@ const t = useTranslations(lang);
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <Analytics />
     <SpeedInsights />
   </head>
   <body>

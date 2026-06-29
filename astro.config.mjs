@@ -8,11 +8,7 @@ import sitemap from '@astrojs/sitemap';
 // and the Playwright suite (SSR_ADAPTER=node), because @astrojs/vercel does not
 // support `astro preview` — Node serves the built output (incl. the on-demand root)
 // with production parity. See package.json `preview` / `test:e2e`.
-const adapter = process.env.SSR_ADAPTER === 'node' ? node({ mode: 'standalone' }) : vercel({
-  webAnalytics: {
-    enabled: true,
-  },
-});
+const adapter = process.env.SSR_ADAPTER === 'node' ? node({ mode: 'standalone' }) : vercel();
 
 // https://astro.build/config
 export default defineConfig({
