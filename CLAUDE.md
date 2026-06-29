@@ -17,10 +17,20 @@ the source of truth — the Astro component tree is.
 | ------ | ------ |
 | Package | `@vercel/analytics` (direct `dependencies`, `^1.6.1`) |
 | Component | `<Analytics />` from `@vercel/analytics/astro` |
-| Mounted in | `src/layouts/BaseLayout.astro` (covers EN on-demand + PT/JA static) and `src/pages/404.astro` (standalone, does not inherit BaseLayout) |
+| Mounted in | `src/layouts/BaseLayout.astro` (inside `<head>`) and `src/pages/404.astro` (inside `<head>`, standalone) |
 | CSP | Unchanged — script and beacon are same-origin (`/_vercel/insights/*`); covered by existing `script-src 'self'` and `default-src 'self'` |
 | Test | `tests/e2e/analytics.spec.ts` asserts `<vercel-analytics>` present on all 4 routes |
 | Manual steps (Vercel dashboard) | 1. Enable **Web Analytics** in the project settings. 2. Remove the unused `NEXT_PUBLIC_GA_ID` env var. |
+
+**Vercel Speed Insights** — Core Web Vitals (LCP, FID, CLS, TTFB, FCP) por rota.
+
+| Aspect | Detail |
+| ------ | ------ |
+| Package | `@vercel/speed-insights` (direct `dependencies`) |
+| Component | `<SpeedInsights />` from `@vercel/speed-insights/astro` |
+| Mounted in | `src/layouts/BaseLayout.astro` (inside `<head>`, after `<Analytics />`) and `src/pages/404.astro` (inside `<head>`) |
+| CSP | Same-origin (`/_vercel/speed-insights/*`); covered by existing `script-src 'self'` and `default-src 'self'` |
+| Manual steps (Vercel dashboard) | Enable **Speed Insights** in the project settings. |
 
 > **Do not** add Google Analytics or any third-party analytics script — the CSP would need `'unsafe-inline'`/nonces and a foreign `connect-src`.
 

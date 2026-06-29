@@ -5,6 +5,7 @@
  * the prototype's font loading; CSP in vercel.json scopes the two Google origins).
  */
 import Analytics from '@vercel/analytics/astro';
+import SpeedInsights from '@vercel/speed-insights/astro';
 import Seo from '../components/Seo.astro';
 import type { Lang } from '../i18n';
 import '../styles/global.css';
@@ -36,9 +37,10 @@ const { lang, title, description, path = '' } = Astro.props;
     />
 
     <Seo lang={lang} title={title} description={description} path={path} />
+    <Analytics />
+    <SpeedInsights />
   </head>
   <body>
     <slot />
-    <Analytics />
   </body>
 </html>
