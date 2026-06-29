@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/scrapup/scrapup-site/compare/v0.3.0...v0.3.1) (2026-06-29)
+
+
+### Bug Fixes
+
+* Install Vercel Web Analytics ([#6](https://github.com/scrapup/scrapup-site/issues/6)) ([ba42065](https://github.com/scrapup/scrapup-site/commit/ba42065ec1c609453de07524268e3e707a3c3a16))
+
 ## [0.3.0](https://github.com/scrapup/scrapup-site/compare/v0.2.0...v0.3.0) (2026-06-29)
 
 
