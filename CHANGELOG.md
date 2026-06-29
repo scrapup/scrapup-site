@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.2](https://github.com/scrapup/scrapup-site/compare/v0.3.1...v0.3.2) (2026-06-29)
+
+
+### Bug Fixes
+
+* **analytics:** remove double injection do Vercel Analytics ([#8](https://github.com/scrapup/scrapup-site/issues/8)) ([8dcdf55](https://github.com/scrapup/scrapup-site/commit/8dcdf55e3cd9b1b188ed616017c3e4875b675989))
+
 ## [0.3.1](https://github.com/scrapup/scrapup-site/compare/v0.3.0...v0.3.1) (2026-06-29)
 
 
