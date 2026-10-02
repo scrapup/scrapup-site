@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Manifesto from '../../../components/Manifesto.astro';
+import { useTranslations } from '../../../i18n';
+
+const lang = 'pt';
+const t = useTranslations(lang);
+---
+
+<BaseLayout
+  lang={lang}
+  title={t('manifesto.meta.title')}
+  description={t('manifesto.meta.description')}
+  path="manifesto"
+>
+  <Manifesto lang={lang} />
+</BaseLayout>

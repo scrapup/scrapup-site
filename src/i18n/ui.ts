@@ -1,5 +1,5 @@
 /*
- * Trilingual UI dictionary — single source of copy for the landing + 404.
+ * Trilingual UI dictionary — single source of copy for the landing, manifesto + 404.
  * EN is the canonical key set (RN-02); `pt` and `ja` are typed to mirror it
  * exactly, and a build-time parity check (scripts/i18n-parity.mjs) enforces it.
  *
@@ -14,6 +14,8 @@
 const en = {
   // Top bar
   'nav.tagline': 'AI-assisted Unified Process',
+  'nav.home': 'SCRAPUP',
+  'nav.manifesto': 'MANIFESTO',
 
   // Hero
   'hero.badge': 'BETA · COMING SOON',
@@ -151,6 +153,51 @@ const en = {
   'meta.description':
     'A traceable, auditable AI-assisted software process, end-to-end — from informational scrap to forged, auditable delivery. An ecosystem of skills, agents and commands for Claude Code.',
 
+  // Manifesto page (/manifesto/)
+  'manifesto.meta.title': 'The scrapup Manifesto — from scrap to forged, trusted delivery',
+  'manifesto.meta.description':
+    'What scrapup believes, values, commits to and refuses: trust requires human judgment, agents execute but never govern, and four named decisions carry an idea to production.',
+  'manifesto.title.html': 'The <span>scrapup</span> Manifesto',
+  'manifesto.tagline.html': 'From scrap to forged, trusted delivery.',
+  'manifesto.preamble.label': '// 01 — PREAMBLE',
+  'manifesto.preamble.body':
+    'We have seen well-specified work set its builders free: given clear use cases, sequences, and models, people far from the original idea built it faithfully and on their own. Today, AI makes building cheap — but not yet trustworthy. AI will not end our craft; it amplifies it. What it amplifies depends on where we put our human effort. We put it where judgment lives.',
+  'manifesto.believe.label': '// 02 — WE BELIEVE',
+  'manifesto.believe.1': 'Trust requires judgment, and judgment is human.',
+  'manifesto.believe.2': 'Agents execute; they never govern.',
+  'manifesto.believe.3': 'The specification is the asset, not the model.',
+  'manifesto.believe.4': 'Software is a whole cycle',
+  'manifesto.believe.4.rest': ' — from the first idea to the product working in production.',
+  'manifesto.believe.5': 'A decision without a name cannot be audited.',
+  'manifesto.believe.6': 'People lead',
+  'manifesto.believe.6.rest': ' — product, architecture, validation, delivery.',
+  'manifesto.value.label': '// 03 — WE VALUE',
+  'manifesto.value.1.em': 'Trust',
+  'manifesto.value.1.rest': ' over speed.',
+  'manifesto.value.2.em': 'Evidence',
+  'manifesto.value.2.rest': ' over declaration.',
+  'manifesto.value.note':
+    'That is, while there is value in the items on the right, we value the items on the left more.',
+  'manifesto.spine.label': '// 04 — THE SPINE',
+  'manifesto.spine.lede': 'Four named decisions carry an idea to production:',
+  'manifesto.spine.lco': 'we know why we build and what is worth building.',
+  'manifesto.spine.lca': 'the architecture is proven, not drawn.',
+  'manifesto.spine.ioc': 'what was specified is built, and evidence proves it.',
+  'manifesto.spine.release': 'it works where it matters: in the hands of its users.',
+  'manifesto.commit.label': '// 05 — WE COMMIT',
+  'manifesto.commit.title': 'What you specify is what you get.',
+  'manifesto.commit.body': 'What is specified is built; what is built was specified.',
+  'manifesto.refuse.label': '// 06 — WE REFUSE',
+  'manifesto.refuse.body':
+    'We refuse to replace the people of product and engineering. scrapup is a tool, as a hammer is a tool — only as good as the hand and the judgment that hold it.',
+  'manifesto.sign.label': '// 07 — SIGNATORIES',
+  'manifesto.sign.body':
+    'To co-sign, open a pull request that adds your own name to this list. The commit is your signature.',
+  'manifesto.sign.note':
+    'Signatures are public and permanent in the git history and in published releases; use your GitHub noreply e-mail if you prefer not to expose your address. To withdraw, open an issue or pull request: your name is removed from future versions.',
+  'manifesto.sign.cta': 'CO-SIGN ON GITHUB ↗',
+  'manifesto.back': '← BACK TO SCRAPUP',
+
   // 404
   'notFound.status': 'HTTP 404 · NO GATE SEALED',
   'notFound.title': 'This route never reached a milestone.',
@@ -165,6 +212,8 @@ type UiSchema = Record<keyof typeof en, string>;
 
 const pt: UiSchema = {
   'nav.tagline': 'Processo Unificado assistido por IA',
+  'nav.home': 'SCRAPUP',
+  'nav.manifesto': 'MANIFESTO',
 
   'hero.badge': 'BETA · EM BREVE',
   'hero.eyebrow': 'PLUGIN PARA O CLAUDE CODE — DOCUMENT → VALIDATE → DELIVER',
@@ -292,6 +341,52 @@ const pt: UiSchema = {
   'meta.description':
     'Um processo de software assistido por IA, rastreável e auditável, de ponta a ponta — do scrap informacional à entrega forjada e auditável. Um ecossistema de skills, agents e commands para o Claude Code.',
 
+  // Manifesto page (/manifesto/)
+  'manifesto.meta.title': 'Manifesto do scrapup — do scrap à entrega forjada e confiável',
+  'manifesto.meta.description':
+    'No que o scrapup acredita, o que valoriza, com o que se compromete e o que recusa: confiança exige julgamento humano, agentes executam mas nunca governam, e quatro decisões nomeadas levam uma ideia até a produção.',
+  'manifesto.title.html': 'Manifesto do <span>scrapup</span>',
+  'manifesto.tagline.html': 'Do <em>scrap</em> à entrega forjada e confiável.',
+  'manifesto.preamble.label': '// 01 — PREÂMBULO',
+  'manifesto.preamble.body':
+    'Nós já vimos um trabalho bem especificado libertar quem o constrói: diante de casos de uso, sequências e modelos claros, pessoas distantes da ideia original o construíram com fidelidade e por conta própria. Hoje, a IA torna construir barato — mas ainda não confiável. A IA não vai acabar com o nosso ofício; ela o amplifica. O que ela amplifica depende de onde colocamos o nosso esforço humano. Nós o colocamos onde vive o julgamento.',
+  'manifesto.believe.label': '// 02 — NÓS ACREDITAMOS',
+  'manifesto.believe.1': 'Confiança exige julgamento, e o julgamento é humano.',
+  'manifesto.believe.2': 'Agentes executam; nunca governam.',
+  'manifesto.believe.3': 'A especificação é o ativo, não o modelo.',
+  'manifesto.believe.4': 'Software é um ciclo inteiro',
+  'manifesto.believe.4.rest': ' — da primeira ideia ao produto funcionando em produção.',
+  'manifesto.believe.5': 'Uma decisão sem nome não pode ser auditada.',
+  'manifesto.believe.6': 'Pessoas lideram',
+  'manifesto.believe.6.rest': ' — produto, arquitetura, validação, entrega.',
+  'manifesto.value.label': '// 03 — NÓS VALORIZAMOS',
+  'manifesto.value.1.em': 'Confiança',
+  'manifesto.value.1.rest': ' acima de velocidade.',
+  'manifesto.value.2.em': 'Evidência',
+  'manifesto.value.2.rest': ' acima de declaração.',
+  'manifesto.value.note':
+    'Ou seja, mesmo havendo valor nos itens à direita, nós valorizamos mais os itens à esquerda.',
+  'manifesto.spine.label': '// 04 — A ESPINHA',
+  'manifesto.spine.lede': 'Quatro decisões nomeadas levam uma ideia até a produção:',
+  'manifesto.spine.lco': 'sabemos por que construímos e o que vale a pena construir.',
+  'manifesto.spine.lca': 'a arquitetura é comprovada, não desenhada.',
+  'manifesto.spine.ioc': 'o que foi especificado está construído, e a evidência o comprova.',
+  'manifesto.spine.release': 'funciona onde importa: nas mãos de quem o usa.',
+  'manifesto.commit.label': '// 05 — NÓS NOS COMPROMETEMOS',
+  'manifesto.commit.title': 'O que você especifica é o que você recebe.',
+  'manifesto.commit.body':
+    'O que é especificado é construído; o que é construído foi especificado.',
+  'manifesto.refuse.label': '// 06 — NÓS RECUSAMOS',
+  'manifesto.refuse.body':
+    'Recusamos substituir as pessoas de produto e de engenharia. O scrapup é uma ferramenta, assim como um martelo é uma ferramenta — tão bom quanto a mão e o julgamento que o empunham.',
+  'manifesto.sign.label': '// 07 — SIGNATÁRIOS',
+  'manifesto.sign.body':
+    'Para assinar junto, abra um pull request que adicione o seu próprio nome a esta lista. O commit é a sua assinatura.',
+  'manifesto.sign.note':
+    'As assinaturas são públicas e permanentes no histórico do git e nas releases publicadas; use o e-mail noreply do GitHub se preferir não expor o seu endereço. Para retirar a assinatura, abra uma issue ou um pull request: o seu nome é removido das versões futuras.',
+  'manifesto.sign.cta': 'ASSINAR NO GITHUB ↗',
+  'manifesto.back': '← VOLTAR AO SCRAPUP',
+
   'notFound.status': 'HTTP 404 · NENHUM GATE SELADO',
   'notFound.title': 'Esta rota nunca alcançou um milestone.',
   'notFound.body':
@@ -302,6 +397,8 @@ const pt: UiSchema = {
 
 const ja: UiSchema = {
   'nav.tagline': 'AI支援の Unified Process',
+  'nav.home': 'SCRAPUP',
+  'nav.manifesto': 'MANIFESTO',
 
   'hero.badge': 'ベータ · 近日公開',
   'hero.eyebrow': 'CLAUDE CODE 用プラグイン — DOCUMENT → VALIDATE → DELIVER',
@@ -427,6 +524,49 @@ const ja: UiSchema = {
   'meta.title': 'scrapup — エンジニアリングチームのための AI 支援 Unified Process',
   'meta.description':
     '追跡可能で監査可能な、AI 支援のソフトウェア・プロセスをエンドツーエンドで。情報の scrap から、鍛造され監査可能な delivery へ。Claude Code 向けの skill・agent・command のエコシステム。',
+
+  // Manifesto page (/manifesto/)
+  'manifesto.meta.title': 'scrapup マニフェスト — scrap から、鍛え上げられた信頼できるデリバリーへ',
+  'manifesto.meta.description':
+    'scrapup が信じること、重んじること、約束すること、拒むこと。信頼には人間の判断が必要であり、エージェントは実行するが統治はしない。名前を持つ四つの決定が、アイデアを本番環境へと運ぶ。',
+  'manifesto.title.html': '<span>scrapup</span> マニフェスト',
+  'manifesto.tagline.html': '<em>scrap</em> から、鍛え上げられた信頼できるデリバリーへ。',
+  'manifesto.preamble.label': '// 01 — 前文',
+  'manifesto.preamble.body':
+    '私たちは、よく仕様化された仕事が作り手を自由にするのを見てきた。明確なユースケース、シーケンス、モデルがあれば、元のアイデアから遠く離れた人々でも、それを忠実に、自らの力で作り上げた。今日、AI は作ることを安価にした — しかし、まだ信頼できるものにはしていない。AI は私たちの技を終わらせない。それを増幅する。何が増幅されるかは、私たちが人間の努力をどこに注ぐかにかかっている。私たちは、判断が宿る場所にそれを注ぐ。',
+  'manifesto.believe.label': '// 02 — 私たちは信じる',
+  'manifesto.believe.1': '信頼には判断が必要であり、判断は人間のものである。',
+  'manifesto.believe.2': 'エージェントは実行する。決して統治はしない。',
+  'manifesto.believe.3': '資産は仕様であり、モデルではない。',
+  'manifesto.believe.4': 'ソフトウェアはひとつの完全なサイクルである',
+  'manifesto.believe.4.rest': ' — 最初のアイデアから、本番環境で動くプロダクトまで。',
+  'manifesto.believe.5': '名前のない決定は監査できない。',
+  'manifesto.believe.6': '人が導く',
+  'manifesto.believe.6.rest': ' — プロダクト、アーキテクチャ、検証、デリバリー。',
+  'manifesto.value.label': '// 03 — 私たちが重んじるもの',
+  'manifesto.value.1.em': '信頼',
+  'manifesto.value.1.rest': 'を、速さよりも。',
+  'manifesto.value.2.em': '証拠',
+  'manifesto.value.2.rest': 'を、宣言よりも。',
+  'manifesto.value.note': 'すなわち、右側の項目にも価値はあるが、私たちは左側の項目により大きな価値を置く。',
+  'manifesto.spine.label': '// 04 — 背骨',
+  'manifesto.spine.lede': '名前を持つ四つの決定が、アイデアを本番環境へと運ぶ。',
+  'manifesto.spine.lco': 'なぜ作るのか、何が作るに値するのかを私たちは知っている。',
+  'manifesto.spine.lca': 'アーキテクチャは描かれるのではなく、実証される。',
+  'manifesto.spine.ioc': '仕様化されたものが作られ、証拠がそれを証明する。',
+  'manifesto.spine.release': '大切な場所で動く。それを使う人々の手の中で。',
+  'manifesto.commit.label': '// 05 — 私たちのコミットメント',
+  'manifesto.commit.title': '仕様にしたものが、手に入るもの。',
+  'manifesto.commit.body': '仕様化されたものは作られ、作られたものは仕様化されていた。',
+  'manifesto.refuse.label': '// 06 — 私たちが拒むもの',
+  'manifesto.refuse.body':
+    '私たちは、プロダクトとエンジニアリングの人々を置き換えることを拒む。scrapup は道具である。ハンマーが道具であるように — それを握る手と判断の良さを超えることはない。',
+  'manifesto.sign.label': '// 07 — 署名者',
+  'manifesto.sign.body': '共同署名するには、このリストにあなた自身の名前を加える pull request を開いてほしい。その commit があなたの署名となる。',
+  'manifesto.sign.note':
+    '署名は公開され、git の履歴と公開済みの release に永続的に残る。メールアドレスを公開したくない場合は、GitHub の noreply メールを使ってほしい。署名を取り下げるには issue または pull request を開いてほしい。以後のバージョンから名前を削除する。',
+  'manifesto.sign.cta': 'GITHUB で署名 ↗',
+  'manifesto.back': '← SCRAPUP に戻る',
 
   'notFound.status': 'HTTP 404 · 封印された GATE なし',
   'notFound.title': 'このルートは milestone に到達しませんでした。',
