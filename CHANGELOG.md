@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/scrapup/scrapup-site/compare/v0.3.2...v0.4.0) (2026-10-02)
+
+
+### Features
+
+* **manifesto:** add trilingual manifesto page and top-bar nav link ([#10](https://github.com/scrapup/scrapup-site/issues/10)) ([4d1f06d](https://github.com/scrapup/scrapup-site/commit/4d1f06da375c37e8e0303c7f6d0c2df87d3a3db4))
+
 ## [0.3.2](https://github.com/scrapup/scrapup-site/compare/v0.3.1...v0.3.2) (2026-06-29)
 
 
