@@ -1,26 +1,48 @@
 ---
-import { useTranslations, type Lang } from '../../i18n';
+import { useTranslations, localizedPath, type Lang } from '../../i18n';
 import { REPO } from '../../config';
 import LanguageSwitcher from '../LanguageSwitcher.astro';
 
+/** Site pages reachable from the top-bar nav; `path` is the unprefixed route. */
+const PAGES = {
+  home: { path: '', label: 'nav.home' },
+  manifesto: { path: 'manifesto', label: 'nav.manifesto' },
+} as const;
+type Page = keyof typeof PAGES;
+
 interface Props {
   lang: Lang;
+  current: Page;
 }
-const { lang } = Astro.props;
+const { lang, current } = Astro.props;
 const t = useTranslations(lang);
+const homeHref = localizedPath(lang, PAGES.home.path);
 ---
 
 <div class="top-bar">
   <div class="top-bar__left">
-    <div class="item-title top-bar__wordmark">
+    <a href={homeHref} class="item-title top-bar__wordmark">
       scrap<span class="top-bar__accent">up</span>
-    </div>
+    </a>
     <div class="kicker top-bar__tagline">
       {t('nav.tagline')}
     </div>
   </div>
   <div class="top-bar__right">
-    <LanguageSwitcher lang={lang} />
+    <nav class="top-bar__nav">
+      {
+        (Object.keys(PAGES) as Page[]).map((page) => (
+          <a
+            href={localizedPath(lang, PAGES[page].path)}
+            aria-current={page === current ? 'page' : undefined}
+            class:list={['top-bar__nav-item', { 'top-bar__nav-item--active': page === current }]}
+          >
+            {t(PAGES[page].label)}
+          </a>
+        ))
+      }
+    </nav>
+    <LanguageSwitcher lang={lang} path={PAGES[current].path} />
     <a
       href={REPO}
       target="_blank"
@@ -51,6 +73,7 @@ const t = useTranslations(lang);
   }
 
   .top-bar__wordmark {
+    text-decoration: none;
     font-size: 24px;
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -72,7 +95,33 @@ const t = useTranslations(lang);
   .top-bar__right {
     display: flex;
     align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
+  }
+
+  .top-bar__nav {
+    display: flex;
+    align-items: center;
     gap: 18px;
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+  }
+
+  .top-bar__nav-item {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .top-bar__nav-item:hover {
+    color: var(--light-ink);
+  }
+
+  .top-bar__nav-item--active,
+  .top-bar__nav-item--active:hover {
+    color: var(--neon);
+    border-bottom: 1px solid var(--neon);
+    padding-bottom: 2px;
   }
 
   .top-bar__link {

@@ -1,0 +1,504 @@
+---
+/*
+ * Manifesto — the localized scrapup Manifesto page, ported from
+ * design-project/scrapup - Manifesto.dc.html inside the shared PageShell.
+ * Copy lives in ui.manifesto.*; the milestone acronyms and their canonical
+ * (English) names are fixed vocabulary and stay untranslated.
+ */
+import { useTranslations, localizedPath, type Lang, type UiKey } from '../i18n';
+import { REPO, AUTHOR } from '../config';
+import PageShell from './PageShell.astro';
+import TopBar from './sections/TopBar.astro';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const VERSION = 'MANIFESTO · V1 · 2026-10-01';
+const SIGNED_ON = '2026-10-01';
+
+const beliefs: Array<{ strong: UiKey; rest?: UiKey }> = [
+  { strong: 'manifesto.believe.1' },
+  { strong: 'manifesto.believe.2' },
+  { strong: 'manifesto.believe.3' },
+  { strong: 'manifesto.believe.4', rest: 'manifesto.believe.4.rest' },
+  { strong: 'manifesto.believe.5' },
+  { strong: 'manifesto.believe.6', rest: 'manifesto.believe.6.rest' },
+];
+
+const values: Array<{ em: UiKey; rest: UiKey }> = [
+  { em: 'manifesto.value.1.em', rest: 'manifesto.value.1.rest' },
+  { em: 'manifesto.value.2.em', rest: 'manifesto.value.2.rest' },
+];
+
+const spine: Array<{ code: string; name: string; desc: UiKey; final?: boolean }> = [
+  { code: 'LCO', name: 'Lifecycle Objectives (LCO)', desc: 'manifesto.spine.lco' },
+  { code: 'LCA', name: 'Lifecycle Architecture (LCA)', desc: 'manifesto.spine.lca' },
+  { code: 'IOC', name: 'Initial Operational Capability (IOC)', desc: 'manifesto.spine.ioc' },
+  { code: 'RELEASE', name: 'Product Release', desc: 'manifesto.spine.release', final: true },
+];
+---
+
+<PageShell figLabel="FIG · 02 — MANIFESTO">
+  <TopBar lang={lang} current="manifesto" />
+
+  <article class="manifesto">
+    <header class="manifesto__hero">
+      <div class="manifesto__version">{VERSION}</div>
+      <h1 class="manifesto__title" set:html={t('manifesto.title.html')} />
+      <div class="manifesto__tagline">
+        <p class="manifesto__tagline-text" set:html={t('manifesto.tagline.html')} />
+      </div>
+    </header>
+
+    <section class="manifesto__section">
+      <div class="manifesto__label">{t('manifesto.preamble.label')}</div>
+      <p class="manifesto__preamble">{t('manifesto.preamble.body')}</p>
+    </section>
+
+    <section class="manifesto__section">
+      <div class="manifesto__label">{t('manifesto.believe.label')}</div>
+      <ol class="manifesto__beliefs">
+        {
+          beliefs.map((b, i) => (
+            <li class="manifesto__belief">
+              <div class="manifesto__belief-num">{String(i + 1).padStart(2, '0')}</div>
+              <div class="manifesto__belief-text">
+                <strong class="manifesto__belief-strong">{t(b.strong)}</strong>
+                {b.rest && <span class="manifesto__belief-rest">{t(b.rest)}</span>}
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section class="manifesto__section">
+      <div class="manifesto__label">{t('manifesto.value.label')}</div>
+      <div class="manifesto__values">
+        <div class="manifesto__values-list">
+          {
+            values.map((v) => (
+              <div class="manifesto__value">
+                <span class="manifesto__glow">{t(v.em)}</span>
+                {t(v.rest)}
+              </div>
+            ))
+          }
+        </div>
+        <p class="manifesto__values-note">{t('manifesto.value.note')}</p>
+      </div>
+    </section>
+
+    <section class="manifesto__section">
+      <div class="manifesto__label">{t('manifesto.spine.label')}</div>
+      <p class="manifesto__spine-lede">{t('manifesto.spine.lede')}</p>
+      <div class="manifesto__spine">
+        <div class="manifesto__spine-grid">
+          {
+            spine.map((m) => (
+              <div class:list={['manifesto__milestone']}>
+                <div class="manifesto__milestone-code">{m.code}</div>
+                <div class="manifesto__milestone-name">{m.name}</div>
+                <div class="manifesto__milestone-desc">{t(m.desc)}</div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="manifesto__section">
+      <div class="manifesto__label">{t('manifesto.commit.label')}</div>
+      <h2 class="manifesto__commit-title">{t('manifesto.commit.title')}</h2>
+      <p class="manifesto__commit-body">{t('manifesto.commit.body')}</p>
+    </section>
+
+    <section class="manifesto__section">
+      <div class="manifesto__label">{t('manifesto.refuse.label')}</div>
+      <div class="manifesto__refuse">
+        <p class="manifesto__refuse-text">{t('manifesto.refuse.body')}</p>
+      </div>
+    </section>
+
+    <section class="manifesto__section">
+      <div class="manifesto__label">{t('manifesto.sign.label')}</div>
+      <div class="manifesto__sign">
+        <div class="manifesto__signatory">
+          <div class="manifesto__signatory-head">
+            <span class="manifesto__signatory-name">{AUTHOR}</span>
+            <span class="manifesto__signatory-date">{SIGNED_ON}</span>
+          </div>
+          <div class="manifesto__signatory-cmd">git commit -s</div>
+        </div>
+        <div>
+          <p class="manifesto__sign-body">{t('manifesto.sign.body')}</p>
+          <p class="manifesto__sign-note">{t('manifesto.sign.note')}</p>
+          <a href={REPO} target="_blank" rel="noopener" class="btn btn--primary manifesto__sign-cta">
+            {t('manifesto.sign.cta')}
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div class="manifesto__back">
+      <a href={localizedPath(lang, '')} class="manifesto__back-link">{t('manifesto.back')}</a>
+    </div>
+  </article>
+</PageShell>
+
+<style>
+  .manifesto__hero {
+    padding-top: 72px;
+  }
+
+  .manifesto__version {
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    margin-bottom: 26px;
+  }
+
+  .manifesto__title {
+    margin: 0;
+    font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+    font-weight: 600;
+    font-size: clamp(2.7rem, 6vw, 5.4rem);
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    color: var(--text-strong);
+    text-wrap: balance;
+  }
+
+  .manifesto__title :global(span),
+  .manifesto__glow {
+    color: var(--neon);
+    text-shadow:
+      0 0 28px color-mix(in srgb, var(--neon) 55%, transparent),
+      0 0 6px color-mix(in srgb, var(--neon) 42%, transparent);
+  }
+
+  .manifesto__tagline {
+    margin-top: 34px;
+    padding: 10px 18px;
+    border-left: 2px solid var(--neon);
+    box-shadow: -1px 0 16px color-mix(in srgb, var(--neon) 20%, transparent);
+  }
+
+  .manifesto__tagline-text {
+    margin: 0;
+    font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+    font-weight: 500;
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    line-height: 1.4;
+    color: var(--text-soft);
+  }
+
+  .manifesto__section {
+    margin-top: 104px;
+  }
+
+  .manifesto__label {
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--cy);
+    margin-bottom: 22px;
+  }
+
+  .manifesto__preamble {
+    margin: 0;
+    max-width: 760px;
+    font-size: clamp(1.08rem, 1.5vw, 1.28rem);
+    line-height: 1.6;
+    color: var(--text-soft);
+    text-wrap: pretty;
+  }
+
+  /* 02 — beliefs */
+
+  .manifesto__beliefs {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid rgba(var(--hairline), 0.16);
+  }
+
+  .manifesto__belief {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr);
+    gap: 16px;
+    padding: 22px 0;
+    border-bottom: 1px solid rgba(var(--hairline), 0.12);
+  }
+
+  .manifesto__belief-num {
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-size: 12px;
+    color: var(--neon);
+    text-shadow: 0 0 10px color-mix(in srgb, var(--neon) 50%, transparent);
+    padding-top: 6px;
+  }
+
+  .manifesto__belief-text {
+    font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+    font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: var(--text-strong);
+    text-wrap: pretty;
+  }
+
+  .manifesto__belief-strong {
+    font-weight: 600;
+  }
+
+  .manifesto__belief-rest {
+    font-weight: 400;
+    color: var(--text-faint);
+  }
+
+  /* 03 — values */
+
+  .manifesto__values {
+    background: linear-gradient(180deg, rgba(var(--panel-hi), 0.55), rgba(var(--panel-lo), 0.55));
+    border: 1px solid rgba(var(--hairline), 0.16);
+    padding: 42px;
+    box-shadow: inset 0 0 70px rgba(0, 0, 0, 0.42);
+  }
+
+  .manifesto__values-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .manifesto__value {
+    font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+    font-weight: 600;
+    font-size: clamp(2rem, 4.6vw, 3.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--text-dim);
+  }
+
+  .manifesto__values-note {
+    margin: 28px 0 0;
+    max-width: 620px;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: var(--text-faint);
+  }
+
+  /* 04 — the spine */
+
+  .manifesto__spine-lede {
+    margin: 0 0 28px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-soft);
+  }
+
+  .manifesto__spine {
+    background: linear-gradient(180deg, rgba(var(--panel-hi), 0.82), rgba(var(--panel-lo), 0.82));
+    border: 1px solid color-mix(in srgb, var(--neon) 24%, transparent);
+    padding: 38px 38px 34px;
+    box-shadow:
+      inset 0 0 70px rgba(0, 0, 0, 0.42),
+      0 0 60px color-mix(in srgb, var(--neon) 13%, transparent);
+  }
+
+  .manifesto__spine-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+    gap: 28px 22px;
+  }
+
+  .manifesto__milestone {
+    border-top: 2px solid rgba(var(--hairline), 0.3);
+    padding-top: 14px;
+  }
+
+  .manifesto__milestone--final {
+    border-top-color: var(--neon);
+    box-shadow: 0 -1px 18px color-mix(in srgb, var(--neon) 30%, transparent);
+  }
+
+  .manifesto__milestone-code {
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 0.03em;
+    color: var(--light-ink);
+  }
+
+  .manifesto__milestone--final .manifesto__milestone-code {
+    color: var(--neon);
+    text-shadow: 0 0 18px color-mix(in srgb, var(--neon) 60%, transparent);
+  }
+
+  .manifesto__milestone-name {
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--text-dim);
+    margin-top: 6px;
+  }
+
+  .manifesto__milestone-desc {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-soft);
+    margin-top: 12px;
+  }
+
+  /* 05 — we commit */
+
+  .manifesto__commit-title {
+    margin: 0;
+    max-width: 22ch;
+    font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+    font-weight: 600;
+    font-size: clamp(2rem, 4.4vw, 3.4rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--neon);
+    text-shadow:
+      0 0 28px color-mix(in srgb, var(--neon) 55%, transparent),
+      0 0 6px color-mix(in srgb, var(--neon) 42%, transparent);
+  }
+
+  .manifesto__commit-body {
+    margin: 20px 0 0;
+    max-width: 640px;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--text-soft);
+  }
+
+  /* 06 — we refuse */
+
+  .manifesto__refuse {
+    border: 1px dashed rgba(var(--hairline), 0.3);
+    padding: 32px;
+    max-width: 820px;
+  }
+
+  .manifesto__refuse-text {
+    margin: 0;
+    font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+    font-weight: 500;
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    line-height: 1.5;
+    color: var(--light-ink);
+    text-wrap: pretty;
+  }
+
+  /* 07 — signatories */
+
+  .manifesto__sign {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+    gap: 40px;
+    align-items: start;
+  }
+
+  .manifesto__signatory {
+    background: linear-gradient(180deg, rgba(var(--panel-hi), 0.55), rgba(var(--panel-lo), 0.55));
+    border: 1px solid rgba(var(--hairline), 0.16);
+    padding: 28px;
+  }
+
+  .manifesto__signatory-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(var(--hairline), 0.12);
+  }
+
+  .manifesto__signatory-name {
+    font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--light-ink);
+  }
+
+  .manifesto__signatory-date {
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-size: 12px;
+    color: var(--cy);
+  }
+
+  .manifesto__signatory-cmd {
+    margin-top: 16px;
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: rgba(var(--mark), 0.5);
+  }
+
+  .manifesto__sign-body {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-soft);
+  }
+
+  .manifesto__sign-note {
+    margin: 14px 0 0;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--text-faint);
+  }
+
+  .manifesto__sign-cta {
+    margin-top: 26px;
+  }
+
+  .manifesto__sign-cta:hover {
+    filter: brightness(1.12);
+  }
+
+  .manifesto__back {
+    margin-top: 96px;
+    padding-top: 26px;
+    border-top: 1px solid rgba(var(--hairline), 0.16);
+  }
+
+  .manifesto__back-link {
+    text-decoration: none;
+    color: var(--cy);
+    font-family: 'IBM Plex Mono', 'Noto Sans JP', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+  }
+
+  .manifesto__back-link:hover {
+    color: var(--light-ink);
+  }
+
+  /* Japanese body copy breathes with a taller line-height (as in the prototype). */
+  .manifesto:lang(ja) :is(
+      .manifesto__preamble,
+      .manifesto__values-note,
+      .manifesto__spine-lede,
+      .manifesto__milestone-desc,
+      .manifesto__commit-body,
+      .manifesto__sign-body,
+      .manifesto__sign-note
+    ) {
+    line-height: 1.85;
+  }
+
+  .manifesto:lang(ja) .manifesto__milestone-desc {
+    line-height: 1.75;
+  }
+</style>

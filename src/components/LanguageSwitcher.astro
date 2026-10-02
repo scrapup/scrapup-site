@@ -1,6 +1,7 @@
 ---
 /*
- * LanguageSwitcher — three plain <a> links to /, /pt/, /ja/ with an active state.
+ * LanguageSwitcher — three plain <a> links to the current page in /, /pt/, /ja/ with an active state.
+ * `path` is the current unprefixed route, so switching keeps the visitor on the same page.
  * Clicking writes the `scrapup_lang` cookie so the edge auto-detection respects the
  * explicit choice (RN-05). With JS disabled the links still navigate (only the
  * cookie write is skipped) — progressive enhancement, the single piece of client JS.
@@ -9,8 +10,9 @@ import { LOCALES, localizedPath, type Lang } from '../i18n';
 
 interface Props {
   lang: Lang;
+  path?: string;
 }
-const { lang } = Astro.props;
+const { lang, path = '' } = Astro.props;
 const LABEL: Record<Lang, string> = { en: 'EN', pt: 'PT', ja: 'JA' };
 ---
 
@@ -18,7 +20,7 @@ const LABEL: Record<Lang, string> = { en: 'EN', pt: 'PT', ja: 'JA' };
   {
     LOCALES.map((l) => (
       <a
-        href={localizedPath(l, '')}
+        href={localizedPath(l, path)}
         data-lang={l}
         aria-current={l === lang ? 'true' : undefined}
         class="lang-switch__item"
