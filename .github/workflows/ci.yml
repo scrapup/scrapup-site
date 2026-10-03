@@ -26,7 +26,7 @@ jobs:
         with:
           node-version: 24
           cache: npm
-      - run: npm ci
+      - run: npm ci --ignore-scripts
       - run: npm run check
       - run: npm run build
 
@@ -46,7 +46,7 @@ jobs:
         with:
           node-version: 24
           cache: npm
-      - run: npm ci
+      - run: npm ci --ignore-scripts
       - run: npm run check
       - run: npm run test:e2e
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -77,6 +77,11 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: echo "ready=${{ secrets.VERCEL_TOKEN != '' }}" >> "$GITHUB_OUTPUT"
+      # Pinned CLI installed outside the project lockfile: its transitive tree would trip the
+      # required dependency-review check. Exact version + --ignore-scripts, no on-demand npx.
+      - name: Install Vercel CLI
+        if: ${{ steps.guard.outputs.ready == 'true' }}
+        run: npm install --global --ignore-scripts vercel@62.2.0
       - name: Deploy preview to Vercel
         id: deploy
         if: ${{ steps.guard.outputs.ready == 'true' }}
@@ -85,9 +90,9 @@ jobs:
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
-          npx vercel pull --yes --environment=preview --token="$VERCEL_TOKEN"
-          npx vercel build --token="$VERCEL_TOKEN"
-          url=$(npx vercel deploy --prebuilt --token="$VERCEL_TOKEN")
+          vercel pull --yes --environment=preview --token="$VERCEL_TOKEN"
+          vercel build --token="$VERCEL_TOKEN"
+          url=$(vercel deploy --prebuilt --token="$VERCEL_TOKEN")
           echo "url=$url" >> "$GITHUB_OUTPUT"
       - name: Post preview URL to job summary
         if: ${{ steps.guard.outputs.ready == 'true' && steps.deploy.outputs.url != '' }}
@@ -96,7 +101,7 @@ jobs:
           echo "[${{ steps.deploy.outputs.url }}](${{ steps.deploy.outputs.url }})" >> "$GITHUB_STEP_SUMMARY"
       - name: Comment preview URL
         if: ${{ steps.guard.outputs.ready == 'true' && steps.deploy.outputs.url != '' }}
-        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         env:
           PREVIEW_URL: ${{ steps.deploy.outputs.url }}
         with:

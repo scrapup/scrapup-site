@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/scrapup/scrapup-site/compare/v0.4.0...v0.4.1) (2026-10-03)
+
+
+### Bug Fixes
+
+* **security:** linear-time path regexes and pinned Vercel CLI in CI ([#33](https://github.com/scrapup/scrapup-site/issues/33)) ([dfd7ea2](https://github.com/scrapup/scrapup-site/commit/dfd7ea2c8227ce1a2807e9136e2dada03be2b0f9))
+
 ## [0.4.0](https://github.com/scrapup/scrapup-site/compare/v0.3.2...v0.4.0) (2026-10-02)
 
 
