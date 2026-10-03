@@ -34,8 +34,14 @@ jobs:
           node-version: 24
           cache: npm
 
-      - run: npm ci
+      - run: npm ci --ignore-scripts
         if: ${{ steps.release.outputs.release_created }}
+
+      # Pinned CLI installed outside the project lockfile: its transitive tree would trip the
+      # required dependency-review check. Exact version + --ignore-scripts, no on-demand npx.
+      - name: Install Vercel CLI
+        if: ${{ steps.release.outputs.release_created }}
+        run: npm install --global --ignore-scripts vercel@62.2.0
 
       - name: Deploy production to Vercel
         if: ${{ steps.release.outputs.release_created }}
@@ -44,6 +50,6 @@ jobs:
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
-          npx vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
-          npx vercel build --prod --token="$VERCEL_TOKEN"
-          npx vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN"
+          vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+          vercel build --prod --token="$VERCEL_TOKEN"
+          vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN"
