@@ -21,12 +21,12 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 24
           cache: npm
-      - run: npm ci
+      - run: npm ci --ignore-scripts
       - run: npm run check
       - run: npm run build
 
@@ -41,15 +41,15 @@ jobs:
     env:
       HOME: /root
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 24
           cache: npm
-      - run: npm ci
+      - run: npm ci --ignore-scripts
       - run: npm run check
       - run: npm run test:e2e
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
@@ -67,8 +67,8 @@ jobs:
       contents: read
       pull-requests: write # comment the preview URL on the PR
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 24
           cache: npm
@@ -77,6 +77,11 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: echo "ready=${{ secrets.VERCEL_TOKEN != '' }}" >> "$GITHUB_OUTPUT"
+      # Pinned CLI installed outside the project lockfile: its transitive tree would trip the
+      # required dependency-review check. Exact version + --ignore-scripts, no on-demand npx.
+      - name: Install Vercel CLI
+        if: ${{ steps.guard.outputs.ready == 'true' }}
+        run: npm install --global --ignore-scripts vercel@62.2.0
       - name: Deploy preview to Vercel
         id: deploy
         if: ${{ steps.guard.outputs.ready == 'true' }}
@@ -85,9 +90,9 @@ jobs:
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
-          npx vercel pull --yes --environment=preview --token="$VERCEL_TOKEN"
-          npx vercel build --token="$VERCEL_TOKEN"
-          url=$(npx vercel deploy --prebuilt --token="$VERCEL_TOKEN")
+          vercel pull --yes --environment=preview --token="$VERCEL_TOKEN"
+          vercel build --token="$VERCEL_TOKEN"
+          url=$(vercel deploy --prebuilt --token="$VERCEL_TOKEN")
           echo "url=$url" >> "$GITHUB_OUTPUT"
       - name: Post preview URL to job summary
         if: ${{ steps.guard.outputs.ready == 'true' && steps.deploy.outputs.url != '' }}
@@ -96,7 +101,7 @@ jobs:
           echo "[${{ steps.deploy.outputs.url }}](${{ steps.deploy.outputs.url }})" >> "$GITHUB_STEP_SUMMARY"
       - name: Comment preview URL
         if: ${{ steps.guard.outputs.ready == 'true' && steps.deploy.outputs.url != '' }}
-        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         env:
           PREVIEW_URL: ${{ steps.deploy.outputs.url }}
         with:

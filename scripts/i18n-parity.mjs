@@ -32,7 +32,7 @@ function extractEntries(source, { start, end }) {
 
   const entries = new Map();
   // Key always begins a line as 'a.b.c': ; value (single- or double-quoted) follows.
-  const re = /^\s*'([^']+)':\s*(?:'((?:[^'\\]|\\.)*)'|"((?:[^"\\]|\\.)*)")?/gm;
+  const re = /^[ \t]*'([^']+)':\s*(?:'((?:[^'\\]|\\.)*)'|"((?:[^"\\]|\\.)*)")?/gm;
   let m;
   while ((m = re.exec(block)) !== null) {
     const key = m[1];

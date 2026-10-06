@@ -64,12 +64,21 @@ export function detectLocale(cookieValue: string | undefined, acceptLanguage: st
   return detectFromAcceptLanguage(acceptLanguage);
 }
 
+/** Drop leading and trailing `/` with index scans (a `/\/+$/` regex backtracks quadratically). */
+function trimSlashes(value: string): string {
+  let start = 0;
+  let end = value.length;
+  while (start < end && value[start] === '/') start++;
+  while (end > start && value[end - 1] === '/') end--;
+  return value.slice(start, end);
+}
+
 /**
  * Build a localized, root-absolute path. EN maps to '/', PT/JA are prefixed.
  * `path` is the unprefixed path (e.g. '' or 'foo'); the result always ends cleanly.
  */
 export function localizedPath(lang: Lang, path = ''): string {
-  const clean = path.replace(/^\/+|\/+$/g, '');
+  const clean = trimSlashes(path);
   const prefix = lang === DEFAULT_LOCALE ? '' : `/${lang}`;
   if (!clean) return `${prefix}/`;
   return `${prefix}/${clean}/`;
